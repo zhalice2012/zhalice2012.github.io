@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+    </div>
+    <div>
+      <canvas class="canvas" id="pag"></canvas>
+      <canvas class="canvas" id="pag-2"></canvas>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          const pagUrl = '../assets/like.pag';
+          const PAG = await window.libpag.PAGInit();
+          const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+          // First PAGView.
+          const pagFile = await PAG.PAGFile.load(buffer);
+          const canvas1 = document.getElementById('pag');
+          canvas1.width = 360;
+          canvas1.height = 360;
+          const pagView = await PAG.PAGView.init(pagFile, canvas1);
+          pagView.setRepeatCount(0);
+          await pagView.play();
+          // Second PAGView.
+          const pagFile2 = await PAG.PAGFile.load(buffer);
+          const canvas2 = document.getElementById('pag-2');
+          canvas2.width = 360;
+          canvas2.height = 360;
+          const pagView2 = await PAG.PAGView.init(pagFile2, canvas2);
+          pagView2.setRepeatCount(0);
+          await pagView2.play();
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

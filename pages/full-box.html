@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+    </div>
+    <div>
+      <div id="box" style="width: 300px; height: 300px">
+        <canvas id="pag" style="width: 100%; height: 100%"></canvas>
+      </div>
+      <button id="resize">RESIZE</button>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          const pagUrl = '../assets/like.pag';
+          // Initialize pag webassembly module.
+          const PAG = await window.libpag.PAGInit();
+          // Fetch pag file.
+          const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+          // Load the PAGFile from file.
+          const pagFile = await PAG.PAGFile.load(buffer);
+          // Set the width from the PAGFile.
+          const canvas = document.getElementById('pag');
+          const styleDeclaration = window.getComputedStyle(canvas, null);
+          canvas.width = Number(styleDeclaration.width.replace('px', ''));
+          canvas.height = Number(styleDeclaration.height.replace('px', ''));
+          // Create PAGView.
+          const pagView = await PAG.PAGView.init(pagFile, canvas, { useScale: false });
+
+          document.getElementById('resize').addEventListener('click', async () => {
+            document.getElementById('box').style.width = '600px';
+            document.getElementById('box').style.height = '600px';
+            canvas.width = Number(styleDeclaration.width.replace('px', ''));
+            canvas.height = Number(styleDeclaration.height.replace('px', ''));
+            pagView.updateSize();
+            await pagView.flush();
+          });
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

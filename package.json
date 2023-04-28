@@ -1,0 +1,20 @@
+{
+  "name": "zhalice2012.github.io",
+  "version": "1.0.0",
+  "description": "For online compatibility testing",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [
+    "pag"
+  ],
+  "scripts": {
+    "start": "live-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
+  }
+}
