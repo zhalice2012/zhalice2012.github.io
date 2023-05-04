@@ -100,7 +100,7 @@ const MOBILE = /(mobile)/i.test(nav) && ANDROID;
 !(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
 const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
 const WECHAT = /MicroMessenger/i.test(nav);
-const SAFARI_OR_IOS_WEBVIEW = /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
+const APPLE_WEBKIT = /AppleWebKit/i.test(nav);
 const WORKER = typeof globalThis.importScripts === "function";
 
 let PAGModule;
@@ -276,7 +276,7 @@ class VideoReader {
     const { currentTime } = this.videoEl;
     const targetTime = targetFrame / this.frameRate;
     if (currentTime === 0 && targetTime === 0) {
-      if (!this.canplay && !SAFARI_OR_IOS_WEBVIEW) {
+      if (!this.canplay && !APPLE_WEBKIT) {
         await waitVideoCanPlay(this.videoEl);
       } else {
         try {

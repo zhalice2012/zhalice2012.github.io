@@ -23,16 +23,17 @@
     <div>
       <canvas class="canvas" id="pag"></canvas>
     </div>
+    <script src="../js/error-handler.js"></script>
     <script type="module">
       import { createPAGWorker, WorkerPAGFile, WorkerPAGImage, WorkerPAGView } from '../lib/libpag.worker.esm.js';
       window.onload = async () => {
           const worker = await createPAGWorker({
             locateFile: (file) => {
               if (file === 'libpag.wasm') {
-                return '../lib/libpag.wasm';
+                return '../lib-online-latest/libpag.wasm';
               }
               if (file === 'libpag.js') {
-                return '../lib/libpag.min.js';
+                return '../lib-online-latest/libpag.min.js';
               }
               return file;
             },
@@ -43,6 +44,7 @@
           worker.onload = (error) => {
             logError(error);
           };
+          const WORKER = typeof globalThis.importScripts === 'function';
           const buffer = await fetch('../assets/test.pag').then((res) => res.arrayBuffer());
           const canvas = document.createElement('canvas');
           canvas.width = 300;
