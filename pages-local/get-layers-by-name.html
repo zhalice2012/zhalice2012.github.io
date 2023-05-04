@@ -28,6 +28,16 @@
     <script src="../lib/libpag.min.js"></script>
     <script>
       window.onload = async () => {
+        const loadImage = (src) => {
+          return new Promise((resolve) => {
+            const image = new Image();
+            image.onload = () => {
+              resolve(image);
+            };
+            image.crossOrigin = 'anonymous';
+            image.src = src;
+          });
+        };
         try {
           const PAG = await window.libpag.PAGInit();
 
@@ -69,17 +79,6 @@
         } catch (error) {
           logError(error);
         }
-
-        const loadImage = (src) => {
-          return new Promise((resolve) => {
-            const image = new Image();
-            image.onload = () => {
-              resolve(image);
-            };
-            image.crossOrigin = 'anonymous';
-            image.src = src;
-          });
-        };
       };
     </script>
   </body>

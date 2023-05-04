@@ -29,6 +29,16 @@
     <script>
       window.onload = async () => {
         try {
+          const loadImage = (src) => {
+            return new Promise((resolve) => {
+              const image = new Image();
+              image.onload = () => {
+                resolve(image);
+              };
+              image.crossOrigin = 'anonymous';
+              image.src = src;
+            });
+          };
           const PAG = await window.libpag.PAGInit();
 
           // replace text
@@ -69,17 +79,6 @@
         } catch (error) {
           logError(error);
         }
-
-        const loadImage = (src) => {
-          return new Promise((resolve) => {
-            const image = new Image();
-            image.onload = () => {
-              resolve(image);
-            };
-            image.crossOrigin = 'anonymous';
-            image.src = src;
-          });
-        };
       };
     </script>
   </body>

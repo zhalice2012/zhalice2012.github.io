@@ -30,6 +30,19 @@
     <script src="../lib-latest/libpag.min.js"></script>
     <script>
       window.onload = async () => {
+        const loadImage = (src) => {
+          return new Promise((resolve) => {
+            const image = new Image();
+            image.onload = () => {
+              resolve(image);
+            };
+            image.onerror = () => {
+              resolve(false);
+            };
+            image.crossOrigin = 'anonymous';
+            image.src = src;
+          });
+        };
         try {
           const pagUrl = '../assets/snowman.pag';
 
@@ -61,20 +74,6 @@
         } catch (error) {
           logError(error);
         }
-
-        const loadImage = (src) => {
-          return new Promise((resolve) => {
-            const image = new Image();
-            image.onload = () => {
-              resolve(image);
-            };
-            image.onerror = () => {
-              resolve(false);
-            };
-            image.crossOrigin = 'anonymous';
-            image.src = src;
-          });
-        };
       };
     </script>
   </body>

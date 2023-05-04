@@ -29,6 +29,19 @@
     <script src="../js/error-handler.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
     <script>
+      const loadImage = (src) => {
+        return new Promise((resolve) => {
+          const image = new Image();
+          image.onload = () => {
+            resolve(image);
+          };
+          image.onerror = () => {
+            resolve(false);
+          };
+          image.crossOrigin = 'anonymous';
+          image.src = src;
+        });
+      };
       window.onload = async () => {
         try {
           const pagUrl = '../assets/snowman.pag';
@@ -61,20 +74,6 @@
         } catch (error) {
           logError(error);
         }
-
-        const loadImage = (src) => {
-          return new Promise((resolve) => {
-            const image = new Image();
-            image.onload = () => {
-              resolve(image);
-            };
-            image.onerror = () => {
-              resolve(false);
-            };
-            image.crossOrigin = 'anonymous';
-            image.src = src;
-          });
-        };
       };
     </script>
   </body>
