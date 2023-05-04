@@ -15,6 +15,10 @@
         <h2>Errors:</h2>
         <div id="error-messages"></div>
       </div>
+      <div id="console-display" class="console-boundary" style="display: none">
+        <h2>Captured Console Logs:</h2>
+        <pre id="logOutput"></pre>
+      </div>
     </div>
     <div>
       <canvas class="canvas" id="pag"></canvas>
@@ -22,7 +26,6 @@
     <script type="module">
       import { createPAGWorker, WorkerPAGFile, WorkerPAGImage, WorkerPAGView } from '../lib/libpag.worker.esm.js';
       window.onload = async () => {
-        try {
           const worker = await createPAGWorker({
             locateFile: (file) => {
               if (file === 'libpag.wasm') {
@@ -34,12 +37,17 @@
               return file;
             },
           });
+          worker.onerror = (error) => {
+            logError(error);
+          };
+          worker.onload = (error) => {
+            logError(error);
+          };
           const buffer = await fetch('../assets/test.pag').then((res) => res.arrayBuffer());
           const canvas = document.createElement('canvas');
           canvas.width = 300;
           canvas.height = 300;
           document.body.appendChild(canvas);
-
           const pagFile = await WorkerPAGFile.load(worker, buffer);
           // Modify text
           const textData = await pagFile.getTextData(0);
@@ -55,14 +63,13 @@
           const pagImage = await WorkerPAGImage.fromSource(worker, image);
           pagFile.replaceImage(0, pagImage);
           pagImage.destroy();
-
           const pagView = await WorkerPAGView.init(pagFile, canvas);
           if (pagView) {
             pagView.play();
           }
-        } catch (error) {
-          logError(error);
-        }
+        // } catch (error) {
+        //   logError(error);
+        // }
       };
     </script>
   </body>

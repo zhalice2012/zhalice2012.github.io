@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+      <div id="console-display" class="console-boundary" style="display: none">
+        <h2>Captured Console Logs:</h2>
+        <pre id="logOutput"></pre>
+      </div>
+    </div>
+    <p>Click to play</p>
+    <div id="box"></div>
+    <script src="../js/error-handler.js"></script>
+    <script src="../lib-latest/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          const PAG = await window.libpag.PAGInit();
+          const urlList = [
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+            '../assets/like.pag',
+          ];
+
+          const buffers = await Promise.all(
+            urlList.map((path) => {
+              return fetch(path).then((response) => response.arrayBuffer());
+            }),
+          );
+
+          const pagFiles = buffers.map((buffer) => PAG.PAGFile.loadFromBuffer(buffer));
+
+          const canvasList = pagFiles.map(() => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            document.getElementById('box')?.appendChild(canvas);
+            return canvas;
+          });
+
+          const pagViews = await Promise.all(
+            pagFiles.map(async (pagFile, index) => {
+              const pagView = await PAG.PAGView.init(pagFile, canvasList[index], { useCanvas2D: true });
+              pagView?.setRepeatCount(0);
+              return pagView;
+            }),
+          );
+          canvasList.forEach((canvas, index) => {
+            canvas.addEventListener('click', async () => {
+              const pagView = pagViews[index];
+              if (pagView?.isPlaying) {
+                pagView?.pause();
+              } else {
+                await pagView?.play();
+              }
+            });
+          });
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

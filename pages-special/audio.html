@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAG</title>
+  <link rel="icon" href="https://pag.io/img/favicon.png" />
+  <link rel="stylesheet" href="../css/error-boundary.css" />
+</head>
+
+<body>
+  <div class="header">
+    <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+    <div id="error-display" class="error-boundary" style="display: none">
+      <h2>An error occurred:</h2>
+      <p id="error-message"></p>
+    </div>
+  </div>
+  <div>
+    <canvas class="canvas" id="pag"></canvas>
+    <button id="play">PLAY</button>
+  </div>
+  <script src="../js/error-handler.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/libpag@4.2.75/lib/libpag.min.js"></script>
+  <script>
+    window.onload = async () => {
+      try {
+        const pagUrl = '../assets/music.pag';
+        // Initialize pag webassembly module.
+        const PAG = await window.libpag.PAGInit();
+        // Fetch pag file.
+        const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+        // Load the PAGFile from file.
+        const pagFile = await PAG.PAGFile.load(buffer);
+
+        // Set the width from the PAGFile.
+        const canvas = document.getElementById('pag');
+        canvas.width = 360;
+        canvas.height = 360;
+        // Create PAGView.
+        const pagView = await PAG.PAGView.init(pagFile, canvas);
+        // Get audio data.
+        const audioBytes = pagFile.audioBytes();
+        if (audioBytes.byteLength > 0) {
+          const audioEl = document.createElement('audio');
+          audioEl.preload = 'auto';
+          const blob = new Blob([audioBytes], { type: 'audio/mp3' });
+          audioEl.src = URL.createObjectURL(blob);
+          pagView.addListener('onAnimationStart', (event) => {
+            audioEl.play();
+          });
+          pagView.addListener('onAnimationEnd', (event) => {
+            audioEl.stop();
+          });
+          pagView.addListener('onAnimationCancel', (event) => {
+            audioEl.stop();
+          });
+          pagView.addListener('onAnimationRepeat', (event) => {
+            audioEl.currentTime = 0;
+          });
+        }
+        // Set PAGView play infinity.
+        pagView.setRepeatCount(0);
+
+        // Play audio need user interact with the document first.
+        document.getElementById('play').addEventListener('click', async () => {
+          await pagView.play();
+        });
+      } catch (error) {
+        logError(error);
+      }
+    };
+  </script>
+</body>
+
+</html>

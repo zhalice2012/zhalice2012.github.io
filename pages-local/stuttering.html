@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <script src="../js/error-handler.js"></script>
+    <script src="..//lib/libpag.min.js"></script>
+    <style>
+      body {
+        padding: 12px;
+      }
+
+      .header {
+        height: 64px;
+        border-bottom: 1px solid rgb(193, 193, 193);
+        margin-bottom: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header"></div>
+    <div>
+      <canvas class="canvas" id="pag1"></canvas>
+      <canvas class="canvas" id="pag2"></canvas>
+      <canvas class="canvas" id="pag3"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@4.2.63/lib/libpag.min.js"></script>
+    <script>
+      function getRatio(context) {
+        var devicePixelRatio = window.devicePixelRatio || 1;
+        var backingStorePixelRatio =
+          context.webkitBackingStorePixelRatio ||
+          context.mozBackingStorePixelRatio ||
+          context.msBackingStorePixelRatio ||
+          context.oBackingStorePixelRatio ||
+          context.backingStorePixelRatio ||
+          1;
+        var ratio = devicePixelRatio / backingStorePixelRatio;
+        return ratio;
+      }
+
+      async function loadAndPlayPAG(pagUrl, canvasId, PAG) {
+        const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+        const pagFile = await PAG.PAGFile.load(buffer);
+        const canvas = document.getElementById(canvasId);
+        const context = canvas.getContext('webgl');
+        const ratio = getRatio(context) || 1; // 屏幕分辨率
+        const width = 107 * ratio;
+        const height = 127 * ratio;
+        const styleWidth = 107 + 'px';
+        const styleHeight = 127 + 'px';
+        canvas.style.width = styleWidth;
+        canvas.style.height = styleHeight;
+        const pagView = await PAG.PAGView.init(pagFile, canvas);
+        pagView.setRepeatCount(0);
+        await pagView.play();
+        return pagView;
+      }
+
+      window.onload = async function () {
+        const PAG = await window.libpag.PAGInit();
+        const pagView1 = await loadAndPlayPAG('../assets/stuttering1.pag', 'pag1', PAG);
+        const pagView2 = await loadAndPlayPAG('../assets/stuttering2.pag', 'pag2', PAG);
+        const pagView3 = await loadAndPlayPAG('../assets/stuttering3.pag', 'pag3', PAG);
+      };
+    </script>
+  </body>
+</html>
