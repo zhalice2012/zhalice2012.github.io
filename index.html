@@ -15,7 +15,19 @@
         border-bottom: 1px solid rgb(193, 193, 193);
         margin-bottom: 24px;
       }
-      
+      .content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .content > div {
+        width: 33.33%;
+      }
+      @media (max-width: 767px) {
+        .content > div {
+          width: 100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -23,98 +35,214 @@
       <img src="./assets/logo.png" alt="logo" width="133" height="48" />
     </div>
     <h3>PAG Web demo:</h3>
-    <h4>1. Use Local Test Version</h4>
-    <ul>
-      <li><a href="./pages-local/simple.html">Simple</a> - A simple demo to play pag file.</li>
-      <li><a href="./pages-local/multiple.html">Multiple</a> - Play multiple pag files.</li>
-      <li><a href="./pages-local/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
-      <li><a href="./pages-local/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
-      <li><a href="./pages-local/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
-      <li><a href="./pages-local/register-font.html">RegisterFont</a> - Register font for pag file.</li>
-      <li><a href="./pages-local/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
-      <li><a href="./pages-local/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
-      <li><a href="./pages-local/audio.html">Audio</a> - Play audio from pag file.</li>
-      <li><a href="./pages-local/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
-      <li><a href="./pages-local/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
-      <li><a href="./pages-local/software-decoder.html">Software decoder</a> - Use software decoder.</li>
-      <li><a href="./pages-local/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.</li>
-      <li><a href="./pages-local/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.</li>
-      <li><a href="./pages-local/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.</li>
-      <li><a href="./pages-local/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
-      <li><a href="./pages-local/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
-      <li><a href="./pages-local/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
-      <li><a href="./pages-local/web-worker.html">WebWorker</a> - Running in WebWorker</li>
-      <li><a href="./pages-local/stuttering.html">Stuttering</a> - sluggish performance</li>
-    </ul>
-    <h4>2. Use Online Latest Version</h4>
-    <ul>
-      <li><a href="./pages/simple.html">Simple</a> - A simple demo to play pag file.</li>
-      <li><a href="./pages/multiple.html">Multiple</a> - Play multiple pag files.</li>
-      <li><a href="./pages/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
-      <li><a href="./pages/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
-      <li><a href="./pages/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
-      <li><a href="./pages/register-font.html">RegisterFont</a> - Register font for pag file.</li>
-      <li><a href="./pages/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
-      <li><a href="./pages/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
-      <li><a href="./pages/audio.html">Audio</a> - Play audio from pag file.</li>
-      <li><a href="./pages/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
-      <li><a href="./pages/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
-      <li><a href="./pages/software-decoder.html">Software decoder</a> - Use software decoder.</li>
-      <li><a href="./pages/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.</li>
-      <li><a href="./pages/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.</li>
-      <li><a href="./pages/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.</li>
-      <li><a href="./pages/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
-      <li><a href="./pages/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
-      <li><a href="./pages/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
-      <li><a href="./pages/web-worker.html">WebWorker</a> - Running in WebWorker</li>
-      <li><a href="./pages/stuttering.html">Stuttering</a> - sluggish performance</li>
-      <li><a href="./pages/all.html">All</a> - All Pages</li>
-    </ul>
-    <h4>3. Use special Version</h4>
-    <ul>
-      <li><a href="./pages-special/simple.html">Simple</a> - A simple demo to play pag file.</li>
-      <li><a href="./pages-special/multiple.html">Multiple</a> - Play multiple pag files.</li>
-      <li><a href="./pages-special/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
-      <li><a href="./pages-special/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
-      <li><a href="./pages-special/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
-      <li><a href="./pages-special/register-font.html">RegisterFont</a> - Register font for pag file.</li>
-      <li><a href="./pages-special/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
-      <li><a href="./pages-special/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
-      <li><a href="./pages-special/audio.html">Audio</a> - Play audio from pag file.</li>
-      <li><a href="./pages-special/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
-      <li><a href="./pages-special/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
-      <li><a href="./pages-special/software-decoder.html">Software decoder</a> - Use software decoder.</li>
-      <li><a href="./pages-special/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.</li>
-      <li><a href="./pages-special/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.</li>
-      <li><a href="./pages-special/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.</li>
-      <li><a href="./pages-special/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
-      <li><a href="./pages-special/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
-      <li><a href="./pages-special/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
-      <li><a href="./pages-special/web-worker.html">WebWorker</a> - Running in WebWorker</li>
-    </ul>
-    <h4>4. Use Local Latest Version</h4>
-    <ul>
-      <li><a href="./pages-latest/simple.html">Simple</a> - A simple demo to play pag file.</li>
-      <li><a href="./pages-latest/multiple.html">Multiple</a> - Play multiple pag files.</li>
-      <li><a href="./pages-latest/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
-      <li><a href="./pages-latest/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
-      <li><a href="./pages-latest/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
-      <li><a href="./pages-latest/register-font.html">RegisterFont</a> - Register font for pag file.</li>
-      <li><a href="./pages-latest/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
-      <li><a href="./pages-latest/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
-      <li><a href="./pages-latest/audio.html">Audio</a> - Play audio from pag file.</li>
-      <li><a href="./pages-latest/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
-      <li><a href="./pages-latest/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
-      <li><a href="./pages-latest/software-decoder.html">Software decoder</a> - Use software decoder.</li>
-      <li><a href="./pages-latest/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.</li>
-      <li><a href="./pages-latest/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.</li>
-      <li><a href="./pages-latest/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.</li>
-      <li><a href="./pages-latest/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
-      <li><a href="./pages-latest/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
-      <li><a href="./pages-latest/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
-      <li><a href="./pages-latest/web-worker.html">WebWorker</a> - Running in WebWorker</li>
-      <li><a href="./pages-latest/stuttering.html">Stuttering</a> - sluggish performance</li>
-    </ul>
+    <div class="content">
+      <div>
+        <h4>1. Use Local Test Version</h4>
+        <ul>
+          <li><a href="./pages-local/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages-local/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li><a href="./pages-local/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
+          <li><a href="./pages-local/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
+          <li><a href="./pages-local/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages-local/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages-local/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages-local/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages-local/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages-local/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages-local/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages-local/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li>
+            <a href="./pages-local/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.
+          </li>
+          <li>
+            <a href="./pages-local/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.
+          </li>
+          <li>
+            <a href="./pages-local/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.
+          </li>
+          <li>
+            <a href="./pages-local/get-layers-under-point.html">Get layers under point</a> - Get layers under point
+          </li>
+          <li><a href="./pages-local/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages-local/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages-local/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages-local/stuttering.html">Stuttering</a> - sluggish performance</li>
+        </ul>
+      </div>
+      <div>
+        <h4>2. Use Online Latest Version</h4>
+        <ul>
+          <li><a href="./pages/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li><a href="./pages/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
+          <li><a href="./pages/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
+          <li><a href="./pages/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li><a href="./pages/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.</li>
+          <li>
+            <a href="./pages/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.
+          </li>
+          <li>
+            <a href="./pages/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.
+          </li>
+          <li><a href="./pages/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
+          <li><a href="./pages/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages/stuttering.html">Stuttering</a> - sluggish performance</li>
+          <li><a href="./pages/all.html">All</a> - All Pages</li>
+        </ul>
+      </div>
+      <div>
+        <h4>3. Use Develop Version</h4>
+        <ul>
+          <li><a href="./pages-dev/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages-dev/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li><a href="./pages-dev/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
+          <li><a href="./pages-dev/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
+          <li><a href="./pages-dev/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages-dev/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages-dev/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages-dev/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages-dev/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages-dev/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages-dev/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages-dev/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li>
+            <a href="./pages-dev/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.
+          </li>
+          <li>
+            <a href="./pages-dev/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into PAGView.
+          </li>
+          <li>
+            <a href="./pages-dev/make-composition.html">Make composition</a> - Make a new PAGComposition into PAGView.
+          </li>
+          <li><a href="./pages-dev/get-layers-under-point.html">Get layers under point</a> - Get layers under point</li>
+          <li><a href="./pages-dev/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages-dev/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages-dev/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages-dev/stuttering.html">Stuttering</a> - sluggish performance</li>
+        </ul>
+      </div>
+      <div>
+        <h4>X. Use special Version 4.2.63</h4>
+        <ul>
+          <li><a href="./pages-special-version/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages-special-version/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li>
+            <a href="./pages-special-version/setprogress.html">SetProgress</a> - Set progress pag player progress.
+          </li>
+          <li>
+            <a href="./pages-special-version/editable-index.html">EditableIndex</a> - Get editable pag layer in pag
+            file.
+          </li>
+          <li><a href="./pages-special-version/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages-special-version/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages-special-version/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages-special-version/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages-special-version/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages-special-version/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages-special-version/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages-special-version/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li>
+            <a href="./pages-special-version/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen
+            canvas.
+          </li>
+          <li>
+            <a href="./pages-special-version/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile)
+            into PAGView.
+          </li>
+          <li>
+            <a href="./pages-special-version/make-composition.html">Make composition</a> - Make a new PAGComposition
+            into PAGView.
+          </li>
+          <li>
+            <a href="./pages-special-version/get-layers-under-point.html">Get layers under point</a> - Get layers under
+            point
+          </li>
+          <li><a href="./pages-special-version/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages-special-version/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages-special-version/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages-special-version/stuttering.html">Stuttering</a> - sluggish performance</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Y. Use special Version 4.2.76</h4>
+        <ul>
+          <li><a href="./pages-special/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages-special/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li><a href="./pages-special/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
+          <li><a href="./pages-special/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
+          <li><a href="./pages-special/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages-special/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages-special/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages-special/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages-special/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages-special/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages-special/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages-special/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li>
+            <a href="./pages-special/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.
+          </li>
+          <li>
+            <a href="./pages-special/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into
+            PAGView.
+          </li>
+          <li>
+            <a href="./pages-special/make-composition.html">Make composition</a> - Make a new PAGComposition into
+            PAGView.
+          </li>
+          <li>
+            <a href="./pages-special/get-layers-under-point.html">Get layers under point</a> - Get layers under point
+          </li>
+          <li><a href="./pages-special/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages-special/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages-special/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages-special/stuttering.html">Stuttering</a> - sluggish performance</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Z. Use Local Latest Version</h4>
+        <ul>
+          <li><a href="./pages-latest/simple.html">Simple</a> - A simple demo to play pag file.</li>
+          <li><a href="./pages-latest/multiple.html">Multiple</a> - Play multiple pag files.</li>
+          <li><a href="./pages-latest/setprogress.html">SetProgress</a> - Set progress pag player progress.</li>
+          <li><a href="./pages-latest/editable-index.html">EditableIndex</a> - Get editable pag layer in pag file.</li>
+          <li><a href="./pages-latest/replace-text.html">ReplaceText</a> - Replace text in pag file.</li>
+          <li><a href="./pages-latest/register-font.html">RegisterFont</a> - Register font for pag file.</li>
+          <li><a href="./pages-latest/replace-image.html">ReplaceImage</a> - Replace image in pag file.</li>
+          <li><a href="./pages-latest/replace-video.html">ReplaceVideo</a> - Replace video in pag file.</li>
+          <li><a href="./pages-latest/audio.html">Audio</a> - Play audio from pag file.</li>
+          <li><a href="./pages-latest/full-box.html">FullBox</a> - Make PAGView fill parent box.</li>
+          <li><a href="./pages-latest/canvas-2d.html">Canvas2D(Beta)</a> - Use canvas2d.</li>
+          <li><a href="./pages-latest/software-decoder.html">Software decoder</a> - Use software decoder.</li>
+          <li>
+            <a href="./pages-latest/offscreen-canvas.html">offscreen canvas</a> - Create PAGView from offscreen canvas.
+          </li>
+          <li>
+            <a href="./pages-latest/set-composition.html">Set composition</a> - Set PAGComposition(PAGFile) into
+            PAGView.
+          </li>
+          <li>
+            <a href="./pages-latest/make-composition.html">Make composition</a> - Make a new PAGComposition into
+            PAGView.
+          </li>
+          <li>
+            <a href="./pages-latest/get-layers-under-point.html">Get layers under point</a> - Get layers under point
+          </li>
+          <li><a href="./pages-latest/play-with-scroll.html">Play with scroll</a> - Play with scroll</li>
+          <li><a href="./pages-latest/make-snapshot.html">Make SnapShot</a> - Make SnapShot</li>
+          <li><a href="./pages-latest/web-worker.html">WebWorker</a> - Running in WebWorker</li>
+          <li><a href="./pages-latest/stuttering.html">Stuttering</a> - sluggish performance</li>
+        </ul>
+      </div>
+    </div>
     More web demos coming soon. <br />
     Related link: <a href="https://github.com/Tencent/libpag/tree/main/web">web sdk doc</a> |
     <a href="https://github.com/Tencent/libpag">more docs</a>.

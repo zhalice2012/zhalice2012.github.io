@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+      <div id="console-display" class="console-boundary" style="display: none">
+        <h2>Captured Console Logs:</h2>
+        <pre id="logOutput"></pre>
+      </div>
+    </div>
+    <div>
+      <canvas class="canvas" id="pag"></canvas>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@4.2.63/lib/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          // Initialize pag webassembly module.
+          const PAG = await window.libpag.PAGInit();
+          // Fetch pag file.
+          const [buffer1, buffer2] = await Promise.all([
+            fetch('../assets/like.pag').then((response) => response.arrayBuffer()),
+            fetch('../assets/snowman.pag').then((response) => response.arrayBuffer()),
+          ]);
+          // Load the PAGFile from file.
+          const [pagFile1, pagFile2] = await Promise.all([PAG.PAGFile.load(buffer1), PAG.PAGFile.load(buffer2)]);
+          // Make new PAGComposition.
+          const pagComposition = PAG.PAGComposition.make(1080, 1080);
+          // Add PAGFile as PAGLayer to PAGComposition.
+          pagComposition.addLayer(pagFile1);
+          // Make scale matrix
+          const matrix1 = PAG.Matrix.makeScale(2, 2);
+          pagFile1.setMatrix(matrix1);
+          // Add PAGFile as PAGLayer to PAGComposition.
+          pagComposition.addLayer(pagFile2);
+          // Make translate matrix
+          const matrix2 = PAG.Matrix.makeTrans(100, 100);
+          pagFile2.setMatrix(matrix2);
+          pagFile2.setStartTime(pagFile1.duration());
+
+          // Set the width from the PAGFile.
+          const canvas = document.getElementById('pag');
+          canvas.width = pagComposition.width();
+          canvas.height = pagComposition.height();
+
+          // Create PAGView.
+          const pagView = await PAG.PAGView.init(pagComposition, canvas);
+          // Set PAGView play infinity.
+          pagView.setRepeatCount(0);
+          await pagView.play();
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

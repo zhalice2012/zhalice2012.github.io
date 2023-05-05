@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+      <div id="console-display" class="console-boundary" style="display: none">
+        <h2>Captured Console Logs:</h2>
+        <pre id="logOutput"></pre>
+      </div>
+    </div>
+    <div>
+      <span>before:</span>
+      <canvas class="canvas" id="before-pag"></canvas>
+      <span>after:</span>
+      <canvas class="canvas" id="after-pag"></canvas>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@4.2.63/lib/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        const loadImage = (src) => {
+          return new Promise((resolve) => {
+            const image = new Image();
+            image.onload = () => {
+              resolve(image);
+            };
+            image.onerror = () => {
+              resolve(false);
+            };
+            image.crossOrigin = 'anonymous';
+            image.src = src;
+          });
+        };
+        try {
+          const pagUrl = '../assets/snowman.pag';
+
+          const PAG = await window.libpag.PAGInit();
+          const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+          // Before
+          const beforePagFile = await PAG.PAGFile.load(buffer);
+          const beforeCanvas = document.getElementById('before-pag');
+          beforeCanvas.width = 360;
+          beforeCanvas.height = 360;
+          const beforePagView = await PAG.PAGView.init(beforePagFile, beforeCanvas);
+          beforePagView.setRepeatCount(0);
+          await beforePagView.play();
+          // After
+          const afterPagFile = await PAG.PAGFile.load(buffer);
+          const image = await loadImage('../assets/cat.png');
+          if (!image) return;
+          // Create PAGImage from ImageElement.
+          const pagImage = PAG.PAGImage.fromSource(image);
+          // Replace Image by editableIndex.
+          // Get editableIndex demo in `editable-index.html`
+          afterPagFile.replaceImage(1, pagImage);
+          const afterCanvas = document.getElementById('after-pag');
+          afterCanvas.width = 360;
+          afterCanvas.height = 360;
+          const afterPagView = await PAG.PAGView.init(afterPagFile, afterCanvas);
+          afterPagView.setRepeatCount(0);
+          await afterPagView.play();
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 const ENABLE_STATE_JS = false;
-const ENABLE_VCONSOLE_JS = true;
+const ENABLE_VCONSOLE_JS = false;
 
 window.onerror = function (message, source, lineno, colno, error) {
   const formattedError = new Error(`${message} (Line: ${lineno}, Column: ${colno})`);
@@ -26,43 +26,43 @@ function logError(error) {
   errorDisplay.style.display = 'block';
 }
 
-(function () {
-  const logOutput = document.getElementById('logOutput');
-  const originalConsoleLog = console.log;
-  const logDisplay = document.getElementById('console-display');
+// (function () {
+//   const logOutput = document.getElementById('logOutput');
+//   const originalConsoleLog = console.log;
+//   const logDisplay = document.getElementById('console-display');
 
-  console.log = function (...args) {
-    // Call the original console.log function
-    originalConsoleLog.apply(console, args);
+//   console.log = function (...args) {
+//     // Call the original console.log function
+//     originalConsoleLog.apply(console, args);
 
-    // Append the log message to the logOutput element
-    const logMessage = args.map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ');
-    logOutput.textContent += logMessage + '\n';
+//     // Append the log message to the logOutput element
+//     const logMessage = args.map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ');
+//     logOutput.textContent += logMessage + '\n';
 
-    logDisplay.style.display = 'block';
-  };
-})();
+//     logDisplay.style.display = 'block';
+//   };
+// })();
 
-const nav = navigator?.userAgent || '';
-const ANDROID = /android|adr/i.test(nav);
-const MOBILE = /(mobile)/i.test(nav) && ANDROID;
-const MACOS = !(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
-const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
-const WECHAT = /MicroMessenger/i.test(nav);
-const SAFARI = /^((?!chrome|android).)*safari/i.test(nav);
-const APPLE_WEBKIT = /AppleWebKit/i.test(nav);
-const SAFARI_OR_WX_IOS = /Safari/i.test(nav) && (!/Chrome/i.test(nav) || /MicroMessenger/i.test(nav));
-const SAFARI_OR_IOS_WEBVIEW =  /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
+// const nav = navigator?.userAgent || '';
+// const ANDROID = /android|adr/i.test(nav);
+// const MOBILE = /(mobile)/i.test(nav) && ANDROID;
+// const MACOS = !(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
+// const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
+// const WECHAT = /MicroMessenger/i.test(nav);
+// const SAFARI = /^((?!chrome|android).)*safari/i.test(nav);
+// const APPLE_WEBKIT = /AppleWebKit/i.test(nav);
+// const SAFARI_OR_WX_IOS = /Safari/i.test(nav) && (!/Chrome/i.test(nav) || /MicroMessenger/i.test(nav));
+// const SAFARI_OR_IOS_WEBVIEW =  /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
 
-console.log('nav: ', nav);
-console.log('MOBILE: ', MOBILE);
-console.log('MACOS: ', MACOS);
-console.log('IPHONE: ', IPHONE);
-console.log('WECHAT: ', WECHAT);
-console.log('SAFARI: ', SAFARI);
-console.log('APPLE_WEBKIT: ', APPLE_WEBKIT);
-console.log('SAFARI_OR_WX_IOS: ', SAFARI_OR_WX_IOS);
-console.log('SAFARI_OR_IOS_WEBVIEW: ', SAFARI_OR_IOS_WEBVIEW);
+// console.log('nav: ', nav);
+// console.log('MOBILE: ', MOBILE);
+// console.log('MACOS: ', MACOS);
+// console.log('IPHONE: ', IPHONE);
+// console.log('WECHAT: ', WECHAT);
+// console.log('SAFARI: ', SAFARI);
+// console.log('APPLE_WEBKIT: ', APPLE_WEBKIT);
+// console.log('SAFARI_OR_WX_IOS: ', SAFARI_OR_WX_IOS);
+// console.log('SAFARI_OR_IOS_WEBVIEW: ', SAFARI_OR_IOS_WEBVIEW);
 
 if (ENABLE_STATE_JS) {
   javascript: (function () {
