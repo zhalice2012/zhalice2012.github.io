@@ -39,3 +39,9 @@ body {
   margin-top: 0;
   font-size: 1.5em;
 }
+
+.version {
+  font-size: 30px;
+  color: #999;
+  margin-left: 30px;
+}

@@ -90,3 +90,42 @@ if (ENABLE_VCONSOLE_JS) {
     document.head.appendChild(script);
   })();
 }
+
+function addVersion() {
+  // Find all script tags
+  const scriptTags = document.getElementsByTagName('script');
+
+  // Extract version information
+  let versionInfo = '';
+  for (let script of scriptTags) {
+    const src = script.getAttribute('src');
+    if (src && src.includes('libpag.min.js')) {
+      versionInfo = src;
+      // const regex = /(?:\/|^)([^/]+)\/libpag.min.js/;
+      // const match = src.match(regex);
+      // if (match && match[1]) {
+      //   versionInfo = match[1];
+      //   break;
+      // }
+    }
+  }
+
+  // Find header div
+  const headerDiv = document.querySelector('.header');
+
+  if (headerDiv && versionInfo) {
+    // Create the span element with version info
+    const versionSpan = document.createElement('span');
+    versionSpan.className = 'version';
+    versionSpan.textContent = `pag version: ${versionInfo}`;
+
+    // Insert the span element after the header div
+    headerDiv.appendChild(versionSpan);
+  } else {
+    console.error('Unable to find header div or extract version info');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  addVersion();
+});

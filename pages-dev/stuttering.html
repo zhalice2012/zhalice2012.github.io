@@ -55,7 +55,7 @@
         const pagView = await PAG.PAGView.init(pagFile, canvas, { usePreRendering: true });
         // const pagView = await PAG.PAGView.init(pagFile, canvas);
         pagView.setRepeatCount(0);
-        await pagView.play();
+        // await pagView.play();
         return pagView;
       }
 
@@ -64,6 +64,9 @@
         const pagView1 = await loadAndPlayPAG('../assets/stuttering1.pag', 'pag1', PAG);
         const pagView2 = await loadAndPlayPAG('../assets/stuttering2.pag', 'pag2', PAG);
         const pagView3 = await loadAndPlayPAG('../assets/stuttering3.pag', 'pag3', PAG);
+        await pagView1.play();
+        await pagView2.play();
+        await pagView3.play();
       };
     </script>
   </body>
