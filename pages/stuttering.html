@@ -46,12 +46,12 @@
         const canvas = document.getElementById(canvasId);
         const context = canvas.getContext('webgl');
         const ratio = getRatio(context) || 1; // 屏幕分辨率
-        const width = 107 * ratio;
-        const height = 127 * ratio;
-        const styleWidth = 107 + 'px';
-        const styleHeight = 127 + 'px';
-        canvas.style.width = styleWidth;
-        canvas.style.height = styleHeight;
+        // const width = 107 * ratio;
+        // const height = 127 * ratio;
+        // const styleWidth = 107 + 'px';
+        // const styleHeight = 127 + 'px';
+        // canvas.style.width = styleWidth;
+        // canvas.style.height = styleHeight;
         const pagView = await PAG.PAGView.init(pagFile, canvas);
         pagView.setRepeatCount(0);
         await pagView.play();
