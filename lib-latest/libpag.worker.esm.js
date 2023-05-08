@@ -100,7 +100,7 @@ const MOBILE = /(mobile)/i.test(nav) && ANDROID;
 !(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
 const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
 const WECHAT = /MicroMessenger/i.test(nav);
-const SAFARI = /^((?!chrome|android).)*safari/i.test(nav);
+const SAFARI_OR_IOS_WEBVIEW = /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
 const WORKER = typeof globalThis.importScripts === "function";
 
 let PAGModule;
@@ -167,6 +167,8 @@ class WorkerVideoReader {
   }
 }
 
+const isInstanceOf = (value, type) => typeof type !== "undefined" && value instanceof type;
+
 const UHD_RESOLUTION = 3840;
 const getWechatNetwork = () => {
   return new Promise((resolve) => {
@@ -197,7 +199,7 @@ const waitVideoCanPlay = (videoElement) => {
   });
 };
 class VideoReader {
-  constructor(mp4Data, width, height, frameRate, staticTimeRanges, isWorker = false) {
+  constructor(source, width, height, frameRate, staticTimeRanges, isWorker = false) {
     this.isSought = false;
     this.isPlaying = false;
     this.bitmap = null;
@@ -212,22 +214,27 @@ class VideoReader {
     this.height = 0;
     this.bitmapCanvas = null;
     this.bitmapCtx = null;
-    this.videoEl = document.createElement("video");
-    this.videoEl.style.display = "none";
-    this.videoEl.muted = true;
-    this.videoEl.playsInline = true;
-    this.videoEl.preload = "auto";
-    this.videoEl.width = width;
-    this.videoEl.height = height;
-    waitVideoCanPlay(this.videoEl).then(() => {
+    if (isInstanceOf(source, globalThis.HTMLVideoElement)) {
+      this.videoEl = source;
       this.canplay = true;
-    });
-    const blob = new Blob([mp4Data], { type: "video/mp4" });
-    this.videoEl.src = URL.createObjectURL(blob);
-    this.frameRate = frameRate;
-    if (IPHONE) {
-      this.videoEl.load();
+    } else {
+      this.videoEl = document.createElement("video");
+      this.videoEl.style.display = "none";
+      this.videoEl.muted = true;
+      this.videoEl.playsInline = true;
+      this.videoEl.preload = "auto";
+      this.videoEl.width = width;
+      this.videoEl.height = height;
+      waitVideoCanPlay(this.videoEl).then(() => {
+        this.canplay = true;
+      });
+      const blob = new Blob([source], { type: "video/mp4" });
+      this.videoEl.src = URL.createObjectURL(blob);
+      if (IPHONE) {
+        this.videoEl.load();
+      }
     }
+    this.frameRate = frameRate;
     this.width = width;
     this.height = height;
     this.staticTimeRanges = new StaticTimeRanges(staticTimeRanges);
@@ -238,11 +245,12 @@ class VideoReader {
       this.linkPlayer(PAGModule.currentPlayer);
     }
   }
-  static async create(mp4Data, width, height, frameRate, staticTimeRanges) {
+  static async create(source, width, height, frameRate, staticTimeRanges) {
     var _a;
     if (WORKER) {
       const proxyId = await new Promise((resolve) => {
-        const buffer = mp4Data.buffer.slice(mp4Data.byteOffset, mp4Data.byteOffset + mp4Data.byteLength);
+        const uint8Array = source;
+        const buffer = uint8Array.buffer.slice(uint8Array.byteOffset, uint8Array.byteOffset + uint8Array.byteLength);
         postMessage(
           self,
           {
@@ -259,7 +267,7 @@ class VideoReader {
       (_a = PAGModule.currentPlayer) == null ? void 0 : _a.linkVideoReader(videoReader);
       return videoReader;
     }
-    return new VideoReader(mp4Data, width, height, frameRate, staticTimeRanges);
+    return new VideoReader(source, width, height, frameRate, staticTimeRanges);
   }
   async prepare(targetFrame, playbackRate) {
     var _a;
@@ -268,7 +276,7 @@ class VideoReader {
     const { currentTime } = this.videoEl;
     const targetTime = targetFrame / this.frameRate;
     if (currentTime === 0 && targetTime === 0) {
-      if (!this.canplay && !SAFARI) {
+      if (!this.canplay && !SAFARI_OR_IOS_WEBVIEW) {
         await waitVideoCanPlay(this.videoEl);
       } else {
         try {
@@ -457,11 +465,11 @@ const readFile = (file) => new Promise((resolve) => {
   reader.readAsArrayBuffer(file);
 });
 const transferToArrayBuffer = (data) => {
-  if (data instanceof File) {
+  if (isInstanceOf(data, globalThis.File)) {
     return readFile(data);
-  } else if (data instanceof Blob) {
+  } else if (isInstanceOf(data, globalThis.Blob)) {
     return readFile(new File([data], ""));
-  } else if (data instanceof ArrayBuffer) {
+  } else if (isInstanceOf(data, globalThis.ArrayBuffer)) {
     return Promise.resolve(data);
   }
   return Promise.resolve(null);
@@ -739,8 +747,8 @@ let WorkerPAGImage = class {
     this.key = key;
   }
   static async fromSource(worker, source) {
-    const width = window.HTMLVideoElement && source instanceof HTMLVideoElement ? source.videoWidth : source.width;
-    const height = window.HTMLVideoElement && source instanceof HTMLVideoElement ? source.videoHeight : source.height;
+    const width = isInstanceOf(source, globalThis.HTMLVideoElement) ? source.videoWidth : source.width;
+    const height = isInstanceOf(source, globalThis.HTMLVideoElement) ? source.videoHeight : source.height;
     const canvas = new OffscreenCanvas(width, height);
     canvas.width = source.width;
     canvas.height = source.height;
