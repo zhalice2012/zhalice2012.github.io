@@ -91,14 +91,14 @@
         </div>
       </div>
     </div>
-    <!-- <script src="../js/error-handler.js"></script> -->
+    <script src="../js/error-handler.js"></script>
     <script>
       window.onload = async () => {
         try {
           const { PAGView, types } = window.libpag;
           const canvas = document.getElementById('pag');
-          const pagView = PAGView.init(await (await fetch('https://vfiles.gtimg.cn/1679313115323.pag')).arrayBuffer(), canvas, {
-            // renderingMode: types.RenderingMode.WebGL
+          const pagView = PAGView.init(await (await fetch('../assets/1679313115323.pag')).arrayBuffer(), canvas, {
+            renderingMode: types.RenderingMode.canvas
           });
           pagView.setRepeatCount(1);
 
@@ -106,7 +106,7 @@
             await pagView?.play();
           });
         } catch (error) {
-          // logError(error);
+          logError(error);
         }
       };
     </script>
