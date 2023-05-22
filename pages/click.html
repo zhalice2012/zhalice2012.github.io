@@ -44,7 +44,14 @@
           const pagView = await PAG.PAGView.init(pagFile, canvas);
           // Set PAGView play infinity.
           pagView.setRepeatCount(0);
-          await pagView.play();
+          // await pagView.play();
+          canvas.addEventListener('click', async () => {
+            if (pagView?.isPlaying) {
+              pagView?.pause();
+            } else {
+              await pagView?.play();
+            }
+          });
         } catch (error) {
           logError(error);
         }

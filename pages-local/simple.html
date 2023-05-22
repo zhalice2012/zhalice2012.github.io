@@ -43,8 +43,15 @@
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas);
           // Set PAGView play infinity.
-          pagView.setRepeatCount(0);
+          pagView.setRepeatCount(1);
           await pagView.play();
+
+          setTimeout(() => {
+            // pagView.destroy();
+            // pagView.pagSurface.clearAll();
+            // pagView.destroy();
+            // debugger;
+          }, 3000)
         } catch (error) {
           logError(error);
         }

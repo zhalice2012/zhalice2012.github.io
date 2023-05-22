@@ -1,6 +1,7 @@
 body {
   padding: 12px;
   font-size: 16px;
+  background: linear-gradient(180deg, #17191A 0%, #131313 22.37%);
 }
 .header {
   min-height: 64px;

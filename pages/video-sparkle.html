@@ -29,7 +29,8 @@
     <script>
       window.onload = async () => {
         try {
-          const pagUrl = '../assets/video_sequence_sparkle.pag';
+          // const pagUrl = '../assets/video_sequence_sparkle.pag';
+          const pagUrl = '../assets/like.pag';
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           // Fetch pag file.
@@ -42,8 +43,12 @@
           canvas.height = pagFile.height();
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas);
-          // Set PAGView play infinity.
-          pagView.setRepeatCount(0);
+          // Set PAGView play once.
+          pagView.setRepeatCount(1);
+          pagView.addListener('onAnimationEnd', (event) => {
+            pagView.setProgress(0.5)
+            pagView.flush()
+          });
           await pagView.play();
         } catch (error) {
           logError(error);
