@@ -8,6 +8,17 @@
     <link rel="icon" href="https://pag.io/img/favicon.png" />
     <link rel="stylesheet" href="../css/error-boundary.css" />
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3HV6VE6VYC');
+  </script>
 
   <body>
     <div class="header">
@@ -29,7 +40,7 @@
     <script>
       window.onload = async () => {
         try {
-          const pagUrl = '../assets/photo.pag';
+          const pagUrl = '../assets/like.pag';
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           // Fetch pag file.

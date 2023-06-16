@@ -1,5 +1,6 @@
 const ENABLE_STATE_JS = false;
-const ENABLE_VCONSOLE_JS = true;
+const ENABLE_VCONSOLE_JS = false;
+const ENABLE_CONSOLE_LOG = false;
 
 window.onerror = function (message, source, lineno, colno, error) {
   const formattedError = new Error(`${message} (Line: ${lineno}, Column: ${colno})`);
@@ -26,24 +27,24 @@ function logError(error) {
   errorDisplay.style.display = 'block';
 }
 
-(function () {
-  const logOutput = document.getElementById('logOutput');
-  const originalConsoleLog = console.log;
-  const logDisplay = document.getElementById('console-display');
+if (ENABLE_CONSOLE_LOG) {
+  (function () {
+    const logOutput = document.getElementById('logOutput');
+    const originalConsoleLog = console.log;
+    const logDisplay = document.getElementById('console-display');
 
-  console.log = function (...args) {
-    // Call the original console.log function
-    originalConsoleLog.apply(console, args);
+    console.log = function (...args) {
+      // Call the original console.log function
+      originalConsoleLog.apply(console, args);
 
-    // Append the log message to the logOutput element
-    const logMessage = args.map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ');
-    logOutput.textContent += logMessage + '\n';
+      // Append the log message to the logOutput element
+      const logMessage = args.map((arg) => (typeof arg === 'object' ? JSON.stringify(arg) : arg)).join(' ');
+      logOutput.textContent += logMessage + '\n';
 
-    logDisplay.style.display = 'block';
-  };
-})();
-
-console.log('window.devicePixelRatio', window.devicePixelRatio)
+      logDisplay.style.display = 'block';
+    };
+  })();
+}
 
 if (ENABLE_STATE_JS) {
   javascript: (function () {
