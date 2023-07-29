@@ -1,0 +1,39 @@
+.container {
+  width: 200px;
+  height: 700px;
+  position: relative;
+}
+.container canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.test1 .tablecloth-image {
+  object-fit: none;
+}
+.test2 .tablecloth-image {
+  object-fit: fill;
+}
+.test3 .tablecloth-image {
+  object-fit: contain;
+}
+.test4 .tablecloth-image {
+  object-fit: cover;
+}
+
+.tablecloth {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+.tablecloth-image {
+  width: 200px;
+  height: 700px;
+}
+
+p {
+  color: #ffffff;
+  margin-bottom: 10px;
+}

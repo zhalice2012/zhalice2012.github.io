@@ -441,7 +441,7 @@ const getWasmIns = (value) => {
   }
   return value;
 };
-const isInstanceOf = (value, type) => typeof type !== "undefined" && value instanceof type;
+const isInstanceOf$1 = (value, type) => typeof type !== "undefined" && value instanceof type;
 
 var __defProp$d = Object.defineProperty;
 var __getOwnPropDesc$a = Object.getOwnPropertyDescriptor;
@@ -696,11 +696,11 @@ const readFile = (file) => new Promise((resolve) => {
   reader.readAsArrayBuffer(file);
 });
 const transferToArrayBuffer = (data) => {
-  if (isInstanceOf(data, globalThis.File)) {
+  if (isInstanceOf$1(data, globalThis.File)) {
     return readFile(data);
-  } else if (isInstanceOf(data, globalThis.Blob)) {
+  } else if (isInstanceOf$1(data, globalThis.Blob)) {
     return readFile(new File([data], ""));
-  } else if (isInstanceOf(data, globalThis.ArrayBuffer)) {
+  } else if (isInstanceOf$1(data, globalThis.ArrayBuffer)) {
     return Promise.resolve(data);
   }
   return Promise.resolve(null);
@@ -1197,70 +1197,6 @@ const WEBGL_CONTEXT_ATTRIBUTES = {
 };
 const VIDEO_PLAYBACK_RATE_MIN = 0.125;
 const VIDEO_PLAYBACK_RATE_MAX = 4;
-const CANVAS_POOL_MAX_SIZE = 10;
-
-const nav = (navigator == null ? void 0 : navigator.userAgent) || "";
-const ANDROID = /android|adr/i.test(nav);
-const MOBILE = /(mobile)/i.test(nav) && ANDROID;
-!(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
-const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
-const WECHAT = /MicroMessenger/i.test(nav);
-const SAFARI_OR_IOS_WEBVIEW = /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
-const WORKER = typeof globalThis.importScripts === "function";
-
-const canvasPool = new Array();
-const isOffscreenCanvas = (element) => isInstanceOf(element, globalThis.OffscreenCanvas);
-const isCanvas = (element) => isOffscreenCanvas(element) || isInstanceOf(element, globalThis.HTMLCanvasElement);
-const getCanvas2D = (width, height) => {
-  let canvas = canvasPool.pop() || createCanvas2D();
-  if (canvas !== null) {
-    canvas.width = width;
-    canvas.height = height;
-  }
-  return canvas;
-};
-const releaseCanvas2D = (canvas) => {
-  if (canvasPool.length < CANVAS_POOL_MAX_SIZE) {
-    canvasPool.push(canvas);
-  }
-};
-const createCanvas2D = () => {
-  if (SAFARI_OR_IOS_WEBVIEW && !WORKER) {
-    return document.createElement("canvas");
-  }
-  try {
-    const offscreenCanvas = new OffscreenCanvas(0, 0);
-    const context = offscreenCanvas.getContext("2d");
-    if (typeof context.measureText === "function")
-      return offscreenCanvas;
-    return document.createElement("canvas");
-  } catch (err) {
-    return document.createElement("canvas");
-  }
-};
-const calculateDisplaySize = (canvas) => {
-  const styleDeclaration = globalThis.getComputedStyle(canvas, null);
-  const computedSize = {
-    width: Number(styleDeclaration.width.replace("px", "")),
-    height: Number(styleDeclaration.height.replace("px", ""))
-  };
-  if (computedSize.width > 0 && computedSize.height > 0) {
-    return computedSize;
-  } else {
-    const styleSize = {
-      width: Number(canvas.style.width.replace("px", "")),
-      height: Number(canvas.style.height.replace("px", ""))
-    };
-    if (styleSize.width > 0 && styleSize.height > 0) {
-      return styleSize;
-    } else {
-      return {
-        width: canvas.width,
-        height: canvas.height
-      };
-    }
-  }
-};
 
 var __defProp$7 = Object.defineProperty;
 var __getOwnPropSymbols$3 = Object.getOwnPropertySymbols;
@@ -1289,7 +1225,7 @@ class BackendContext {
     if (gl instanceof BackendContext) {
       return new BackendContext(gl.handle, true);
     } else {
-      const majorVersion = isInstanceOf(gl, globalThis.WebGL2RenderingContext) ? 2 : 1;
+      const majorVersion = isInstanceOf$1(gl, globalThis.WebGL2RenderingContext) ? 2 : 1;
       const { GL } = PAGModule;
       let id = 0;
       if (GL.contexts.length > 0) {
@@ -1465,6 +1401,82 @@ class Clock {
   }
 }
 
+const nav$1 = (navigator == null ? void 0 : navigator.userAgent) || "";
+const ANDROID$1 = /android|adr/i.test(nav$1);
+const MOBILE$1 = /(mobile)/i.test(nav$1) && ANDROID$1;
+!(/(mobile)/i.test(nav$1) || MOBILE$1) && /Mac OS X/i.test(nav$1);
+const IPHONE$1 = /(iphone|ipad|ipod)/i.test(nav$1);
+const WECHAT = /MicroMessenger/i.test(nav$1);
+const SAFARI_OR_IOS_WEBVIEW$1 = /^((?!chrome|android).)*safari/i.test(nav$1) || IPHONE$1;
+const WORKER$1 = typeof globalThis.importScripts === "function";
+
+const CANVAS_POOL_MAX_SIZE = 10;
+
+const isInstanceOf = (value, type) => typeof type !== "undefined" && value instanceof type;
+
+const nav = (navigator == null ? void 0 : navigator.userAgent) || "";
+const ANDROID = /android|adr/i.test(nav);
+const MOBILE = /(mobile)/i.test(nav) && ANDROID;
+!(/(mobile)/i.test(nav) || MOBILE) && /Mac OS X/i.test(nav);
+const IPHONE = /(iphone|ipad|ipod)/i.test(nav);
+/MicroMessenger/i.test(nav);
+const SAFARI_OR_IOS_WEBVIEW = /^((?!chrome|android).)*safari/i.test(nav) || IPHONE;
+const WORKER = typeof globalThis.importScripts === "function";
+
+const canvasPool = new Array();
+const isOffscreenCanvas = (element) => isInstanceOf(element, globalThis.OffscreenCanvas);
+const isCanvas = (element) => isOffscreenCanvas(element) || isInstanceOf(element, globalThis.HTMLCanvasElement);
+const getCanvas2D = (width, height) => {
+  let canvas = canvasPool.pop() || createCanvas2D();
+  if (canvas !== null) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+  return canvas;
+};
+const releaseCanvas2D = (canvas) => {
+  if (canvasPool.length < CANVAS_POOL_MAX_SIZE) {
+    canvasPool.push(canvas);
+  }
+};
+const createCanvas2D = () => {
+  if (SAFARI_OR_IOS_WEBVIEW && !WORKER) {
+    return document.createElement("canvas");
+  }
+  try {
+    const offscreenCanvas = new OffscreenCanvas(0, 0);
+    const context = offscreenCanvas.getContext("2d");
+    if (typeof context.measureText === "function")
+      return offscreenCanvas;
+    return document.createElement("canvas");
+  } catch (err) {
+    return document.createElement("canvas");
+  }
+};
+const calculateDisplaySize = (canvas) => {
+  const styleDeclaration = globalThis.getComputedStyle(canvas, null);
+  const computedSize = {
+    width: Number(styleDeclaration.width.replace("px", "")),
+    height: Number(styleDeclaration.height.replace("px", ""))
+  };
+  if (computedSize.width > 0 && computedSize.height > 0) {
+    return computedSize;
+  } else {
+    const styleSize = {
+      width: Number(canvas.style.width.replace("px", "")),
+      height: Number(canvas.style.height.replace("px", ""))
+    };
+    if (styleSize.width > 0 && styleSize.height > 0) {
+      return styleSize;
+    } else {
+      return {
+        width: canvas.width,
+        height: canvas.height
+      };
+    }
+  }
+};
+
 var __defProp$5 = Object.defineProperty;
 var __getOwnPropDesc$4 = Object.getOwnPropertyDescriptor;
 var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
@@ -1526,7 +1538,7 @@ let PAGView = class {
     let canvasElement = null;
     if (typeof canvas === "string") {
       canvasElement = document.getElementById(canvas.substr(1));
-    } else if (typeof window !== "undefined" && isInstanceOf(canvas, globalThis.HTMLCanvasElement)) {
+    } else if (typeof window !== "undefined" && isInstanceOf$1(canvas, globalThis.HTMLCanvasElement)) {
       canvasElement = canvas;
     } else if (isOffscreenCanvas(canvas)) {
       canvasElement = canvas;
@@ -1811,7 +1823,7 @@ let PAGView = class {
     }
   }
   setTimer() {
-    if (WORKER) {
+    if (WORKER$1) {
       this.timer = self.setTimeout(() => {
         this.flushLoop();
       }, 1 / this.frameRate * 1e3);
@@ -1823,7 +1835,7 @@ let PAGView = class {
   }
   clearTimer() {
     if (this.timer) {
-      if (WORKER) {
+      if (WORKER$1) {
         self.clearTimeout(this.timer);
       } else {
         globalThis.cancelAnimationFrame(this.timer);
@@ -2138,7 +2150,7 @@ class VideoReader {
     this.height = 0;
     this.bitmapCanvas = null;
     this.bitmapCtx = null;
-    if (isInstanceOf(source, globalThis.HTMLVideoElement)) {
+    if (isInstanceOf$1(source, globalThis.HTMLVideoElement)) {
       this.videoEl = source;
       this.canplay = true;
     } else {
@@ -2154,7 +2166,7 @@ class VideoReader {
       });
       const blob = new Blob([source], { type: "video/mp4" });
       this.videoEl.src = URL.createObjectURL(blob);
-      if (IPHONE) {
+      if (IPHONE$1) {
         this.videoEl.load();
       }
     }
@@ -2171,7 +2183,7 @@ class VideoReader {
   }
   static async create(source, width, height, frameRate, staticTimeRanges) {
     var _a;
-    if (WORKER) {
+    if (WORKER$1) {
       const proxyId = await new Promise((resolve) => {
         const uint8Array = source;
         const buffer = uint8Array.buffer.slice(uint8Array.byteOffset, uint8Array.byteOffset + uint8Array.byteLength);
@@ -2195,13 +2207,12 @@ class VideoReader {
   }
   async prepare(targetFrame, playbackRate) {
     var _a;
-    console.log("aaa js -------- prepare: " + JSON.stringify(targetFrame));
     this.setError(null);
     this.isSought = false;
     const { currentTime } = this.videoEl;
     const targetTime = targetFrame / this.frameRate;
     if (currentTime === 0 && targetTime === 0) {
-      if (!this.canplay && !SAFARI_OR_IOS_WEBVIEW) {
+      if (!this.canplay && !SAFARI_OR_IOS_WEBVIEW$1) {
         await waitVideoCanPlay(this.videoEl);
       } else {
         try {
@@ -2218,12 +2229,10 @@ class VideoReader {
       }
     } else {
       if (Math.round(targetTime * this.frameRate) === Math.round(currentTime * this.frameRate)) ; else if ((_a = this.staticTimeRanges) == null ? void 0 : _a.contains(targetFrame)) {
-        console.log("aaa seek 1: targetTime=" + JSON.stringify(targetTime), "currentTime=" + JSON.stringify(currentTime));
         await this.seek(targetTime, false);
         return;
       } else if (Math.abs(currentTime - targetTime) < 1 / this.frameRate * VIDEO_DECODE_WAIT_FRAME) ; else {
         this.isSought = true;
-        console.log("aaa seek 2: targetTime=" + JSON.stringify(targetTime), "currentTime=" + JSON.stringify(currentTime));
         await this.seek(targetTime);
         return;
       }
@@ -2380,6 +2389,189 @@ class StaticTimeRanges {
     return false;
   }
 }
+
+class GlobalCanvas {
+  constructor() {
+    this._canvas = null;
+    this._glContext = null;
+    this.width = DEFAULT_CANVAS_SIZE;
+    this.height = DEFAULT_CANVAS_SIZE;
+    this.retainCount = 0;
+  }
+  retain() {
+    if (this.retainCount === 0) {
+      try {
+        this._canvas = new OffscreenCanvas(0, 0);
+      } catch (error) {
+        this._canvas = document.createElement("canvas");
+      }
+      this._canvas.width = this.width;
+      this._canvas.height = this.height;
+      const gl = this._canvas.getContext("webgl", WEBGL_CONTEXT_ATTRIBUTES);
+      if (!gl)
+        throw new Error("Canvas context is not WebGL!");
+      this._glContext = BackendContext.from(gl);
+    }
+    this.retainCount += 1;
+  }
+  release() {
+    this.retainCount -= 1;
+    if (this.retainCount === 0) {
+      if (!this._glContext)
+        return;
+      this._glContext.destroy();
+      this._glContext = null;
+      this._canvas = null;
+    }
+  }
+  get canvas() {
+    return this._canvas;
+  }
+  get glContext() {
+    return this._glContext;
+  }
+  setCanvasSize(width = DEFAULT_CANVAS_SIZE, height = DEFAULT_CANVAS_SIZE) {
+    this.width = width;
+    this.height = height;
+    if (this._glContext && this._canvas) {
+      this._canvas.width = width;
+      this._canvas.height = height;
+    }
+  }
+}
+
+var __defProp$3 = Object.defineProperty;
+var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
+var __decorateClass$2 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if (decorator = decorators[i])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp$3(target, key, result);
+  return result;
+};
+let PAGTextLayer = class extends PAGLayer {
+  static make(duration, text, fontSize = 0, fontFamily = "", fontStyle = "") {
+    if (typeof text === "string") {
+      return new PAGTextLayer(PAGModule._PAGTextLayer._Make(duration, text, fontSize, fontFamily, fontStyle));
+    } else {
+      return new PAGTextLayer(PAGModule._PAGTextLayer._Make(duration, text));
+    }
+  }
+  fillColor() {
+    return this.wasmIns._fillColor();
+  }
+  setFillColor(value) {
+    this.wasmIns._setFillColor(value);
+  }
+  font() {
+    return new PAGFont(this.wasmIns._font());
+  }
+  setFont(pagFont) {
+    this.wasmIns._setFont(pagFont.wasmIns);
+  }
+  fontSize() {
+    return this.wasmIns._fontSize();
+  }
+  setFontSize(size) {
+    this.wasmIns._setFontSize(size);
+  }
+  strokeColor() {
+    return this.wasmIns._strokeColor();
+  }
+  setStrokeColor(value) {
+    this.wasmIns._setStrokeColor(value);
+  }
+  text() {
+    return this.wasmIns._text();
+  }
+  setText(text) {
+    this.wasmIns._setText(text);
+  }
+  reset() {
+    this.wasmIns._reset();
+  }
+};
+PAGTextLayer = __decorateClass$2([
+  destroyVerify,
+  wasmAwaitRewind
+], PAGTextLayer);
+
+var __defProp$2 = Object.defineProperty;
+var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
+var __decorateClass$1 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if (decorator = decorators[i])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp$2(target, key, result);
+  return result;
+};
+let PAGImageLayer = class extends PAGLayer {
+  static make(width, height, duration) {
+    const wasmIns = PAGModule._PAGImageLayer._Make(width, height, duration);
+    if (!wasmIns)
+      throw new Error("Make PAGImageLayer fail!");
+    return new PAGImageLayer(wasmIns);
+  }
+  contentDuration() {
+    return this.wasmIns._contentDuration();
+  }
+  getVideoRanges() {
+    return this.wasmIns._getVideoRanges();
+  }
+  replaceImage(pagImage) {
+    this.wasmIns._replaceImage(pagImage.wasmIns);
+  }
+  setImage(pagImage) {
+    this.wasmIns._setImage(pagImage.wasmIns);
+  }
+  layerTimeToContent(layerTime) {
+    return this.wasmIns._layerTimeToContent(layerTime);
+  }
+  contentTimeToLayer(contentTime) {
+    return this.wasmIns._contentTimeToLayer(contentTime);
+  }
+  imageBytes() {
+    return this.wasmIns._imageBytes();
+  }
+};
+PAGImageLayer = __decorateClass$1([
+  destroyVerify,
+  wasmAwaitRewind
+], PAGImageLayer);
+
+var __defProp$1 = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if (decorator = decorators[i])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp$1(target, key, result);
+  return result;
+};
+let PAGSolidLayer = class extends PAGLayer {
+  static make(duration, width, height, solidColor, opacity) {
+    const wasmIns = PAGModule._PAGSolidLayer._Make(duration, width, height, solidColor, opacity);
+    if (!wasmIns)
+      throw new Error("Make PAGSolidLayer fail!");
+    return new PAGSolidLayer(wasmIns);
+  }
+  solidColor() {
+    return this.wasmIns._solidColor();
+  }
+  setSolidColor(color) {
+    this.wasmIns._setSolidColor(color);
+  }
+};
+PAGSolidLayer = __decorateClass([
+  destroyVerify,
+  wasmAwaitRewind
+], PAGSolidLayer);
 
 const measureText = (imageData) => {
   const imageDataInt32Array = new Int32Array(imageData.data.buffer);
@@ -2636,188 +2828,24 @@ class WebMask {
   }
 }
 
-class GlobalCanvas {
-  constructor() {
-    this._canvas = null;
-    this._glContext = null;
-    this.width = DEFAULT_CANVAS_SIZE;
-    this.height = DEFAULT_CANVAS_SIZE;
-    this.retainCount = 0;
-  }
-  retain() {
-    if (this.retainCount === 0) {
-      try {
-        this._canvas = new OffscreenCanvas(0, 0);
-      } catch (error) {
-        this._canvas = document.createElement("canvas");
-      }
-      this._canvas.width = this.width;
-      this._canvas.height = this.height;
-      const gl = this._canvas.getContext("webgl", WEBGL_CONTEXT_ATTRIBUTES);
-      if (!gl)
-        throw new Error("Canvas context is not WebGL!");
-      this._glContext = BackendContext.from(gl);
-    }
-    this.retainCount += 1;
-  }
-  release() {
-    this.retainCount -= 1;
-    if (this.retainCount === 0) {
-      if (!this._glContext)
-        return;
-      this._glContext.destroy();
-      this._glContext = null;
-      this._canvas = null;
-    }
-  }
-  get canvas() {
-    return this._canvas;
-  }
-  get glContext() {
-    return this._glContext;
-  }
-  setCanvasSize(width = DEFAULT_CANVAS_SIZE, height = DEFAULT_CANVAS_SIZE) {
-    this.width = width;
-    this.height = height;
-    if (this._glContext && this._canvas) {
-      this._canvas.width = width;
-      this._canvas.height = height;
-    }
-  }
-}
-
-var __defProp$3 = Object.defineProperty;
-var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
-var __decorateClass$2 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
-  for (var i = decorators.length - 1, decorator; i >= 0; i--)
-    if (decorator = decorators[i])
-      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result)
-    __defProp$3(target, key, result);
-  return result;
+const setMixin = (module) => {
+  module.traceImage = function(info, pixels) {
+    const canvas = document.createElement("canvas");
+    canvas.width = info.width;
+    canvas.height = info.height;
+    const context = canvas.getContext("2d");
+    const imageData = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
+    context.putImageData(imageData, 0, 0);
+    document.body.appendChild(canvas);
+  };
+  module.registerSoftwareDecoderFactory = function(factory = null) {
+    module._registerSoftwareDecoderFactory(factory);
+  };
+  module.SDKVersion = function() {
+    return module._SDKVersion();
+  };
+  module.isIPhone = () => IPHONE$1;
 };
-let PAGTextLayer = class extends PAGLayer {
-  static make(duration, text, fontSize = 0, fontFamily = "", fontStyle = "") {
-    if (typeof text === "string") {
-      return new PAGTextLayer(PAGModule._PAGTextLayer._Make(duration, text, fontSize, fontFamily, fontStyle));
-    } else {
-      return new PAGTextLayer(PAGModule._PAGTextLayer._Make(duration, text));
-    }
-  }
-  fillColor() {
-    return this.wasmIns._fillColor();
-  }
-  setFillColor(value) {
-    this.wasmIns._setFillColor(value);
-  }
-  font() {
-    return new PAGFont(this.wasmIns._font());
-  }
-  setFont(pagFont) {
-    this.wasmIns._setFont(pagFont.wasmIns);
-  }
-  fontSize() {
-    return this.wasmIns._fontSize();
-  }
-  setFontSize(size) {
-    this.wasmIns._setFontSize(size);
-  }
-  strokeColor() {
-    return this.wasmIns._strokeColor();
-  }
-  setStrokeColor(value) {
-    this.wasmIns._setStrokeColor(value);
-  }
-  text() {
-    return this.wasmIns._text();
-  }
-  setText(text) {
-    this.wasmIns._setText(text);
-  }
-  reset() {
-    this.wasmIns._reset();
-  }
-};
-PAGTextLayer = __decorateClass$2([
-  destroyVerify,
-  wasmAwaitRewind
-], PAGTextLayer);
-
-var __defProp$2 = Object.defineProperty;
-var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
-var __decorateClass$1 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
-  for (var i = decorators.length - 1, decorator; i >= 0; i--)
-    if (decorator = decorators[i])
-      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result)
-    __defProp$2(target, key, result);
-  return result;
-};
-let PAGImageLayer = class extends PAGLayer {
-  static make(width, height, duration) {
-    const wasmIns = PAGModule._PAGImageLayer._Make(width, height, duration);
-    if (!wasmIns)
-      throw new Error("Make PAGImageLayer fail!");
-    return new PAGImageLayer(wasmIns);
-  }
-  contentDuration() {
-    return this.wasmIns._contentDuration();
-  }
-  getVideoRanges() {
-    return this.wasmIns._getVideoRanges();
-  }
-  replaceImage(pagImage) {
-    this.wasmIns._replaceImage(pagImage.wasmIns);
-  }
-  setImage(pagImage) {
-    this.wasmIns._setImage(pagImage.wasmIns);
-  }
-  layerTimeToContent(layerTime) {
-    return this.wasmIns._layerTimeToContent(layerTime);
-  }
-  contentTimeToLayer(contentTime) {
-    return this.wasmIns._contentTimeToLayer(contentTime);
-  }
-  imageBytes() {
-    return this.wasmIns._imageBytes();
-  }
-};
-PAGImageLayer = __decorateClass$1([
-  destroyVerify,
-  wasmAwaitRewind
-], PAGImageLayer);
-
-var __defProp$1 = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __decorateClass = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
-  for (var i = decorators.length - 1, decorator; i >= 0; i--)
-    if (decorator = decorators[i])
-      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
-  if (kind && result)
-    __defProp$1(target, key, result);
-  return result;
-};
-let PAGSolidLayer = class extends PAGLayer {
-  static make(duration, width, height, solidColor, opacity) {
-    const wasmIns = PAGModule._PAGSolidLayer._Make(duration, width, height, solidColor, opacity);
-    if (!wasmIns)
-      throw new Error("Make PAGSolidLayer fail!");
-    return new PAGSolidLayer(wasmIns);
-  }
-  solidColor() {
-    return this.wasmIns._solidColor();
-  }
-  setSolidColor(color) {
-    this.wasmIns._setSolidColor(color);
-  }
-};
-PAGSolidLayer = __decorateClass([
-  destroyVerify,
-  wasmAwaitRewind
-], PAGSolidLayer);
 
 const createImage = (source) => {
   return new Promise((resolve) => {
@@ -2916,25 +2944,6 @@ var tgfx = /*#__PURE__*/Object.freeze({
   getBytesFromPath: getBytesFromPath,
   createCanvas2D: getCanvas2D
 });
-
-const setMixin = (module) => {
-  module.traceImage = function(info, pixels) {
-    const canvas = document.createElement("canvas");
-    canvas.width = info.width;
-    canvas.height = info.height;
-    const context = canvas.getContext("2d");
-    const imageData = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
-    context.putImageData(imageData, 0, 0);
-    document.body.appendChild(canvas);
-  };
-  module.registerSoftwareDecoderFactory = function(factory = null) {
-    module._registerSoftwareDecoderFactory(factory);
-  };
-  module.SDKVersion = function() {
-    return module._SDKVersion();
-  };
-  module.isIPhone = () => IPHONE;
-};
 
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
@@ -8778,7 +8787,7 @@ var PAGInit$1 = (() => {
     for (var i = 0; i < 288; ++i) {
       __miniTempWebGLIntBuffers[i] = __miniTempWebGLIntBuffersStorage.subarray(0, i + 1);
     }
-    var asmLibraryArg = { "d": ___assert_fail, "A": ___cxa_allocate_exception, "z": ___cxa_throw, "G": ___syscall_fcntl64, "fb": ___syscall_ioctl, "hb": ___syscall_openat, "o": __embind_finalize_value_object, "ab": __embind_register_bigint, "jb": __embind_register_bool, "f": __embind_register_class, "e": __embind_register_class_class_function, "r": __embind_register_class_constructor, "a": __embind_register_class_function, "b": __embind_register_class_property, "ib": __embind_register_emval, "u": __embind_register_enum, "Za": __embind_register_enum_value, "I": __embind_register_float, "D": __embind_register_function, "m": __embind_register_integer, "h": __embind_register_memory_view, "j": __embind_register_smart_ptr, "H": __embind_register_std_string, "w": __embind_register_std_wstring, "p": __embind_register_value_object, "v": __embind_register_value_object_field, "kb": __embind_register_void, "bb": __emscripten_get_now_is_monotonic, "x": __emval_as, "U": __emval_await, "gb": __emval_call, "g": __emval_call_method, "k": __emval_call_void_method, "t": __emval_decref, "Wa": __emval_equals, "ob": __emval_get_global, "c": __emval_get_method_caller, "_a": __emval_get_module_property, "J": __emval_get_property, "y": __emval_incref, "mb": __emval_instanceof, "nb": __emval_new, "Ya": __emval_new_array, "lb": __emval_new_cstring, "Xa": __emval_new_object, "xa": __emval_run_destructors, "s": __emval_set_property, "l": __emval_take_value, "q": _abort, "B": _emscripten_get_canvas_element_size, "db": _emscripten_get_now, "Ta": _emscripten_glActiveTexture, "Sa": _emscripten_glAttachShader, "Qa": _emscripten_glBindAttribLocation, "Pa": _emscripten_glBindBuffer, "Oa": _emscripten_glBindFramebuffer, "Na": _emscripten_glBindRenderbuffer, "Ma": _emscripten_glBindTexture, "zb": _emscripten_glBindVertexArray, "wb": _emscripten_glBindVertexArrayOES, "La": _emscripten_glBlendColor, "Ka": _emscripten_glBlendEquation, "Ab": _emscripten_glBlendEquationSeparate, "Ja": _emscripten_glBlendFunc, "rb": _emscripten_glBlitFramebuffer, "Ia": _emscripten_glBufferData, "Ha": _emscripten_glCheckFramebufferStatus, "Ga": _emscripten_glClear, "Fa": _emscripten_glClearColor, "Ea": _emscripten_glClearStencil, "Da": _emscripten_glColorMask, "Ca": _emscripten_glCompileShader, "Ba": _emscripten_glCopyTexSubImage2D, "Aa": _emscripten_glCreateProgram, "za": _emscripten_glCreateShader, "ya": _emscripten_glDeleteBuffers, "wa": _emscripten_glDeleteFramebuffers, "va": _emscripten_glDeleteProgram, "ua": _emscripten_glDeleteRenderbuffers, "ta": _emscripten_glDeleteShader, "sb": _emscripten_glDeleteSync, "sa": _emscripten_glDeleteTextures, "yb": _emscripten_glDeleteVertexArrays, "vb": _emscripten_glDeleteVertexArraysOES, "ra": _emscripten_glDepthMask, "qa": _emscripten_glDisable, "pa": _emscripten_glDisableVertexAttribArray, "oa": _emscripten_glDrawArrays, "na": _emscripten_glDrawElements, "ma": _emscripten_glEnable, "la": _emscripten_glEnableVertexAttribArray, "tb": _emscripten_glFenceSync, "ka": _emscripten_glFinish, "ja": _emscripten_glFlush, "ia": _emscripten_glFramebufferRenderbuffer, "ha": _emscripten_glFramebufferTexture2D, "ga": _emscripten_glGenBuffers, "fa": _emscripten_glGenFramebuffers, "ea": _emscripten_glGenRenderbuffers, "da": _emscripten_glGenTextures, "xb": _emscripten_glGenVertexArrays, "ub": _emscripten_glGenVertexArraysOES, "Bb": _emscripten_glGetAttribLocation, "ca": _emscripten_glGetBufferParameteriv, "ba": _emscripten_glGetError, "aa": _emscripten_glGetFramebufferAttachmentParameteriv, "$": _emscripten_glGetIntegerv, "_": _emscripten_glGetProgramInfoLog, "Z": _emscripten_glGetProgramiv, "Y": _emscripten_glGetRenderbufferParameteriv, "X": _emscripten_glGetShaderInfoLog, "W": _emscripten_glGetShaderPrecisionFormat, "V": _emscripten_glGetShaderiv, "T": _emscripten_glGetString, "S": _emscripten_glGetStringi, "R": _emscripten_glGetUniformLocation, "Ra": _emscripten_glIsEnabled, "Q": _emscripten_glIsTexture, "P": _emscripten_glLineWidth, "O": _emscripten_glLinkProgram, "N": _emscripten_glPixelStorei, "M": _emscripten_glReadPixels, "L": _emscripten_glRenderbufferStorage, "qb": _emscripten_glRenderbufferStorageMultisample, "K": _emscripten_glScissor, "gc": _emscripten_glShaderSource, "fc": _emscripten_glTexImage2D, "ec": _emscripten_glTexParameterf, "dc": _emscripten_glTexParameterfv, "cc": _emscripten_glTexParameteri, "bc": _emscripten_glTexParameteriv, "ac": _emscripten_glTexSubImage2D, "$b": _emscripten_glUniform1f, "_b": _emscripten_glUniform1fv, "Zb": _emscripten_glUniform1i, "Yb": _emscripten_glUniform1iv, "Xb": _emscripten_glUniform2f, "Wb": _emscripten_glUniform2fv, "Vb": _emscripten_glUniform2i, "Ub": _emscripten_glUniform2iv, "Tb": _emscripten_glUniform3f, "Sb": _emscripten_glUniform3fv, "Rb": _emscripten_glUniform3i, "Qb": _emscripten_glUniform3iv, "Pb": _emscripten_glUniform4f, "Ob": _emscripten_glUniform4fv, "Nb": _emscripten_glUniform4i, "Mb": _emscripten_glUniform4iv, "Lb": _emscripten_glUniformMatrix2fv, "Kb": _emscripten_glUniformMatrix3fv, "Jb": _emscripten_glUniformMatrix4fv, "Ib": _emscripten_glUseProgram, "Hb": _emscripten_glVertexAttrib1f, "Gb": _emscripten_glVertexAttrib2fv, "Fb": _emscripten_glVertexAttrib3fv, "Eb": _emscripten_glVertexAttrib4fv, "Db": _emscripten_glVertexAttribPointer, "Cb": _emscripten_glViewport, "pb": _emscripten_glWaitSync, "cb": _emscripten_resize_heap, "Ua": _emscripten_webgl_create_context, "C": _emscripten_webgl_destroy_context, "n": _emscripten_webgl_get_current_context, "Va": _emscripten_webgl_init_context_attributes, "i": _emscripten_webgl_make_context_current, "E": _fd_close, "eb": _fd_read, "$a": _fd_seek, "F": _fd_write };
+    var asmLibraryArg = { "d": ___assert_fail, "A": ___cxa_allocate_exception, "z": ___cxa_throw, "G": ___syscall_fcntl64, "fb": ___syscall_ioctl, "hb": ___syscall_openat, "o": __embind_finalize_value_object, "ab": __embind_register_bigint, "jb": __embind_register_bool, "f": __embind_register_class, "e": __embind_register_class_class_function, "r": __embind_register_class_constructor, "a": __embind_register_class_function, "b": __embind_register_class_property, "ib": __embind_register_emval, "t": __embind_register_enum, "Xa": __embind_register_enum_value, "I": __embind_register_float, "D": __embind_register_function, "m": __embind_register_integer, "h": __embind_register_memory_view, "j": __embind_register_smart_ptr, "H": __embind_register_std_string, "w": __embind_register_std_wstring, "p": __embind_register_value_object, "v": __embind_register_value_object_field, "kb": __embind_register_void, "bb": __emscripten_get_now_is_monotonic, "x": __emval_as, "U": __emval_await, "gb": __emval_call, "g": __emval_call_method, "k": __emval_call_void_method, "u": __emval_decref, "Wa": __emval_equals, "ob": __emval_get_global, "c": __emval_get_method_caller, "_a": __emval_get_module_property, "J": __emval_get_property, "y": __emval_incref, "mb": __emval_instanceof, "nb": __emval_new, "Za": __emval_new_array, "lb": __emval_new_cstring, "Ya": __emval_new_object, "xa": __emval_run_destructors, "s": __emval_set_property, "l": __emval_take_value, "q": _abort, "B": _emscripten_get_canvas_element_size, "db": _emscripten_get_now, "Ta": _emscripten_glActiveTexture, "Sa": _emscripten_glAttachShader, "Qa": _emscripten_glBindAttribLocation, "Pa": _emscripten_glBindBuffer, "Oa": _emscripten_glBindFramebuffer, "Na": _emscripten_glBindRenderbuffer, "Ma": _emscripten_glBindTexture, "zb": _emscripten_glBindVertexArray, "wb": _emscripten_glBindVertexArrayOES, "La": _emscripten_glBlendColor, "Ka": _emscripten_glBlendEquation, "Ab": _emscripten_glBlendEquationSeparate, "Ja": _emscripten_glBlendFunc, "rb": _emscripten_glBlitFramebuffer, "Ia": _emscripten_glBufferData, "Ha": _emscripten_glCheckFramebufferStatus, "Ga": _emscripten_glClear, "Fa": _emscripten_glClearColor, "Ea": _emscripten_glClearStencil, "Da": _emscripten_glColorMask, "Ca": _emscripten_glCompileShader, "Ba": _emscripten_glCopyTexSubImage2D, "Aa": _emscripten_glCreateProgram, "za": _emscripten_glCreateShader, "ya": _emscripten_glDeleteBuffers, "wa": _emscripten_glDeleteFramebuffers, "va": _emscripten_glDeleteProgram, "ua": _emscripten_glDeleteRenderbuffers, "ta": _emscripten_glDeleteShader, "sb": _emscripten_glDeleteSync, "sa": _emscripten_glDeleteTextures, "yb": _emscripten_glDeleteVertexArrays, "vb": _emscripten_glDeleteVertexArraysOES, "ra": _emscripten_glDepthMask, "qa": _emscripten_glDisable, "pa": _emscripten_glDisableVertexAttribArray, "oa": _emscripten_glDrawArrays, "na": _emscripten_glDrawElements, "ma": _emscripten_glEnable, "la": _emscripten_glEnableVertexAttribArray, "tb": _emscripten_glFenceSync, "ka": _emscripten_glFinish, "ja": _emscripten_glFlush, "ia": _emscripten_glFramebufferRenderbuffer, "ha": _emscripten_glFramebufferTexture2D, "ga": _emscripten_glGenBuffers, "fa": _emscripten_glGenFramebuffers, "ea": _emscripten_glGenRenderbuffers, "da": _emscripten_glGenTextures, "xb": _emscripten_glGenVertexArrays, "ub": _emscripten_glGenVertexArraysOES, "Bb": _emscripten_glGetAttribLocation, "ca": _emscripten_glGetBufferParameteriv, "ba": _emscripten_glGetError, "aa": _emscripten_glGetFramebufferAttachmentParameteriv, "$": _emscripten_glGetIntegerv, "_": _emscripten_glGetProgramInfoLog, "Z": _emscripten_glGetProgramiv, "Y": _emscripten_glGetRenderbufferParameteriv, "X": _emscripten_glGetShaderInfoLog, "W": _emscripten_glGetShaderPrecisionFormat, "V": _emscripten_glGetShaderiv, "T": _emscripten_glGetString, "S": _emscripten_glGetStringi, "R": _emscripten_glGetUniformLocation, "Ra": _emscripten_glIsEnabled, "Q": _emscripten_glIsTexture, "P": _emscripten_glLineWidth, "O": _emscripten_glLinkProgram, "N": _emscripten_glPixelStorei, "M": _emscripten_glReadPixels, "L": _emscripten_glRenderbufferStorage, "qb": _emscripten_glRenderbufferStorageMultisample, "K": _emscripten_glScissor, "gc": _emscripten_glShaderSource, "fc": _emscripten_glTexImage2D, "ec": _emscripten_glTexParameterf, "dc": _emscripten_glTexParameterfv, "cc": _emscripten_glTexParameteri, "bc": _emscripten_glTexParameteriv, "ac": _emscripten_glTexSubImage2D, "$b": _emscripten_glUniform1f, "_b": _emscripten_glUniform1fv, "Zb": _emscripten_glUniform1i, "Yb": _emscripten_glUniform1iv, "Xb": _emscripten_glUniform2f, "Wb": _emscripten_glUniform2fv, "Vb": _emscripten_glUniform2i, "Ub": _emscripten_glUniform2iv, "Tb": _emscripten_glUniform3f, "Sb": _emscripten_glUniform3fv, "Rb": _emscripten_glUniform3i, "Qb": _emscripten_glUniform3iv, "Pb": _emscripten_glUniform4f, "Ob": _emscripten_glUniform4fv, "Nb": _emscripten_glUniform4i, "Mb": _emscripten_glUniform4iv, "Lb": _emscripten_glUniformMatrix2fv, "Kb": _emscripten_glUniformMatrix3fv, "Jb": _emscripten_glUniformMatrix4fv, "Ib": _emscripten_glUseProgram, "Hb": _emscripten_glVertexAttrib1f, "Gb": _emscripten_glVertexAttrib2fv, "Fb": _emscripten_glVertexAttrib3fv, "Eb": _emscripten_glVertexAttrib4fv, "Db": _emscripten_glVertexAttribPointer, "Cb": _emscripten_glViewport, "pb": _emscripten_glWaitSync, "cb": _emscripten_resize_heap, "Ua": _emscripten_webgl_create_context, "C": _emscripten_webgl_destroy_context, "n": _emscripten_webgl_get_current_context, "Va": _emscripten_webgl_init_context_attributes, "i": _emscripten_webgl_make_context_current, "E": _fd_close, "eb": _fd_read, "$a": _fd_seek, "F": _fd_write };
     createWasm();
     Module["___wasm_call_ctors"] = function() {
       return (Module["___wasm_call_ctors"] = Module["asm"]["ic"]).apply(null, arguments);
@@ -8987,71 +8996,68 @@ var PAGInit$1 = (() => {
     Module["dynCall_iiifi"] = function() {
       return (Module["dynCall_iiifi"] = Module["asm"]["xd"]).apply(null, arguments);
     };
-    Module["dynCall_jiii"] = function() {
-      return (Module["dynCall_jiii"] = Module["asm"]["yd"]).apply(null, arguments);
-    };
     Module["dynCall_iiiiij"] = function() {
-      return (Module["dynCall_iiiiij"] = Module["asm"]["zd"]).apply(null, arguments);
+      return (Module["dynCall_iiiiij"] = Module["asm"]["yd"]).apply(null, arguments);
     };
     Module["dynCall_iijj"] = function() {
-      return (Module["dynCall_iijj"] = Module["asm"]["Ad"]).apply(null, arguments);
+      return (Module["dynCall_iijj"] = Module["asm"]["zd"]).apply(null, arguments);
     };
     Module["dynCall_vffff"] = function() {
-      return (Module["dynCall_vffff"] = Module["asm"]["Bd"]).apply(null, arguments);
+      return (Module["dynCall_vffff"] = Module["asm"]["Ad"]).apply(null, arguments);
     };
     Module["dynCall_viiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiii"] = Module["asm"]["Cd"]).apply(null, arguments);
+      return (Module["dynCall_viiiiiiii"] = Module["asm"]["Bd"]).apply(null, arguments);
     };
     Module["dynCall_vf"] = function() {
-      return (Module["dynCall_vf"] = Module["asm"]["Dd"]).apply(null, arguments);
+      return (Module["dynCall_vf"] = Module["asm"]["Cd"]).apply(null, arguments);
     };
     Module["dynCall_viiiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiiii"] = Module["asm"]["Ed"]).apply(null, arguments);
+      return (Module["dynCall_viiiiiiiii"] = Module["asm"]["Dd"]).apply(null, arguments);
     };
     Module["dynCall_viiiiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiiiii"] = Module["asm"]["Fd"]).apply(null, arguments);
+      return (Module["dynCall_viiiiiiiiii"] = Module["asm"]["Ed"]).apply(null, arguments);
     };
     Module["dynCall_fiifiii"] = function() {
-      return (Module["dynCall_fiifiii"] = Module["asm"]["Gd"]).apply(null, arguments);
+      return (Module["dynCall_fiifiii"] = Module["asm"]["Fd"]).apply(null, arguments);
     };
     Module["dynCall_iiifiii"] = function() {
-      return (Module["dynCall_iiifiii"] = Module["asm"]["Hd"]).apply(null, arguments);
+      return (Module["dynCall_iiifiii"] = Module["asm"]["Gd"]).apply(null, arguments);
     };
     Module["dynCall_viiifiii"] = function() {
-      return (Module["dynCall_viiifiii"] = Module["asm"]["Id"]).apply(null, arguments);
+      return (Module["dynCall_viiifiii"] = Module["asm"]["Hd"]).apply(null, arguments);
     };
     Module["dynCall_vifii"] = function() {
-      return (Module["dynCall_vifii"] = Module["asm"]["Jd"]).apply(null, arguments);
+      return (Module["dynCall_vifii"] = Module["asm"]["Id"]).apply(null, arguments);
     };
     Module["dynCall_viifd"] = function() {
-      return (Module["dynCall_viifd"] = Module["asm"]["Kd"]).apply(null, arguments);
+      return (Module["dynCall_viifd"] = Module["asm"]["Jd"]).apply(null, arguments);
     };
     Module["dynCall_viddi"] = function() {
-      return (Module["dynCall_viddi"] = Module["asm"]["Ld"]).apply(null, arguments);
+      return (Module["dynCall_viddi"] = Module["asm"]["Kd"]).apply(null, arguments);
     };
     Module["dynCall_viiiiiffii"] = function() {
-      return (Module["dynCall_viiiiiffii"] = Module["asm"]["Md"]).apply(null, arguments);
+      return (Module["dynCall_viiiiiffii"] = Module["asm"]["Ld"]).apply(null, arguments);
     };
     Module["dynCall_jiiii"] = function() {
-      return (Module["dynCall_jiiii"] = Module["asm"]["Nd"]).apply(null, arguments);
+      return (Module["dynCall_jiiii"] = Module["asm"]["Md"]).apply(null, arguments);
     };
     Module["dynCall_jiji"] = function() {
-      return (Module["dynCall_jiji"] = Module["asm"]["Od"]).apply(null, arguments);
+      return (Module["dynCall_jiji"] = Module["asm"]["Nd"]).apply(null, arguments);
     };
     Module["dynCall_iidiiii"] = function() {
-      return (Module["dynCall_iidiiii"] = Module["asm"]["Pd"]).apply(null, arguments);
+      return (Module["dynCall_iidiiii"] = Module["asm"]["Od"]).apply(null, arguments);
     };
     var _asyncify_start_unwind = Module["_asyncify_start_unwind"] = function() {
-      return (_asyncify_start_unwind = Module["_asyncify_start_unwind"] = Module["asm"]["Qd"]).apply(null, arguments);
+      return (_asyncify_start_unwind = Module["_asyncify_start_unwind"] = Module["asm"]["Pd"]).apply(null, arguments);
     };
     var _asyncify_stop_unwind = Module["_asyncify_stop_unwind"] = function() {
-      return (_asyncify_stop_unwind = Module["_asyncify_stop_unwind"] = Module["asm"]["Rd"]).apply(null, arguments);
+      return (_asyncify_stop_unwind = Module["_asyncify_stop_unwind"] = Module["asm"]["Qd"]).apply(null, arguments);
     };
     var _asyncify_start_rewind = Module["_asyncify_start_rewind"] = function() {
-      return (_asyncify_start_rewind = Module["_asyncify_start_rewind"] = Module["asm"]["Sd"]).apply(null, arguments);
+      return (_asyncify_start_rewind = Module["_asyncify_start_rewind"] = Module["asm"]["Rd"]).apply(null, arguments);
     };
     var _asyncify_stop_rewind = Module["_asyncify_stop_rewind"] = function() {
-      return (_asyncify_stop_rewind = Module["_asyncify_stop_rewind"] = Module["asm"]["Td"]).apply(null, arguments);
+      return (_asyncify_stop_rewind = Module["_asyncify_stop_rewind"] = Module["asm"]["Sd"]).apply(null, arguments);
     };
     Module["GL"] = GL;
     Module["Asyncify"] = Asyncify;
@@ -9302,7 +9308,7 @@ const PAGInit = (moduleOption = {}) => PAGInit$1(moduleOption).then((module) => 
   console.error(error);
   throw new Error("PAGInit fail! Please check .wasm file path valid.");
 });
-if (WORKER) {
+if (WORKER$1) {
   workerInit(PAGInit);
 }
 

@@ -277,7 +277,6 @@
     }
     async prepare(targetFrame, playbackRate) {
       var _a;
-      console.log("aaa js -------- prepare: " + JSON.stringify(targetFrame));
       this.setError(null);
       this.isSought = false;
       const { currentTime } = this.videoEl;
@@ -300,12 +299,10 @@
         }
       } else {
         if (Math.round(targetTime * this.frameRate) === Math.round(currentTime * this.frameRate)) ; else if ((_a = this.staticTimeRanges) == null ? void 0 : _a.contains(targetFrame)) {
-          console.log("aaa seek 1: targetTime=" + JSON.stringify(targetTime), "currentTime=" + JSON.stringify(currentTime));
           await this.seek(targetTime, false);
           return;
         } else if (Math.abs(currentTime - targetTime) < 1 / this.frameRate * VIDEO_DECODE_WAIT_FRAME) ; else {
           this.isSought = true;
-          console.log("aaa seek 2: targetTime=" + JSON.stringify(targetTime), "currentTime=" + JSON.stringify(currentTime));
           await this.seek(targetTime);
           return;
         }
@@ -576,7 +573,6 @@
     destroyVerify
   ], exports.WorkerPAGFile);
 
-  new Array();
   const calculateDisplaySize = (canvas) => {
     const styleDeclaration = globalThis.getComputedStyle(canvas, null);
     const computedSize = {

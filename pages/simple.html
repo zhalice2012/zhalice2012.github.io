@@ -53,6 +53,11 @@
           canvas.height = pagFile.height();
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas);
+          // pagView.setScaleMode(0)
+          // pagView.setScaleMode(1)
+          // pagView.setScaleMode(2)
+          pagView.setScaleMode(3)
+
           // Set PAGView play infinity.
           pagView.setRepeatCount(0);
           await pagView.play();

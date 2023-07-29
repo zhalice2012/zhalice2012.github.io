@@ -7,10 +7,9 @@
     <title>PAG</title>
     <link rel="icon" href="https://pag.io/img/favicon.png" />
     <link rel="stylesheet" href="../css/error-boundary.css" />
-    <link rel="stylesheet" href="../css/scale-mode-background.css" />
+    <link rel="stylesheet" href="../css/scale-mode-object-fit.css" />
   </head>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -33,37 +32,64 @@
         <pre id="logOutput"></pre>
       </div>
     </div>
-    <p>None</p>
+    <p>
+      object-fit: none;
+
+      <br />
+    </p>
+
     <div class="container test1">
       <canvas class="canvas" id="pag1"></canvas>
-      <div class="tablecloth"></div>
-    </div>
-    <p>fill -> Stretch: 拉伸图像，使其正好填满容器.</p>
-    <div class="container test2">
-      <canvas class="canvas" id="pag2"></canvas>
-      <div class="tablecloth"></div>
-    </div>
-    <p>contain -> LetterBox 在保持高宽比的情况下缩放图像.</p>
-
-    <div class="container test3">
-      <canvas class="canvas" id="pag3"></canvas>
-      <div class="tablecloth"></div>
+      <div class="tablecloth">
+        <img class="tablecloth-image" src="../assets/2.png" />
+      </div>
     </div>
     <p>
-      cover -> Zoom
+      object-fit: fill;
+      被替换的内容正好填充元素的内容框。整个对象将完全填充此框。如果对象的宽高比与内容框不相匹配，那么该对象将被拉伸以适应内容框。
+      <br />
+      ScaleMode: Stretch: 拉伸图像，使其正好填满容器.
+    </p>
+    <div class="container test2">
+      <canvas class="canvas" id="pag2"></canvas>
+
+      <div class="tablecloth">
+        <img class="tablecloth-image" src="../assets/2.png" />
+      </div>
+    </div>
+    <p>
+      object-fit:
+      contain;被替换的内容将被缩放，以在填充元素的内容框时保持其宽高比。整个对象在填充盒子的同时保留其长宽比，因此如果宽高比与框的宽高比不匹配，该对象将被添加“黑边”。
+      <br />
+      ScaleMode: Stretch
+    </p>
+    <div class="container test3">
+      <canvas class="canvas" id="pag3"></canvas>
+      <div class="tablecloth">
+        <img class="tablecloth-image" src="../assets/2.png" />
+      </div>
+    </div>
+    <p>
+      object-fit: cover; ->
+      被替换的内容在保持其宽高比的同时填充元素的整个内容框。如果对象的宽高比与内容框不相匹配，该对象将被剪裁以适应内容框。
       在保持高宽比的情况下缩放图像，使其足以覆盖整个容器。如果图像的纵横比与容器的纵横比不一致，多余的部分会被裁剪。
+      <br />
+      ScaleMode: Stretch
     </p>
 
     <div class="container test4">
       <canvas class="canvas" id="pag4"></canvas>
-      <div class="tablecloth"></div>
+      <div class="tablecloth">
+        <img class="tablecloth-image" src="../assets/2.png" />
+      </div>
     </div>
     <script src="../js/error-handler.js"></script>
     <script src="../lib/libpag.min.js"></script>
     <script>
       window.onload = async () => {
         try {
-          const pagUrl = '../assets/like.pag';
+          const pagUrl = '../assets/tga_cup_effect_unlock_0727.pag';
+          // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           const createView = async (id, scaleMode) => {
             const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
@@ -71,8 +97,10 @@
             const canvas = document.getElementById(id);
             canvas.width = pagFile.width();
             canvas.height = pagFile.height();
+            // Create PAGView.
             const pagView = await PAG.PAGView.init(pagFile, canvas);
-            pagView.setRepeatCount(1);
+            // Set PAGView play infinity.
+            pagView.setRepeatCount(0);
             pagView.setScaleMode(scaleMode);
             await pagView.play();
           };
