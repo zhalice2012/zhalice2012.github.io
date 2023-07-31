@@ -3,6 +3,7 @@
   height: 700px;
   position: relative;
   overflow: hidden;
+  border: 1px solid red;
 }
 .container canvas {
   position: absolute;
@@ -11,7 +12,7 @@
   z-index: 1;
 }
 .test1 .tablecloth {
-  background-size: initial;
+  
 }
 .test2 .tablecloth {
   background-size: 100% 100%;

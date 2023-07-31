@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="../css/error-boundary.css" />
     <link rel="stylesheet" href="../css/scale-mode-background.css" />
     <style>
-      .tablecloth {
-        background-image: url('../assets/1.png');
+      .container {
+        width: 1400px;
+        height: 900px;
       }
     </style>
   </head>
@@ -38,9 +39,13 @@
         <pre id="logOutput"></pre>
       </div>
     </div>
-    <p>background-auto; 
+    <p>
+      
       <br />
-      ScaleMode: None: 内容不会被缩放</p>
+      background-size : auto; 
+      <br />
+      ScaleMode: None: 内容不会被缩放
+    </p>
     <div class="container test1">
       <canvas class="canvas" id="pag1"></canvas>
       <div class="tablecloth"></div>
@@ -78,11 +83,31 @@
       <div class="tablecloth"></div>
     </div>
     <script src="../js/error-handler.js"></script>
-    <script src="../lib/libpag.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
     <script>
+      const PAGScaleMode = {
+        /**
+         * The content is not scaled.
+         */
+        None: 0,
+        /**
+         * The content is stretched to fit.
+         */
+        Stretch: 1,
+        /**
+         * The content is scaled with respect to the original unscaled image's aspect ratio.
+         * This is the default value.
+         */
+        LetterBox: 2,
+        /**
+         * The content is scaled to fit with respect to the original unscaled image's aspect ratio.
+         * This results in cropping on one axis.
+         */
+        Zoom: 3,
+      };
       window.onload = async () => {
         try {
-          const pagUrl = '../assets/like.pag';
+          const pagUrl = '../assets/tga_cup_effect_unlock_0727.pag';
           const PAG = await window.libpag.PAGInit();
           const createView = async (id, scaleMode) => {
             const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
@@ -92,7 +117,29 @@
             canvas.height = pagFile.height();
             const pagView = await PAG.PAGView.init(pagFile, canvas);
             pagView.setRepeatCount(0);
-            pagView.setScaleMode(scaleMode);
+            // pagView.setScaleMode(scaleMode); Not used setScaleMode
+            const sourceHeight = pagFile.height();
+            const sourceWidth = pagFile.width();
+            const targetWidth = canvas.width;
+            const targetHeight = canvas.height;
+            let scaleX = (targetWidth * 1.0) / sourceWidth;
+            let scaleY = (targetHeight * 1.0) / sourceHeight;
+            let scale;
+            let scaleMatrix;
+            if (scaleMode === PAGScaleMode.Stretch) {
+              scale = Math.max(scaleX, scaleY);
+              scaleMatrix = PAG.Matrix.makeScale(scaleX, scaleY);
+            } else if (scaleMode === PAGScaleMode.Zoom) {
+              scale = Math.max(scaleX, scaleY);
+              scaleMatrix = PAG.Matrix.makeScale(scale, scale);
+            } else if (scaleMode === PAGScaleMode.LetterBox) {
+              scale = Math.min(scaleX, scaleY);
+              scaleMatrix = PAG.Matrix.makeScale(scale, scale);
+            } else if (scaleMode === PAGScaleMode.None)  {
+              scaleMatrix = PAG.Matrix.makeScale(1 * devicePixelRatio, 1 * devicePixelRatio);
+            } 
+            pagView.setMatrix(scaleMatrix);
+            pagView.setMatrix(scaleMatrix);
             await pagView.play();
           };
           createView('pag1', 0);

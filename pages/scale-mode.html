@@ -12,6 +12,10 @@
       .tablecloth {
         background-image: url('../assets/1.png');
       }
+      .container {
+        width: 1000px;
+        height: 500px;
+      }
     </style>
   </head>
   <!-- Google tag (gtag.js) -->
@@ -38,13 +42,15 @@
         <pre id="logOutput"></pre>
       </div>
     </div>
-    <p>ScaleMode: None: 内容不会被缩放</p>
+    <p>background-size : auto; 
+      <br />
+      ScaleMode: None: 内容不会被缩放</p>
     <div class="container test1">
       <canvas class="canvas" id="pag1"></canvas>
       <div class="tablecloth"></div>
     </div>
     <p>
-      background-size: auto; 以背景图片的比例缩放背景图片。
+      background-size: 100% 100%; 以背景图片的比例缩放背景图片。
       <br />
       ScaleMode: Stretch: 拉伸图像，使其正好填满容器.
     </p>
@@ -90,7 +96,18 @@
             canvas.height = pagFile.height();
             const pagView = await PAG.PAGView.init(pagFile, canvas);
             pagView.setRepeatCount(0);
-            pagView.setScaleMode(scaleMode);
+            pagView.setScaleMode(scaleMode)
+            // zoom
+            // const sourceHeight = pagFile.height();
+            // const sourceWidth = pagFile.width();
+            // const targetWidth = canvas.width;
+            // const targetHeight = canvas.height;
+            // let scaleX = targetWidth * 1.0 / sourceWidth;
+            // let scaleY = targetHeight * 1.0 / sourceHeight;
+            // let scale = 1;
+            // scale = Math.max(scaleX, scaleY);
+            // let scaleMatrix = PAG.Matrix.makeScale(scale, scale);
+            // pagView.setMatrix(scaleMatrix);
             await pagView.play();
           };
           createView('pag1', 0);

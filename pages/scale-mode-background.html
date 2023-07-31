@@ -8,6 +8,12 @@
     <link rel="icon" href="https://pag.io/img/favicon.png" />
     <link rel="stylesheet" href="../css/error-boundary.css" />
     <link rel="stylesheet" href="../css/scale-mode-background.css" />
+    <style>
+      .container {
+        width: 1400px;
+        height: 900px;
+      }
+    </style>
   </head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
@@ -34,7 +40,9 @@
       </div>
     </div>
     <p>
-      background-size: initial;
+      
+      <br />
+      background-size : auto; 
       <br />
       ScaleMode: None: 内容不会被缩放
     </p>
@@ -45,21 +53,27 @@
     <p>
       background-size: 100% 100%; 以背景图片的比例缩放背景图片。
       <br />
-      ScaleMode: Stretch: 拉伸图像，使其正好填满容器.</p>
+      ScaleMode: Stretch: 拉伸图像，使其正好填满容器.
+    </p>
     <div class="container test2">
       <canvas class="canvas" id="pag2"></canvas>
       <div class="tablecloth"></div>
     </div>
     <p>
-      background-size: contain; 缩放背景图片以完全装入背景区，可能背景区部分空白。contain 尽可能的缩放背景并保持图像的宽高比例（图像不会被压缩）。该背景图会填充所在的容器。当背景图和容器的大小的不同时，容器的空白区域（上/下或者左/右）会显示由 background-color 设置的背景颜色。
+      background-size: contain; 缩放背景图片以完全装入背景区，可能背景区部分空白。contain
+      尽可能的缩放背景并保持图像的宽高比例（图像不会被压缩）。该背景图会填充所在的容器。当背景图和容器的大小的不同时，容器的空白区域（上/下或者左/右）会显示由
+      background-color 设置的背景颜色。
       <br />
       ScaleMode: LetterBox
+    </p>
+
     <div class="container test3">
       <canvas class="canvas" id="pag3"></canvas>
       <div class="tablecloth"></div>
     </div>
     <p>
-      background-size: cover; 缩放背景图片以完全覆盖背景区，可能背景图片部分看不见。和 contain 值相反，cover 值尽可能大的缩放背景图像并保持图像的宽高比例（图像不会被压扁）。
+      background-size: cover; 缩放背景图片以完全覆盖背景区，可能背景图片部分看不见。和 contain 值相反，cover
+      值尽可能大的缩放背景图像并保持图像的宽高比例（图像不会被压扁）。
       <br />
       ScaleMode: Zoom:
     </p>

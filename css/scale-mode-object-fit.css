@@ -2,6 +2,7 @@
   width: 200px;
   height: 700px;
   position: relative;
+  border: 1px solid red;
 }
 .container canvas {
   position: absolute;
