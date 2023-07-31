@@ -11,7 +11,7 @@
     z-index: 1;
   }
   .test1 .tablecloth {
-    
+    background-size: auto;
   }
   .test2 .tablecloth {
     background-size: 100% 100%;
