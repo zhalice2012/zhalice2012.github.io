@@ -108,7 +108,7 @@
         try {
           const { PAGView, types } = window.libpag;
           const canvas = document.getElementById('pag');
-          const pagView = PAGView.init(await (await fetch('../assets/1679313115323.pag')).arrayBuffer(), canvas, {
+          const pagView = PAGView.init(await (await fetch('../assets/hello.pag')).arrayBuffer(), canvas, {
             renderingMode: types.RenderingMode.WebGL
           });
           pagView.setRepeatCount(1);

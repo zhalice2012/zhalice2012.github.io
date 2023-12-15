@@ -31,15 +31,9 @@
         <pre id="logOutput"></pre>
       </div>
     </div>
-    <div>
-      <canvas class="canvas" id="pag"></canvas>
-    </div>
-    <script src="../js/error-handler.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
-    <script>
+    <!-- <code>
       window.onload = async () => {
-        try {
-          const pagUrl = '../assets/like.pag';
+          const pagUrl = '../assets/red.pag';
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           // Fetch pag file.
@@ -53,7 +47,33 @@
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas, { firstFrame: false });
           // Set PAGView progress.
-          pagView.setProgress(0.5);
+          pagView.setProgress(0.99);
+          await pagView.flush();
+      };
+    </code> -->
+    <div>
+      <canvas class="canvas" id="pag"></canvas>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          const pagUrl = '../assets/red.pag';
+          // Initialize pag webassembly module.
+          const PAG = await window.libpag.PAGInit();
+          // Fetch pag file.
+          const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
+          // Load the PAGFile from file.
+          const pagFile = await PAG.PAGFile.load(buffer);
+          // Set the width from the PAGFile.
+          const canvas = document.getElementById('pag');
+          canvas.width = pagFile.width();
+          canvas.height = pagFile.height();
+          // Create PAGView.
+          const pagView = await PAG.PAGView.init(pagFile, canvas, { firstFrame: false });
+          // Set PAGView progress.
+          pagView.setProgress(0.99);
           await pagView.flush();
         } catch (error) {
           logError(error);
