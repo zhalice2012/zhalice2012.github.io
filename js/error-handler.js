@@ -1,5 +1,5 @@
 const ENABLE_STATE_JS = false;
-const ENABLE_VCONSOLE_JS = false;
+const ENABLE_VCONSOLE_JS = true;
 const ENABLE_CONSOLE_LOG = false;
 
 window.onerror = function (message, source, lineno, colno, error) {
