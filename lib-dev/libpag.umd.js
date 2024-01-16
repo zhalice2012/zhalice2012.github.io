@@ -2324,60 +2324,64 @@
       this.bitmapCtx = null;
     }
     async seek(targetTime, play = true) {
+      console.log(`Seek requested: targetTime=${targetTime}, play=${play}`);
       if (this.seeking) {
+        console.log(`Seek in progress, queuing new seek to targetTime=${targetTime}`);
         this.pendingSeek = { targetTime, play };
         return;
       }
       this.seeking = true;
-      this.seekAttempts++;
-      if (this.seekAttempts > this.maxSeekAttempts) {
-        console.error("Maximum seek attempts reached, giving up on seek.");
-        this.seeking = false;
-        this.seekAttempts = 0;
-        return;
-      }
-      if (!this.videoEl) {
-        console.error("Video element is not initialized.");
-        this.seeking = false;
-        return;
-      }
-      const onSeeked = () => {
-        var _a, _b;
-        removeListener(this.videoEl, "seeked", onSeeked);
-        clearTimeout(seekTimeout);
-        this.seeking = false;
-        this.seekAttempts = 0;
-        if (play) {
-          (_a = this.videoEl) == null ? void 0 : _a.play().catch((e) => {
-            this.setError(e);
-          });
-        } else if (!play && !this.videoEl.paused) {
-          (_b = this.videoEl) == null ? void 0 : _b.pause();
+      return new Promise((resolve, reject) => {
+        if (!this.videoEl) {
+          console.error("Seek error: Video element is not initialized.");
+          this.seeking = false;
+          reject(new Error("Video element is not initialized."));
+          return;
         }
-        if (this.pendingSeek) {
-          const { targetTime: targetTime2, play: play2 } = this.pendingSeek;
-          this.pendingSeek = null;
-          this.seek(targetTime2, play2);
+        const onSeeked = () => {
+          var _a, _b;
+          console.log(`Seek to targetTime=${targetTime} completed.`);
+          removeListener(this.videoEl, "seeked", onSeeked);
+          clearTimeout(seekTimeout);
+          this.seeking = false;
+          if (play) {
+            (_a = this.videoEl) == null ? void 0 : _a.play().catch((e) => {
+              console.error("Play error after seek:", e);
+              this.setError(e);
+            });
+          } else if (!play && !this.videoEl.paused) {
+            (_b = this.videoEl) == null ? void 0 : _b.pause();
+          }
+          resolve();
+          if (this.pendingSeek) {
+            const { targetTime: targetTime2, play: play2 } = this.pendingSeek;
+            this.pendingSeek = null;
+            console.log(`Executing queued seek to targetTime=${targetTime2}`);
+            this.seek(targetTime2, play2);
+          }
+        };
+        const onCanPlay = () => {
+          console.log(`Can play, performing seek to targetTime=${targetTime}`);
+          removeListener(this.videoEl, "canplay", onCanPlay);
+          this.videoEl.currentTime = targetTime;
+          addListener(this.videoEl, "seeked", onSeeked);
+        };
+        const seekTimeout = setTimeout(() => {
+          console.error("Seek operation timed out.");
+          removeListener(this.videoEl, "canplay", onCanPlay);
+          removeListener(this.videoEl, "seeked", onSeeked);
+          this.seeking = false;
+          reject(new Error("Seek operation timed out."));
+        }, 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
+        if (this.videoEl.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+          console.log("Waiting for video to have future data before seeking.");
+          addListener(this.videoEl, "canplay", onCanPlay);
+        } else {
+          console.log(`Video ready, performing seek to targetTime=${targetTime}`);
+          this.videoEl.currentTime = targetTime;
+          addListener(this.videoEl, "seeked", onSeeked);
         }
-      };
-      const onCanPlay = () => {
-        removeListener(this.videoEl, "canplay", onCanPlay);
-        this.videoEl.currentTime = targetTime;
-        addListener(this.videoEl, "seeked", onSeeked);
-      };
-      const seekTimeout = setTimeout(() => {
-        removeListener(this.videoEl, "canplay", onCanPlay);
-        removeListener(this.videoEl, "seeked", onSeeked);
-        console.warn("Seek operation timed out, retrying...");
-        this.seeking = false;
-        this.seek(targetTime, play);
-      }, 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
-      if (this.videoEl.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
-        addListener(this.videoEl, "canplay", onCanPlay);
-      } else {
-        this.videoEl.currentTime = targetTime;
-        addListener(this.videoEl, "seeked", onSeeked);
-      }
+      });
     }
     setError(e) {
       this.error = e;
