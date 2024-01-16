@@ -1,6 +1,6 @@
 const ENABLE_STATE_JS = false;
 const ENABLE_VCONSOLE_JS = true;
-const ENABLE_CONSOLE_LOG = false;
+const ENABLE_CONSOLE_LOG = true;
 
 window.onerror = function (message, source, lineno, colno, error) {
   const formattedError = new Error(`${message} (Line: ${lineno}, Column: ${colno})`);
