@@ -386,7 +386,7 @@ class VideoReader {
     this.bitmapCtx = null;
   }
   async seek(targetTime, play = true) {
-    console.log(`Seek requested: targetTime=${targetTime}, play=${play}`);
+    console.log(`Seek requested: targetTime=${targetTime}, play=${play}, timedout=${1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME};`);
     if (this.seeking) {
       console.log(`Seek in progress, queuing new seek to targetTime=${targetTime}`);
       this.pendingSeek = { targetTime, play };
@@ -429,11 +429,10 @@ class VideoReader {
         addListener(this.videoEl, "seeked", onSeeked);
       };
       const seekTimeout = setTimeout(() => {
-        console.error("Seek operation timed out.");
+        console.error("Seek operation timed out: ", 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
         removeListener(this.videoEl, "canplay", onCanPlay);
         removeListener(this.videoEl, "seeked", onSeeked);
         this.seeking = false;
-        reject(new Error("Seek operation timed out."));
       }, 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
       if (this.videoEl.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
         console.log("Waiting for video to have future data before seeking.");
