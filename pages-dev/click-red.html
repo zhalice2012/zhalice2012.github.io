@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1,viewport-fit=cover">
+    <title>PAG</title>
+    <link rel="icon" href="https://pag.io/img/favicon.png" />
+    <link rel="stylesheet" href="../css/error-boundary.css" />
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        -webkit-text-size-adjust: 100% !important;
+        font: 14px/1.5 PingFangSC-Regular,"Helvetica Neue",tahoma,arial,sans-serif;
+        word-wrap: break-word;
+        word-break: break-word;
+        color: #000028;
+        position: relative;
+      }
+      .effect {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .page {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateX(calc(-50% + 50vw));
+        transform-origin: center center;
+        transform-box: content-box;
+      }
+      .pag-view {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        -webkit-box-pack: center;
+        -webkit-box-align: end;
+      }
+      .pag-view > canvas {
+        width: 100%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3HV6VE6VYC');
+  </script>
+  <body>
+    <div class="header">
+      <img src="../assets/logo.png" alt="logo" width="133" height="48" />
+      <div id="error-display" class="error-boundary" style="display: none">
+        <h2>Errors:</h2>
+        <div id="error-messages"></div>
+      </div>
+      <div id="console-display" class="console-boundary" style="display: none">
+        <h2>Captured Console Logs:</h2>
+        <pre id="logOutput"></pre>
+      </div>
+    </div>
+    <div class="page">
+      <div class="effect">
+        <div class="container" style="width: 1200px; height: 1706.67px">
+          <div class="pag-view">
+            <canvas id="pag" width="4200" height="2100" style="width: 1200px; height: 600px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/error-handler.js"></script>
+    <script src="../lib-dev/lite/pag.min.js"></script>
+    <script>
+      window.onload = async () => {
+        try {
+          const { PAGView, types } = window.libpag;
+          const canvas = document.getElementById('pag');
+          const pagUrl = 'https://mmae.qpic.cn/206/20303/stodownload?filekey=30250201010411300f020200ce040253480400020301b66a040d00000004627466730000000132&hy=SH&storeid=265a5482c000694d70b9d8b8c000000ce00004f4f53482a661b01e6823571a';
+          const pagView = PAGView.init(await (await fetch(pagUrl)).arrayBuffer(), canvas, {
+            renderingMode: types.RenderingMode.canvas
+          });
+          pagView.setRepeatCount(1);
+
+          canvas.addEventListener('click', async () => {
+            await pagView?.play();
+          });
+        } catch (error) {
+          logError(error);
+        }
+      };
+    </script>
+  </body>
+</html>

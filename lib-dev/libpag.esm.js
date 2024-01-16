@@ -45,7 +45,7 @@ const setPAGModule = (module) => {
   PAGModule = module;
 };
 
-function wasmAwaitRewind(constructor) {
+function wasmAwaitRewind$1(constructor) {
   const ignoreStaticFunctions = ["length", "name", "prototype", "wasmAsyncMethods"];
   let staticFunctions = Object.getOwnPropertyNames(constructor).filter(
     (name) => ignoreStaticFunctions.indexOf(name) === -1
@@ -82,7 +82,7 @@ function wasmAsyncMethod(target, propertyKey, descriptor) {
   }
   target.wasmAsyncMethods.push(propertyKey);
 }
-function destroyVerify(constructor) {
+function destroyVerify$1(constructor) {
   let functions = Object.getOwnPropertyNames(constructor.prototype).filter(
     (name) => name !== "constructor" && typeof constructor.prototype[name] === "function"
   );
@@ -150,7 +150,7 @@ var PAGTimeStretchMode = /* @__PURE__ */ ((PAGTimeStretchMode2) => {
   PAGTimeStretchMode2[PAGTimeStretchMode2["RepeatInverted"] = 3] = "RepeatInverted";
   return PAGTimeStretchMode2;
 })(PAGTimeStretchMode || {});
-var MatrixIndex = /* @__PURE__ */ ((MatrixIndex2) => {
+var MatrixIndex$1 = /* @__PURE__ */ ((MatrixIndex2) => {
   MatrixIndex2[MatrixIndex2["a"] = 0] = "a";
   MatrixIndex2[MatrixIndex2["c"] = 1] = "c";
   MatrixIndex2[MatrixIndex2["tx"] = 2] = "tx";
@@ -158,7 +158,7 @@ var MatrixIndex = /* @__PURE__ */ ((MatrixIndex2) => {
   MatrixIndex2[MatrixIndex2["d"] = 4] = "d";
   MatrixIndex2[MatrixIndex2["ty"] = 5] = "ty";
   return MatrixIndex2;
-})(MatrixIndex || {});
+})(MatrixIndex$1 || {});
 var DecoderResult = /* @__PURE__ */ ((DecoderResult2) => {
   DecoderResult2[DecoderResult2["Success"] = 0] = "Success";
   DecoderResult2[DecoderResult2["TryAgainLater"] = -1] = "TryAgainLater";
@@ -188,24 +188,24 @@ var types = /*#__PURE__*/Object.freeze({
   TextDirection: TextDirection,
   LayerType: LayerType,
   PAGTimeStretchMode: PAGTimeStretchMode,
-  MatrixIndex: MatrixIndex,
+  MatrixIndex: MatrixIndex$1,
   DecoderResult: DecoderResult,
   ColorType: ColorType,
   AlphaType: AlphaType
 });
 
-var __defProp$e = Object.defineProperty;
-var __getOwnPropDesc$b = Object.getOwnPropertyDescriptor;
-var __decorateClass$b = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$b(target, key) : target;
+var __defProp$f = Object.defineProperty;
+var __getOwnPropDesc$c = Object.getOwnPropertyDescriptor;
+var __decorateClass$c = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$c(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$e(target, key, result);
+    __defProp$f(target, key, result);
   return result;
 };
-let Matrix = class {
+let Matrix$1 = class {
   constructor(wasmIns) {
     this.isDestroyed = false;
     this.wasmIns = wasmIns;
@@ -214,7 +214,7 @@ let Matrix = class {
     const wasmIns = PAGModule._Matrix._MakeAll(scaleX, skewX, transX, skewY, scaleY, transY, pers0, pers1, pers2);
     if (!wasmIns)
       throw new Error("Matrix.makeAll fail, please check parameters valid!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   static makeScale(scaleX, scaleY) {
     let wasmIns;
@@ -225,55 +225,55 @@ let Matrix = class {
     }
     if (!wasmIns)
       throw new Error("Matrix.makeScale fail, please check parameters valid!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   static makeTrans(dx, dy) {
     const wasmIns = PAGModule._Matrix._MakeTrans(dx, dy);
     if (!wasmIns)
       throw new Error("Matrix.makeTrans fail, please check parameters valid!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   get a() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.a) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.a) : 0;
   }
   set a(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.a, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.a, value);
   }
   get b() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.b) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.b) : 0;
   }
   set b(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.b, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.b, value);
   }
   get c() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.c) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.c) : 0;
   }
   set c(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.c, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.c, value);
   }
   get d() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.d) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.d) : 0;
   }
   set d(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.d, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.d, value);
   }
   get tx() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.tx) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.tx) : 0;
   }
   set tx(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.tx, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.tx, value);
   }
   get ty() {
-    return this.wasmIns ? this.wasmIns._get(MatrixIndex.ty) : 0;
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex$1.ty) : 0;
   }
   set ty(value) {
     var _a;
-    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.ty, value);
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex$1.ty, value);
   }
   get(index) {
     return this.wasmIns ? this.wasmIns._get(index) : 0;
@@ -362,10 +362,10 @@ let Matrix = class {
     this.wasmIns.delete();
   }
 };
-Matrix = __decorateClass$b([
-  destroyVerify,
-  wasmAwaitRewind
-], Matrix);
+Matrix$1 = __decorateClass$c([
+  destroyVerify$1,
+  wasmAwaitRewind$1
+], Matrix$1);
 
 const rewindData = (fn, scope, ...args) => {
   if (PAGModule.Asyncify.currData !== null) {
@@ -439,15 +439,15 @@ const getWasmIns = (value) => {
 };
 const isInstanceOf$1 = (value, type) => typeof type !== "undefined" && value instanceof type;
 
-var __defProp$d = Object.defineProperty;
-var __getOwnPropDesc$a = Object.getOwnPropertyDescriptor;
-var __decorateClass$a = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$a(target, key) : target;
+var __defProp$e = Object.defineProperty;
+var __getOwnPropDesc$b = Object.getOwnPropertyDescriptor;
+var __decorateClass$b = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$b(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$d(target, key, result);
+    __defProp$e(target, key, result);
   return result;
 };
 let PAGLayer = class {
@@ -468,7 +468,7 @@ let PAGLayer = class {
     const wasmIns = this.wasmIns._matrix();
     if (!wasmIns)
       throw new Error("Get matrix fail!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   setMatrix(matrix) {
     this.wasmIns._setMatrix(matrix.wasmIns);
@@ -480,7 +480,7 @@ let PAGLayer = class {
     const wasmIns = this.wasmIns._getTotalMatrix();
     if (!wasmIns)
       throw new Error("Get total matrix fail!");
-    return new Matrix(this.wasmIns._getTotalMatrix());
+    return new Matrix$1(this.wasmIns._getTotalMatrix());
   }
   alpha() {
     return this.wasmIns._alpha();
@@ -574,20 +574,20 @@ let PAGLayer = class {
     this.isDestroyed = true;
   }
 };
-PAGLayer = __decorateClass$a([
-  destroyVerify,
-  wasmAwaitRewind
+PAGLayer = __decorateClass$b([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGLayer);
 
-var __defProp$c = Object.defineProperty;
-var __getOwnPropDesc$9 = Object.getOwnPropertyDescriptor;
-var __decorateClass$9 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$9(target, key) : target;
+var __defProp$d = Object.defineProperty;
+var __getOwnPropDesc$a = Object.getOwnPropertyDescriptor;
+var __decorateClass$a = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$a(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$c(target, key, result);
+    __defProp$d(target, key, result);
   return result;
 };
 let PAGComposition = class extends PAGLayer {
@@ -676,9 +676,9 @@ let PAGComposition = class extends PAGLayer {
     return proxyVector(wasmIns, layer2typeLayer);
   }
 };
-PAGComposition = __decorateClass$9([
-  destroyVerify,
-  wasmAwaitRewind
+PAGComposition = __decorateClass$a([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGComposition);
 
 const readFile = (file) => new Promise((resolve) => {
@@ -714,21 +714,24 @@ const readBufferFromWasm = (module, data, handle) => {
   const uint8Array = new Uint8Array(data);
   const dataPtr = module._malloc(uint8Array.byteLength);
   if (!handle(dataPtr, uint8Array.byteLength))
-    return { data: null, free: () => module._free(dataPtr) };
+    return {
+      data: null,
+      free: () => module._free(dataPtr)
+    };
   const dataOnHeap = new Uint8Array(module.HEAPU8.buffer, dataPtr, uint8Array.byteLength);
   uint8Array.set(dataOnHeap);
   return { data: uint8Array, free: () => module._free(dataPtr) };
 };
 
-var __defProp$b = Object.defineProperty;
-var __getOwnPropDesc$8 = Object.getOwnPropertyDescriptor;
-var __decorateClass$8 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$8(target, key) : target;
+var __defProp$c = Object.defineProperty;
+var __getOwnPropDesc$9 = Object.getOwnPropertyDescriptor;
+var __decorateClass$9 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$9(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$b(target, key, result);
+    __defProp$c(target, key, result);
   return result;
 };
 let PAGFile = class extends PAGComposition {
@@ -800,23 +803,23 @@ let PAGFile = class extends PAGComposition {
     return new PAGFile(wasmIns);
   }
 };
-__decorateClass$8([
+__decorateClass$9([
   wasmAsyncMethod
 ], PAGFile, "load", 1);
-PAGFile = __decorateClass$8([
-  destroyVerify,
-  wasmAwaitRewind
+PAGFile = __decorateClass$9([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGFile);
 
-var __defProp$a = Object.defineProperty;
-var __getOwnPropDesc$7 = Object.getOwnPropertyDescriptor;
-var __decorateClass$7 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$7(target, key) : target;
+var __defProp$b = Object.defineProperty;
+var __getOwnPropDesc$8 = Object.getOwnPropertyDescriptor;
+var __decorateClass$8 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$8(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$a(target, key, result);
+    __defProp$b(target, key, result);
   return result;
 };
 let PAGSurface = class {
@@ -874,20 +877,20 @@ let PAGSurface = class {
     this.isDestroyed = true;
   }
 };
-PAGSurface = __decorateClass$7([
-  destroyVerify,
-  wasmAwaitRewind
+PAGSurface = __decorateClass$8([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGSurface);
 
-var __defProp$9 = Object.defineProperty;
-var __getOwnPropDesc$6 = Object.getOwnPropertyDescriptor;
-var __decorateClass$6 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$6(target, key) : target;
+var __defProp$a = Object.defineProperty;
+var __getOwnPropDesc$7 = Object.getOwnPropertyDescriptor;
+var __decorateClass$7 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$7(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$9(target, key, result);
+    __defProp$a(target, key, result);
   return result;
 };
 let PAGPlayer = class {
@@ -988,7 +991,7 @@ let PAGPlayer = class {
     const wasmIns = this.wasmIns._matrix();
     if (!wasmIns)
       throw new Error("Get matrix fail!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   setMatrix(matrix) {
     this.wasmIns._setMatrix(matrix.wasmIns);
@@ -1050,26 +1053,26 @@ let PAGPlayer = class {
     }
   }
 };
-__decorateClass$6([
+__decorateClass$7([
   wasmAsyncMethod
 ], PAGPlayer.prototype, "flush", 1);
-__decorateClass$6([
+__decorateClass$7([
   wasmAsyncMethod
 ], PAGPlayer.prototype, "flushInternal", 1);
-PAGPlayer = __decorateClass$6([
-  destroyVerify,
-  wasmAwaitRewind
+PAGPlayer = __decorateClass$7([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGPlayer);
 
-var __defProp$8 = Object.defineProperty;
-var __getOwnPropDesc$5 = Object.getOwnPropertyDescriptor;
-var __decorateClass$5 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$5(target, key) : target;
+var __defProp$9 = Object.defineProperty;
+var __getOwnPropDesc$6 = Object.getOwnPropertyDescriptor;
+var __decorateClass$6 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$6(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$8(target, key, result);
+    __defProp$9(target, key, result);
   return result;
 };
 let PAGImage = class {
@@ -1126,7 +1129,7 @@ let PAGImage = class {
     const wasmIns = this.wasmIns._matrix();
     if (!wasmIns)
       throw new Error("Get matrix fail!");
-    return new Matrix(wasmIns);
+    return new Matrix$1(wasmIns);
   }
   setMatrix(matrix) {
     this.wasmIns._setMatrix(matrix.wasmIns);
@@ -1136,12 +1139,12 @@ let PAGImage = class {
     this.isDestroyed = true;
   }
 };
-__decorateClass$5([
+__decorateClass$6([
   wasmAsyncMethod
 ], PAGImage, "fromFile", 1);
-PAGImage = __decorateClass$5([
-  destroyVerify,
-  wasmAwaitRewind
+PAGImage = __decorateClass$6([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGImage);
 
 class EventManager {
@@ -1194,11 +1197,11 @@ const WEBGL_CONTEXT_ATTRIBUTES = {
 const VIDEO_PLAYBACK_RATE_MIN = 0.125;
 const VIDEO_PLAYBACK_RATE_MAX = 4;
 
-var __defProp$7 = Object.defineProperty;
+var __defProp$8 = Object.defineProperty;
 var __getOwnPropSymbols$3 = Object.getOwnPropertySymbols;
 var __hasOwnProp$3 = Object.prototype.hasOwnProperty;
 var __propIsEnum$3 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$3 = (obj, key, value) => key in obj ? __defProp$7(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp$3 = (obj, key, value) => key in obj ? __defProp$8(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues$3 = (a, b) => {
   for (var prop in b || (b = {}))
     if (__hasOwnProp$3.call(b, prop))
@@ -1211,11 +1214,11 @@ var __spreadValues$3 = (a, b) => {
   return a;
 };
 class BackendContext {
-  constructor(handle, adopted = false) {
+  constructor(handle, externallyOwned = false) {
     this.isDestroyed = false;
     this.oldHandle = 0;
     this.handle = handle;
-    this.adopted = adopted;
+    this.externallyOwned = externallyOwned;
   }
   static from(gl) {
     if (gl instanceof BackendContext) {
@@ -1278,8 +1281,9 @@ class BackendContext {
     PAGModule.GL.framebuffers[handle] = null;
   }
   destroy() {
-    if (this.adopted)
+    if (this.externallyOwned) {
       return;
+    }
     PAGModule.GL.deleteContext(this.handle);
   }
   register(table, item) {
@@ -1289,11 +1293,11 @@ class BackendContext {
   }
 }
 
-var __defProp$6 = Object.defineProperty;
+var __defProp$7 = Object.defineProperty;
 var __getOwnPropSymbols$2 = Object.getOwnPropertySymbols;
 var __hasOwnProp$2 = Object.prototype.hasOwnProperty;
 var __propIsEnum$2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$6(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$7(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues$2 = (a, b) => {
   for (var prop in b || (b = {}))
     if (__hasOwnProp$2.call(b, prop))
@@ -1473,12 +1477,12 @@ const calculateDisplaySize = (canvas) => {
   }
 };
 
-var __defProp$5 = Object.defineProperty;
-var __getOwnPropDesc$4 = Object.getOwnPropertyDescriptor;
+var __defProp$6 = Object.defineProperty;
+var __getOwnPropDesc$5 = Object.getOwnPropertyDescriptor;
 var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
 var __hasOwnProp$1 = Object.prototype.hasOwnProperty;
 var __propIsEnum$1 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$6(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues$1 = (a, b) => {
   for (var prop in b || (b = {}))
     if (__hasOwnProp$1.call(b, prop))
@@ -1490,13 +1494,13 @@ var __spreadValues$1 = (a, b) => {
     }
   return a;
 };
-var __decorateClass$4 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$4(target, key) : target;
+var __decorateClass$5 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$5(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$5(target, key, result);
+    __defProp$6(target, key, result);
   return result;
 };
 let PAGView = class {
@@ -1876,8 +1880,8 @@ let PAGView = class {
     return false;
   }
 };
-PAGView = __decorateClass$4([
-  destroyVerify
+PAGView = __decorateClass$5([
+  destroyVerify$1
 ], PAGView);
 
 const fontNames = ["Arial", '"Courier New"', "Georgia", '"Times New Roman"', '"Trebuchet MS"', "Verdana"];
@@ -1910,15 +1914,15 @@ const getFontFamilies = (name, style = "") => {
   return fontFamilies;
 };
 
-var __defProp$4 = Object.defineProperty;
-var __getOwnPropDesc$3 = Object.getOwnPropertyDescriptor;
-var __decorateClass$3 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$3(target, key) : target;
+var __defProp$5 = Object.defineProperty;
+var __getOwnPropDesc$4 = Object.getOwnPropertyDescriptor;
+var __decorateClass$4 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$4(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$4(target, key, result);
+    __defProp$5(target, key, result);
   return result;
 };
 let PAGFont = class {
@@ -1958,12 +1962,12 @@ let PAGFont = class {
     this.isDestroyed = true;
   }
 };
-__decorateClass$3([
+__decorateClass$4([
   wasmAsyncMethod
 ], PAGFont, "registerFont", 1);
-PAGFont = __decorateClass$3([
-  destroyVerify,
-  wasmAwaitRewind
+PAGFont = __decorateClass$4([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGFont);
 
 let eventHandlers = {};
@@ -2146,6 +2150,10 @@ class VideoReader {
     this.height = 0;
     this.bitmapCanvas = null;
     this.bitmapCtx = null;
+    this.seeking = false;
+    this.pendingSeek = null;
+    this.seekAttempts = 0;
+    this.maxSeekAttempts = 3;
     if (isInstanceOf$1(source, globalThis.HTMLVideoElement)) {
       this.videoEl = source;
       this.canplay = true;
@@ -2309,56 +2317,61 @@ class VideoReader {
     this.bitmapCanvas = null;
     this.bitmapCtx = null;
   }
-  seek(targetTime, play = true) {
-    return new Promise((resolve) => {
-      let isCallback = false;
-      let timer = null;
-      const setVideoState = async () => {
-        var _a;
-        if (play && this.videoEl.paused) {
-          try {
-            await this.play();
-          } catch (e) {
-            this.setError(e);
-          }
-        } else if (!play && !this.videoEl.paused) {
-          (_a = this.videoEl) == null ? void 0 : _a.pause();
-        }
-      };
-      const seekCallback = async () => {
-        if (!this.videoEl) {
-          this.setError(new Error("Video element doesn't exist!"));
-          resolve();
-          return;
-        }
-        removeListener(this.videoEl, "seeked", seekCallback);
-        await setVideoState();
-        isCallback = true;
-        clearTimeout(timer);
-        timer = null;
-        resolve();
-      };
-      if (!this.videoEl) {
-        this.setError(new Error("Video element doesn't exist!"));
-        resolve();
-        return;
+  async seek(targetTime, play = true) {
+    if (this.seeking) {
+      this.pendingSeek = { targetTime, play };
+      return;
+    }
+    this.seeking = true;
+    this.seekAttempts++;
+    if (this.seekAttempts > this.maxSeekAttempts) {
+      console.error("Maximum seek attempts reached, giving up on seek.");
+      this.seeking = false;
+      this.seekAttempts = 0;
+      return;
+    }
+    if (!this.videoEl) {
+      console.error("Video element is not initialized.");
+      this.seeking = false;
+      return;
+    }
+    const onSeeked = () => {
+      var _a, _b;
+      removeListener(this.videoEl, "seeked", onSeeked);
+      clearTimeout(seekTimeout);
+      this.seeking = false;
+      this.seekAttempts = 0;
+      if (play) {
+        (_a = this.videoEl) == null ? void 0 : _a.play().catch((e) => {
+          this.setError(e);
+        });
+      } else if (!play && !this.videoEl.paused) {
+        (_b = this.videoEl) == null ? void 0 : _b.pause();
       }
-      addListener(this.videoEl, "seeked", seekCallback);
+      if (this.pendingSeek) {
+        const { targetTime: targetTime2, play: play2 } = this.pendingSeek;
+        this.pendingSeek = null;
+        this.seek(targetTime2, play2);
+      }
+    };
+    const onCanPlay = () => {
+      removeListener(this.videoEl, "canplay", onCanPlay);
       this.videoEl.currentTime = targetTime;
-      timer = setTimeout(() => {
-        if (!isCallback) {
-          if (!this.videoEl) {
-            this.setError(new Error("Video element doesn't exist!"));
-            resolve();
-            return;
-          } else {
-            removeListener(this.videoEl, "seeked", seekCallback);
-            setVideoState();
-            resolve();
-          }
-        }
-      }, 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
-    });
+      addListener(this.videoEl, "seeked", onSeeked);
+    };
+    const seekTimeout = setTimeout(() => {
+      removeListener(this.videoEl, "canplay", onCanPlay);
+      removeListener(this.videoEl, "seeked", onSeeked);
+      console.warn("Seek operation timed out, retrying...");
+      this.seeking = false;
+      this.seek(targetTime, play);
+    }, 1e3 / this.frameRate * VIDEO_DECODE_SEEK_TIMEOUT_FRAME);
+    if (this.videoEl.readyState < HTMLMediaElement.HAVE_FUTURE_DATA) {
+      addListener(this.videoEl, "canplay", onCanPlay);
+    } else {
+      this.videoEl.currentTime = targetTime;
+      addListener(this.videoEl, "seeked", onSeeked);
+    }
   }
   setError(e) {
     this.error = e;
@@ -2436,15 +2449,15 @@ class GlobalCanvas {
   }
 }
 
-var __defProp$3 = Object.defineProperty;
-var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
-var __decorateClass$2 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
+var __defProp$4 = Object.defineProperty;
+var __getOwnPropDesc$3 = Object.getOwnPropertyDescriptor;
+var __decorateClass$3 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$3(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$3(target, key, result);
+    __defProp$4(target, key, result);
   return result;
 };
 let PAGTextLayer = class extends PAGLayer {
@@ -2489,20 +2502,20 @@ let PAGTextLayer = class extends PAGLayer {
     this.wasmIns._reset();
   }
 };
-PAGTextLayer = __decorateClass$2([
-  destroyVerify,
-  wasmAwaitRewind
+PAGTextLayer = __decorateClass$3([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGTextLayer);
 
-var __defProp$2 = Object.defineProperty;
-var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
-var __decorateClass$1 = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
+var __defProp$3 = Object.defineProperty;
+var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
+var __decorateClass$2 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$2(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$2(target, key, result);
+    __defProp$3(target, key, result);
   return result;
 };
 let PAGImageLayer = class extends PAGLayer {
@@ -2534,20 +2547,20 @@ let PAGImageLayer = class extends PAGLayer {
     return this.wasmIns._imageBytes();
   }
 };
-PAGImageLayer = __decorateClass$1([
-  destroyVerify,
-  wasmAwaitRewind
+PAGImageLayer = __decorateClass$2([
+  destroyVerify$1,
+  wasmAwaitRewind$1
 ], PAGImageLayer);
 
-var __defProp$1 = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __decorateClass = (decorators, target, key, kind) => {
-  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+var __defProp$2 = Object.defineProperty;
+var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
+var __decorateClass$1 = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc$1(target, key) : target;
   for (var i = decorators.length - 1, decorator; i >= 0; i--)
     if (decorator = decorators[i])
       result = (kind ? decorator(target, key, result) : decorator(result)) || result;
   if (kind && result)
-    __defProp$1(target, key, result);
+    __defProp$2(target, key, result);
   return result;
 };
 let PAGSolidLayer = class extends PAGLayer {
@@ -2564,10 +2577,264 @@ let PAGSolidLayer = class extends PAGLayer {
     this.wasmIns._setSolidColor(color);
   }
 };
-PAGSolidLayer = __decorateClass([
+PAGSolidLayer = __decorateClass$1([
+  destroyVerify$1,
+  wasmAwaitRewind$1
+], PAGSolidLayer);
+
+const setMixin = (module) => {
+  module.traceImage = function(info, pixels) {
+    const canvas = document.createElement("canvas");
+    canvas.width = info.width;
+    canvas.height = info.height;
+    const context = canvas.getContext("2d");
+    const imageData = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
+    context.putImageData(imageData, 0, 0);
+    document.body.appendChild(canvas);
+  };
+  module.registerSoftwareDecoderFactory = function(factory = null) {
+    module._registerSoftwareDecoderFactory(factory);
+  };
+  module.SDKVersion = function() {
+    return module._SDKVersion();
+  };
+  module.isIPhone = () => IPHONE$1;
+};
+
+let TGFXModule;
+const setTGFXModule = (module) => {
+  TGFXModule = module;
+};
+
+const createImage = (source) => {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = function() {
+      resolve(image);
+    };
+    image.onerror = function() {
+      console.error("image create from bytes error.");
+      resolve(null);
+    };
+    image.src = source;
+  });
+};
+const createImageFromBytes = (bytes) => {
+  const blob = new Blob([bytes], { type: "image/*" });
+  return createImage(URL.createObjectURL(blob));
+};
+const readImagePixels = (module, image, width, height) => {
+  if (!image) {
+    return null;
+  }
+  const canvas = getCanvas2D(width, height);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    return null;
+  }
+  ctx.drawImage(image, 0, 0, width, height);
+  const { data } = ctx.getImageData(0, 0, width, height);
+  releaseCanvas2D(canvas);
+  if (data.length === 0) {
+    return null;
+  }
+  return writeBufferToWasm(module, data);
+};
+const hasWebpSupport = () => {
+  try {
+    return document.createElement("canvas").toDataURL("image/webp", 0.5).indexOf("data:image/webp") === 0;
+  } catch (err) {
+    return false;
+  }
+};
+const getSourceSize = (source) => {
+  if (isInstanceOf(source, globalThis.HTMLVideoElement)) {
+    return {
+      width: source.videoWidth,
+      height: source.videoHeight
+    };
+  }
+  return { width: source.width, height: source.height };
+};
+const uploadToTexture = (GL, source, textureID, alphaOnly) => {
+  var _a;
+  let renderSource = source instanceof BitmapImage ? source.bitmap : source;
+  if (!renderSource)
+    return;
+  const gl = (_a = GL.currentContext) == null ? void 0 : _a.GLctx;
+  gl.bindTexture(gl.TEXTURE_2D, GL.textures[textureID]);
+  if (alphaOnly) {
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.ALPHA, gl.UNSIGNED_BYTE, renderSource);
+  } else {
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, renderSource);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+  }
+};
+const isAndroidMiniprogram = () => {
+  if (typeof wx !== "undefined" && wx.getSystemInfoSync) {
+    return wx.getSystemInfoSync().platform === "android";
+  }
+};
+const releaseNativeImage = (source) => {
+  if (isInstanceOf(source, globalThis.ImageBitmap)) {
+    source.close();
+  } else if (isCanvas(source)) {
+    releaseCanvas2D(source);
+  }
+};
+const getBytesFromPath = async (module, path) => {
+  const buffer = await fetch(path).then((res) => res.arrayBuffer());
+  return writeBufferToWasm(module, buffer);
+};
+
+var tgfx = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  createImage: createImage,
+  createImageFromBytes: createImageFromBytes,
+  readImagePixels: readImagePixels,
+  hasWebpSupport: hasWebpSupport,
+  getSourceSize: getSourceSize,
+  uploadToTexture: uploadToTexture,
+  isAndroidMiniprogram: isAndroidMiniprogram,
+  releaseNativeImage: releaseNativeImage,
+  getBytesFromPath: getBytesFromPath,
+  createCanvas2D: getCanvas2D
+});
+
+function wasmAwaitRewind(constructor) {
+  const ignoreStaticFunctions = ["length", "name", "prototype", "wasmAsyncMethods"];
+  let staticFunctions = Object.getOwnPropertyNames(constructor).filter(
+    (name) => ignoreStaticFunctions.indexOf(name) === -1
+  );
+  if (constructor.wasmAsyncMethods && constructor.wasmAsyncMethods.length > 0) {
+    staticFunctions = staticFunctions.filter((name) => constructor.wasmAsyncMethods.indexOf(name) === -1);
+  }
+  let functions = Object.getOwnPropertyNames(constructor.prototype).filter(
+    (name) => name !== "constructor" && typeof constructor.prototype[name] === "function"
+  );
+  if (constructor.prototype.wasmAsyncMethods && constructor.prototype.wasmAsyncMethods.length > 0) {
+    functions = functions.filter((name) => constructor.prototype.wasmAsyncMethods.indexOf(name) === -1);
+  }
+  const proxyFn = (target, methodName) => {
+    const fn = target[methodName];
+    target[methodName] = function(...args) {
+      if (TGFXModule.Asyncify.currData !== null) {
+        const currData = TGFXModule.Asyncify.currData;
+        TGFXModule.Asyncify.currData = null;
+        const ret = fn.call(this, ...args);
+        TGFXModule.Asyncify.currData = currData;
+        return ret;
+      } else {
+        return fn.call(this, ...args);
+      }
+    };
+  };
+  staticFunctions.forEach((name) => proxyFn(constructor, name));
+  functions.forEach((name) => proxyFn(constructor.prototype, name));
+}
+function destroyVerify(constructor) {
+  let functions = Object.getOwnPropertyNames(constructor.prototype).filter(
+    (name) => name !== "constructor" && typeof constructor.prototype[name] === "function"
+  );
+  const proxyFn = (target, methodName) => {
+    const fn = target[methodName];
+    target[methodName] = function(...args) {
+      if (this["isDestroyed"]) {
+        console.error(`Don't call ${methodName} of the ${constructor.name} that is destroyed.`);
+        return;
+      }
+      return fn.call(this, ...args);
+    };
+  };
+  functions.forEach((name) => proxyFn(constructor.prototype, name));
+}
+
+var MatrixIndex = /* @__PURE__ */ ((MatrixIndex2) => {
+  MatrixIndex2[MatrixIndex2["a"] = 0] = "a";
+  MatrixIndex2[MatrixIndex2["c"] = 1] = "c";
+  MatrixIndex2[MatrixIndex2["tx"] = 2] = "tx";
+  MatrixIndex2[MatrixIndex2["b"] = 3] = "b";
+  MatrixIndex2[MatrixIndex2["d"] = 4] = "d";
+  MatrixIndex2[MatrixIndex2["ty"] = 5] = "ty";
+  return MatrixIndex2;
+})(MatrixIndex || {});
+
+var __defProp$1 = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if (decorator = decorators[i])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp$1(target, key, result);
+  return result;
+};
+let Matrix = class {
+  constructor(wasmIns) {
+    this.isDestroyed = false;
+    this.wasmIns = wasmIns;
+  }
+  get a() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.a) : 0;
+  }
+  set a(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.a, value);
+  }
+  get b() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.b) : 0;
+  }
+  set b(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.b, value);
+  }
+  get c() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.c) : 0;
+  }
+  set c(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.c, value);
+  }
+  get d() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.d) : 0;
+  }
+  set d(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.d, value);
+  }
+  get tx() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.tx) : 0;
+  }
+  set tx(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.tx, value);
+  }
+  get ty() {
+    return this.wasmIns ? this.wasmIns._get(MatrixIndex.ty) : 0;
+  }
+  set ty(value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(MatrixIndex.ty, value);
+  }
+  get(index) {
+    return this.wasmIns ? this.wasmIns._get(index) : 0;
+  }
+  set(index, value) {
+    var _a;
+    (_a = this.wasmIns) == null ? void 0 : _a._set(index, value);
+  }
+  destroy() {
+    this.wasmIns.delete();
+  }
+};
+Matrix = __decorateClass([
   destroyVerify,
   wasmAwaitRewind
-], PAGSolidLayer);
+], Matrix);
 
 const measureText = (imageData) => {
   const imageDataInt32Array = new Int32Array(imageData.data.buffer);
@@ -2575,6 +2842,12 @@ const measureText = (imageData) => {
   let top = getTopPixel(imageDataInt32Array, imageData.width, imageData.height);
   let right = getRightPixel(imageDataInt32Array, imageData.width, imageData.height);
   let bottom = getBottomPixel(imageDataInt32Array, imageData.width, imageData.height);
+  if (left > right || top > bottom) {
+    left = 0;
+    top = 0;
+    right = 0;
+    bottom = 0;
+  }
   return { left, top, right, bottom };
 };
 const getLeftPixel = (imageDataArray, width, height) => {
@@ -2684,6 +2957,12 @@ class ScalerContext {
       right: Math.ceil(metrics.actualBoundingBoxRight),
       bottom: Math.ceil(metrics.actualBoundingBoxDescent)
     };
+    if (bounds.left >= bounds.right || bounds.top >= bounds.bottom) {
+      bounds.left = 0;
+      bounds.top = 0;
+      bounds.right = 0;
+      bounds.bottom = 0;
+    }
     return bounds;
   }
   generateFontMetrics() {
@@ -2717,8 +2996,9 @@ class ScalerContext {
   }
   measureText(ctx, text) {
     const metrics = ctx.measureText(text);
-    if (metrics == null ? void 0 : metrics.actualBoundingBoxAscent)
+    if (metrics && (metrics.actualBoundingBoxAscent > 0 || metrics.width === 0)) {
       return metrics;
+    }
     ctx.canvas.width = this.size * 1.5;
     ctx.canvas.height = this.size * 1.5;
     const pos = [0, this.size];
@@ -2758,9 +3038,9 @@ class WebMask {
   }
   static getLineCap(cap) {
     switch (cap) {
-      case PAGModule.TGFXLineCap.Round:
+      case TGFXModule.TGFXLineCap.Round:
         return "round";
-      case PAGModule.TGFXLineCap.Square:
+      case TGFXModule.TGFXLineCap.Square:
         return "square";
       default:
         return "butt";
@@ -2768,9 +3048,9 @@ class WebMask {
   }
   static getLineJoin(join) {
     switch (join) {
-      case PAGModule.TGFXLineJoin.Round:
+      case TGFXModule.TGFXLineJoin.Round:
         return "round";
-      case PAGModule.TGFXLineJoin.Bevel:
+      case TGFXModule.TGFXLineJoin.Bevel:
         return "bevel";
       default:
         return "miter";
@@ -2785,11 +3065,11 @@ class WebMask {
   }
   fillPath(path, fillType) {
     this.context.setTransform(1, 0, 0, 1, 0, 0);
-    if (fillType === PAGModule.TGFXPathFillType.InverseWinding || fillType === PAGModule.TGFXPathFillType.InverseEvenOdd) {
-      this.context.clip(path, fillType === PAGModule.TGFXPathFillType.InverseEvenOdd ? "evenodd" : "nonzero");
+    if (fillType === TGFXModule.TGFXPathFillType.InverseWinding || fillType === TGFXModule.TGFXPathFillType.InverseEvenOdd) {
+      this.context.clip(path, fillType === TGFXModule.TGFXPathFillType.InverseEvenOdd ? "evenodd" : "nonzero");
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     } else {
-      this.context.fill(path, fillType === PAGModule.TGFXPathFillType.EvenOdd ? "evenodd" : "nonzero");
+      this.context.fill(path, fillType === TGFXModule.TGFXPathFillType.EvenOdd ? "evenodd" : "nonzero");
     }
   }
   fillText(webFont, texts, positions, matrixWasmIns) {
@@ -2824,123 +3104,6 @@ class WebMask {
   }
 }
 
-const setMixin = (module) => {
-  module.traceImage = function(info, pixels) {
-    const canvas = document.createElement("canvas");
-    canvas.width = info.width;
-    canvas.height = info.height;
-    const context = canvas.getContext("2d");
-    const imageData = new ImageData(new Uint8ClampedArray(pixels), canvas.width, canvas.height);
-    context.putImageData(imageData, 0, 0);
-    document.body.appendChild(canvas);
-  };
-  module.registerSoftwareDecoderFactory = function(factory = null) {
-    module._registerSoftwareDecoderFactory(factory);
-  };
-  module.SDKVersion = function() {
-    return module._SDKVersion();
-  };
-  module.isIPhone = () => IPHONE$1;
-};
-
-const createImage = (source) => {
-  return new Promise((resolve) => {
-    const image = new Image();
-    image.onload = function() {
-      resolve(image);
-    };
-    image.onerror = function() {
-      console.error("image create from bytes error.");
-      resolve(null);
-    };
-    image.src = source;
-  });
-};
-const createImageFromBytes = (bytes) => {
-  const blob = new Blob([bytes], { type: "image/*" });
-  return createImage(URL.createObjectURL(blob));
-};
-const readImagePixels = (module, image, width, height) => {
-  if (!image) {
-    return null;
-  }
-  const canvas = getCanvas2D(width, height);
-  const ctx = canvas.getContext("2d");
-  if (!ctx) {
-    return null;
-  }
-  ctx.drawImage(image, 0, 0, width, height);
-  const { data } = ctx.getImageData(0, 0, width, height);
-  releaseCanvas2D(canvas);
-  if (data.length === 0) {
-    return null;
-  }
-  return writeBufferToWasm(module, data);
-};
-const hasWebpSupport = () => {
-  try {
-    return document.createElement("canvas").toDataURL("image/webp", 0.5).indexOf("data:image/webp") === 0;
-  } catch (err) {
-    return false;
-  }
-};
-const getSourceSize = (source) => {
-  if (isInstanceOf(source, globalThis.HTMLVideoElement)) {
-    return {
-      width: source.videoWidth,
-      height: source.videoHeight
-    };
-  }
-  return { width: source.width, height: source.height };
-};
-const uploadToTexture = (GL, source, textureID, alphaOnly) => {
-  var _a;
-  let renderSource = source instanceof BitmapImage ? source.bitmap : source;
-  if (!renderSource)
-    return;
-  const gl = (_a = GL.currentContext) == null ? void 0 : _a.GLctx;
-  gl.bindTexture(gl.TEXTURE_2D, GL.textures[textureID]);
-  if (alphaOnly) {
-    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.ALPHA, gl.UNSIGNED_BYTE, renderSource);
-  } else {
-    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
-    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, renderSource);
-    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-  }
-};
-const isAndroidMiniprogram = () => {
-  if (typeof wx !== "undefined" && wx.getSystemInfoSync) {
-    return wx.getSystemInfoSync().platform === "android";
-  }
-};
-const releaseNativeImage = (source) => {
-  if (isInstanceOf(source, globalThis.ImageBitmap)) {
-    source.close();
-  } else if (isCanvas(source)) {
-    releaseCanvas2D(source);
-  }
-};
-const getBytesFromPath = async (module, path) => {
-  const buffer = await fetch(path).then((res) => res.arrayBuffer());
-  return writeBufferToWasm(module, buffer);
-};
-
-var tgfx = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  createImage: createImage,
-  createImageFromBytes: createImageFromBytes,
-  readImagePixels: readImagePixels,
-  hasWebpSupport: hasWebpSupport,
-  getSourceSize: getSourceSize,
-  uploadToTexture: uploadToTexture,
-  isAndroidMiniprogram: isAndroidMiniprogram,
-  releaseNativeImage: releaseNativeImage,
-  getBytesFromPath: getBytesFromPath,
-  createCanvas2D: getCanvas2D
-});
-
 var __defProp = Object.defineProperty;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
@@ -2957,7 +3120,17 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-const binding = (module) => {
+const TGFXBind = (module) => {
+  setTGFXModule(module);
+  module.module = module;
+  module.ScalerContext = ScalerContext;
+  module.WebMask = WebMask;
+  module.Matrix = Matrix;
+  module.tgfx = __spreadValues({}, tgfx);
+};
+
+const PAGBind = (module) => {
+  TGFXBind(module);
   setPAGModule(module);
   module.module = module;
   module.PAGFile = PAGFile;
@@ -2972,21 +3145,18 @@ const binding = (module) => {
   module.PAGImageLayer = PAGImageLayer;
   module.PAGSolidLayer = PAGSolidLayer;
   module.VideoReader = VideoReader;
-  module.ScalerContext = ScalerContext;
-  module.WebMask = WebMask;
   module.GlobalCanvas = GlobalCanvas;
   module.BackendContext = BackendContext;
-  module.Matrix = Matrix;
+  module.Matrix = Matrix$1;
   module.RenderCanvas = RenderCanvas;
   setMixin(module);
-  module.tgfx = __spreadValues({}, tgfx);
 };
 
-var PAGInit$1 = (() => {
+var Hello2D = (() => {
   var _scriptDir = typeof document !== "undefined" && document.currentScript ? document.currentScript.src : void 0;
-  return function(PAGInit2) {
-    PAGInit2 = PAGInit2 || {};
-    var Module = typeof PAGInit2 != "undefined" ? PAGInit2 : {};
+  return function(Hello2D2) {
+    Hello2D2 = Hello2D2 || {};
+    var Module = typeof Hello2D2 != "undefined" ? Hello2D2 : {};
     var readyPromiseResolve, readyPromiseReject;
     Module["ready"] = new Promise(function(resolve, reject) {
       readyPromiseResolve = resolve;
@@ -3311,10 +3481,10 @@ var PAGInit$1 = (() => {
         var exports2 = instance.exports;
         exports2 = Asyncify.instrumentWasmExports(exports2);
         Module["asm"] = exports2;
-        wasmMemory = Module["asm"]["hc"];
+        wasmMemory = Module["asm"]["lc"];
         updateGlobalBufferAndViews(wasmMemory.buffer);
-        Module["asm"]["jc"];
-        addOnInit(Module["asm"]["ic"]);
+        Module["asm"]["nc"];
+        addOnInit(Module["asm"]["mc"]);
         removeRunDependency();
       }
       addRunDependency();
@@ -3375,9 +3545,6 @@ var PAGInit$1 = (() => {
         return EXITSTATUS;
       }
       quit_(1, e);
-    }
-    function ___assert_fail(condition, filename, line, func) {
-      abort("Assertion failed: " + UTF8ToString(condition) + ", at: " + [filename ? UTF8ToString(filename) : "unknown filename", line, func ? UTF8ToString(func) : "unknown function"]);
     }
     function ___cxa_allocate_exception(size) {
       return _malloc(size + 24) + 24;
@@ -5388,6 +5555,48 @@ var PAGInit$1 = (() => {
         return -e.errno;
       }
     }
+    function ___syscall_getdents64(fd, dirp, count) {
+      try {
+        var stream = SYSCALLS.getStreamFromFD(fd);
+        if (!stream.getdents) {
+          stream.getdents = FS.readdir(stream.path);
+        }
+        var struct_size = 280;
+        var pos = 0;
+        var off = FS.llseek(stream, 0, 1);
+        var idx = Math.floor(off / struct_size);
+        while (idx < stream.getdents.length && pos + struct_size <= count) {
+          var id;
+          var type;
+          var name = stream.getdents[idx];
+          if (name === ".") {
+            id = stream.node.id;
+            type = 4;
+          } else if (name === "..") {
+            var lookup = FS.lookupPath(stream.path, { parent: true });
+            id = lookup.node.id;
+            type = 4;
+          } else {
+            var child = FS.lookupNode(stream.node, name);
+            id = child.id;
+            type = FS.isChrdev(child.mode) ? 2 : FS.isDir(child.mode) ? 4 : FS.isLink(child.mode) ? 10 : 8;
+          }
+          tempI64 = [id >>> 0, (tempDouble = id, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], HEAP32[dirp + pos >> 2] = tempI64[0], HEAP32[dirp + pos + 4 >> 2] = tempI64[1];
+          tempI64 = [(idx + 1) * struct_size >>> 0, (tempDouble = (idx + 1) * struct_size, +Math.abs(tempDouble) >= 1 ? tempDouble > 0 ? (Math.min(+Math.floor(tempDouble / 4294967296), 4294967295) | 0) >>> 0 : ~~+Math.ceil((tempDouble - +(~~tempDouble >>> 0)) / 4294967296) >>> 0 : 0)], HEAP32[dirp + pos + 8 >> 2] = tempI64[0], HEAP32[dirp + pos + 12 >> 2] = tempI64[1];
+          HEAP16[dirp + pos + 16 >> 1] = 280;
+          HEAP8[dirp + pos + 18 >> 0] = type;
+          stringToUTF8(name, dirp + pos + 19, 256);
+          pos += struct_size;
+          idx += 1;
+        }
+        FS.llseek(stream, idx * struct_size, 0);
+        return pos;
+      } catch (e) {
+        if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
+          throw e;
+        return -e.errno;
+      }
+    }
     function ___syscall_ioctl(fd, op, varargs) {
       SYSCALLS.varargs = varargs;
       try {
@@ -5444,6 +5653,21 @@ var PAGInit$1 = (() => {
         return -e.errno;
       }
     }
+    function ___syscall_mkdirat(dirfd, path, mode) {
+      try {
+        path = SYSCALLS.getStr(path);
+        path = SYSCALLS.calculateAt(dirfd, path);
+        path = PATH.normalize(path);
+        if (path[path.length - 1] === "/")
+          path = path.substr(0, path.length - 1);
+        FS.mkdir(path, mode, 0);
+        return 0;
+      } catch (e) {
+        if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
+          throw e;
+        return -e.errno;
+      }
+    }
     function ___syscall_openat(dirfd, path, flags, varargs) {
       SYSCALLS.varargs = varargs;
       try {
@@ -5451,6 +5675,45 @@ var PAGInit$1 = (() => {
         path = SYSCALLS.calculateAt(dirfd, path);
         var mode = varargs ? SYSCALLS.get() : 0;
         return FS.open(path, flags, mode).fd;
+      } catch (e) {
+        if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
+          throw e;
+        return -e.errno;
+      }
+    }
+    function ___syscall_rmdir(path) {
+      try {
+        path = SYSCALLS.getStr(path);
+        FS.rmdir(path);
+        return 0;
+      } catch (e) {
+        if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
+          throw e;
+        return -e.errno;
+      }
+    }
+    function ___syscall_stat64(path, buf) {
+      try {
+        path = SYSCALLS.getStr(path);
+        return SYSCALLS.doStat(FS.stat, path, buf);
+      } catch (e) {
+        if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
+          throw e;
+        return -e.errno;
+      }
+    }
+    function ___syscall_unlinkat(dirfd, path, flags) {
+      try {
+        path = SYSCALLS.getStr(path);
+        path = SYSCALLS.calculateAt(dirfd, path);
+        if (flags === 0) {
+          FS.unlink(path);
+        } else if (flags === 512) {
+          FS.rmdir(path);
+        } else {
+          abort("Invalid flags passed to unlinkat");
+        }
+        return 0;
       } catch (e) {
         if (typeof FS == "undefined" || !(e instanceof FS.ErrnoError))
           throw e;
@@ -8783,259 +9046,247 @@ var PAGInit$1 = (() => {
     for (var i = 0; i < 288; ++i) {
       __miniTempWebGLIntBuffers[i] = __miniTempWebGLIntBuffersStorage.subarray(0, i + 1);
     }
-    var asmLibraryArg = { "d": ___assert_fail, "A": ___cxa_allocate_exception, "z": ___cxa_throw, "G": ___syscall_fcntl64, "fb": ___syscall_ioctl, "hb": ___syscall_openat, "o": __embind_finalize_value_object, "ab": __embind_register_bigint, "jb": __embind_register_bool, "f": __embind_register_class, "e": __embind_register_class_class_function, "r": __embind_register_class_constructor, "a": __embind_register_class_function, "b": __embind_register_class_property, "ib": __embind_register_emval, "t": __embind_register_enum, "Xa": __embind_register_enum_value, "I": __embind_register_float, "D": __embind_register_function, "m": __embind_register_integer, "h": __embind_register_memory_view, "j": __embind_register_smart_ptr, "H": __embind_register_std_string, "w": __embind_register_std_wstring, "p": __embind_register_value_object, "v": __embind_register_value_object_field, "kb": __embind_register_void, "bb": __emscripten_get_now_is_monotonic, "x": __emval_as, "U": __emval_await, "gb": __emval_call, "g": __emval_call_method, "k": __emval_call_void_method, "u": __emval_decref, "Wa": __emval_equals, "ob": __emval_get_global, "c": __emval_get_method_caller, "_a": __emval_get_module_property, "J": __emval_get_property, "y": __emval_incref, "mb": __emval_instanceof, "nb": __emval_new, "Za": __emval_new_array, "lb": __emval_new_cstring, "Ya": __emval_new_object, "xa": __emval_run_destructors, "s": __emval_set_property, "l": __emval_take_value, "q": _abort, "B": _emscripten_get_canvas_element_size, "db": _emscripten_get_now, "Ta": _emscripten_glActiveTexture, "Sa": _emscripten_glAttachShader, "Qa": _emscripten_glBindAttribLocation, "Pa": _emscripten_glBindBuffer, "Oa": _emscripten_glBindFramebuffer, "Na": _emscripten_glBindRenderbuffer, "Ma": _emscripten_glBindTexture, "zb": _emscripten_glBindVertexArray, "wb": _emscripten_glBindVertexArrayOES, "La": _emscripten_glBlendColor, "Ka": _emscripten_glBlendEquation, "Ab": _emscripten_glBlendEquationSeparate, "Ja": _emscripten_glBlendFunc, "rb": _emscripten_glBlitFramebuffer, "Ia": _emscripten_glBufferData, "Ha": _emscripten_glCheckFramebufferStatus, "Ga": _emscripten_glClear, "Fa": _emscripten_glClearColor, "Ea": _emscripten_glClearStencil, "Da": _emscripten_glColorMask, "Ca": _emscripten_glCompileShader, "Ba": _emscripten_glCopyTexSubImage2D, "Aa": _emscripten_glCreateProgram, "za": _emscripten_glCreateShader, "ya": _emscripten_glDeleteBuffers, "wa": _emscripten_glDeleteFramebuffers, "va": _emscripten_glDeleteProgram, "ua": _emscripten_glDeleteRenderbuffers, "ta": _emscripten_glDeleteShader, "sb": _emscripten_glDeleteSync, "sa": _emscripten_glDeleteTextures, "yb": _emscripten_glDeleteVertexArrays, "vb": _emscripten_glDeleteVertexArraysOES, "ra": _emscripten_glDepthMask, "qa": _emscripten_glDisable, "pa": _emscripten_glDisableVertexAttribArray, "oa": _emscripten_glDrawArrays, "na": _emscripten_glDrawElements, "ma": _emscripten_glEnable, "la": _emscripten_glEnableVertexAttribArray, "tb": _emscripten_glFenceSync, "ka": _emscripten_glFinish, "ja": _emscripten_glFlush, "ia": _emscripten_glFramebufferRenderbuffer, "ha": _emscripten_glFramebufferTexture2D, "ga": _emscripten_glGenBuffers, "fa": _emscripten_glGenFramebuffers, "ea": _emscripten_glGenRenderbuffers, "da": _emscripten_glGenTextures, "xb": _emscripten_glGenVertexArrays, "ub": _emscripten_glGenVertexArraysOES, "Bb": _emscripten_glGetAttribLocation, "ca": _emscripten_glGetBufferParameteriv, "ba": _emscripten_glGetError, "aa": _emscripten_glGetFramebufferAttachmentParameteriv, "$": _emscripten_glGetIntegerv, "_": _emscripten_glGetProgramInfoLog, "Z": _emscripten_glGetProgramiv, "Y": _emscripten_glGetRenderbufferParameteriv, "X": _emscripten_glGetShaderInfoLog, "W": _emscripten_glGetShaderPrecisionFormat, "V": _emscripten_glGetShaderiv, "T": _emscripten_glGetString, "S": _emscripten_glGetStringi, "R": _emscripten_glGetUniformLocation, "Ra": _emscripten_glIsEnabled, "Q": _emscripten_glIsTexture, "P": _emscripten_glLineWidth, "O": _emscripten_glLinkProgram, "N": _emscripten_glPixelStorei, "M": _emscripten_glReadPixels, "L": _emscripten_glRenderbufferStorage, "qb": _emscripten_glRenderbufferStorageMultisample, "K": _emscripten_glScissor, "gc": _emscripten_glShaderSource, "fc": _emscripten_glTexImage2D, "ec": _emscripten_glTexParameterf, "dc": _emscripten_glTexParameterfv, "cc": _emscripten_glTexParameteri, "bc": _emscripten_glTexParameteriv, "ac": _emscripten_glTexSubImage2D, "$b": _emscripten_glUniform1f, "_b": _emscripten_glUniform1fv, "Zb": _emscripten_glUniform1i, "Yb": _emscripten_glUniform1iv, "Xb": _emscripten_glUniform2f, "Wb": _emscripten_glUniform2fv, "Vb": _emscripten_glUniform2i, "Ub": _emscripten_glUniform2iv, "Tb": _emscripten_glUniform3f, "Sb": _emscripten_glUniform3fv, "Rb": _emscripten_glUniform3i, "Qb": _emscripten_glUniform3iv, "Pb": _emscripten_glUniform4f, "Ob": _emscripten_glUniform4fv, "Nb": _emscripten_glUniform4i, "Mb": _emscripten_glUniform4iv, "Lb": _emscripten_glUniformMatrix2fv, "Kb": _emscripten_glUniformMatrix3fv, "Jb": _emscripten_glUniformMatrix4fv, "Ib": _emscripten_glUseProgram, "Hb": _emscripten_glVertexAttrib1f, "Gb": _emscripten_glVertexAttrib2fv, "Fb": _emscripten_glVertexAttrib3fv, "Eb": _emscripten_glVertexAttrib4fv, "Db": _emscripten_glVertexAttribPointer, "Cb": _emscripten_glViewport, "pb": _emscripten_glWaitSync, "cb": _emscripten_resize_heap, "Ua": _emscripten_webgl_create_context, "C": _emscripten_webgl_destroy_context, "n": _emscripten_webgl_get_current_context, "Va": _emscripten_webgl_init_context_attributes, "i": _emscripten_webgl_make_context_current, "E": _fd_close, "eb": _fd_read, "$a": _fd_seek, "F": _fd_write };
+    var asmLibraryArg = { "F": ___cxa_allocate_exception, "E": ___cxa_throw, "Q": ___syscall_fcntl64, "gb": ___syscall_getdents64, "nb": ___syscall_ioctl, "eb": ___syscall_mkdirat, "R": ___syscall_openat, "jb": ___syscall_rmdir, "fb": ___syscall_stat64, "kb": ___syscall_unlinkat, "x": __embind_finalize_value_object, "db": __embind_register_bigint, "pb": __embind_register_bool, "k": __embind_register_class, "j": __embind_register_class_class_function, "B": __embind_register_class_constructor, "b": __embind_register_class_function, "f": __embind_register_class_property, "ob": __embind_register_emval, "I": __embind_register_enum, "s": __embind_register_enum_value, "T": __embind_register_float, "N": __embind_register_function, "u": __embind_register_integer, "m": __embind_register_memory_view, "r": __embind_register_smart_ptr, "S": __embind_register_std_string, "J": __embind_register_std_wstring, "y": __embind_register_value_object, "o": __embind_register_value_object_field, "qb": __embind_register_void, "hb": __emscripten_get_now_is_monotonic, "i": __emval_as, "z": __emval_await, "K": __emval_call, "g": __emval_call_method, "n": __emval_call_void_method, "a": __emval_decref, "C": __emval_equals, "L": __emval_get_global, "d": __emval_get_method_caller, "l": __emval_get_module_property, "w": __emval_get_property, "c": __emval_incref, "ab": __emval_instanceof, "D": __emval_new, "bb": __emval_new_array, "q": __emval_new_cstring, "M": __emval_new_object, "e": __emval_run_destructors, "v": __emval_set_property, "h": __emval_take_value, "t": _abort, "O": _emscripten_get_canvas_element_size, "lb": _emscripten_get_now, "Za": _emscripten_glActiveTexture, "Ya": _emscripten_glAttachShader, "Wa": _emscripten_glBindAttribLocation, "Va": _emscripten_glBindBuffer, "Ua": _emscripten_glBindFramebuffer, "Ta": _emscripten_glBindRenderbuffer, "Sa": _emscripten_glBindTexture, "Bb": _emscripten_glBindVertexArray, "yb": _emscripten_glBindVertexArrayOES, "Ra": _emscripten_glBlendColor, "Qa": _emscripten_glBlendEquation, "Cb": _emscripten_glBlendEquationSeparate, "Pa": _emscripten_glBlendFunc, "tb": _emscripten_glBlitFramebuffer, "Oa": _emscripten_glBufferData, "Na": _emscripten_glCheckFramebufferStatus, "Ma": _emscripten_glClear, "La": _emscripten_glClearColor, "Ka": _emscripten_glClearStencil, "Ja": _emscripten_glColorMask, "Ia": _emscripten_glCompileShader, "Ha": _emscripten_glCopyTexSubImage2D, "Ga": _emscripten_glCreateProgram, "Fa": _emscripten_glCreateShader, "Ea": _emscripten_glDeleteBuffers, "Da": _emscripten_glDeleteFramebuffers, "Ca": _emscripten_glDeleteProgram, "Ba": _emscripten_glDeleteRenderbuffers, "Aa": _emscripten_glDeleteShader, "ub": _emscripten_glDeleteSync, "za": _emscripten_glDeleteTextures, "Ab": _emscripten_glDeleteVertexArrays, "xb": _emscripten_glDeleteVertexArraysOES, "ya": _emscripten_glDepthMask, "xa": _emscripten_glDisable, "wa": _emscripten_glDisableVertexAttribArray, "va": _emscripten_glDrawArrays, "ua": _emscripten_glDrawElements, "ta": _emscripten_glEnable, "sa": _emscripten_glEnableVertexAttribArray, "vb": _emscripten_glFenceSync, "ra": _emscripten_glFinish, "qa": _emscripten_glFlush, "pa": _emscripten_glFramebufferRenderbuffer, "oa": _emscripten_glFramebufferTexture2D, "na": _emscripten_glGenBuffers, "ma": _emscripten_glGenFramebuffers, "la": _emscripten_glGenRenderbuffers, "ka": _emscripten_glGenTextures, "zb": _emscripten_glGenVertexArrays, "wb": _emscripten_glGenVertexArraysOES, "Db": _emscripten_glGetAttribLocation, "ja": _emscripten_glGetBufferParameteriv, "ia": _emscripten_glGetError, "ha": _emscripten_glGetFramebufferAttachmentParameteriv, "ga": _emscripten_glGetIntegerv, "fa": _emscripten_glGetProgramInfoLog, "ea": _emscripten_glGetProgramiv, "da": _emscripten_glGetRenderbufferParameteriv, "ca": _emscripten_glGetShaderInfoLog, "ba": _emscripten_glGetShaderPrecisionFormat, "aa": _emscripten_glGetShaderiv, "$": _emscripten_glGetString, "_": _emscripten_glGetStringi, "Z": _emscripten_glGetUniformLocation, "Xa": _emscripten_glIsEnabled, "Y": _emscripten_glIsTexture, "X": _emscripten_glLineWidth, "W": _emscripten_glLinkProgram, "V": _emscripten_glPixelStorei, "U": _emscripten_glReadPixels, "kc": _emscripten_glRenderbufferStorage, "sb": _emscripten_glRenderbufferStorageMultisample, "jc": _emscripten_glScissor, "ic": _emscripten_glShaderSource, "hc": _emscripten_glTexImage2D, "gc": _emscripten_glTexParameterf, "fc": _emscripten_glTexParameterfv, "ec": _emscripten_glTexParameteri, "dc": _emscripten_glTexParameteriv, "cc": _emscripten_glTexSubImage2D, "bc": _emscripten_glUniform1f, "ac": _emscripten_glUniform1fv, "$b": _emscripten_glUniform1i, "_b": _emscripten_glUniform1iv, "Zb": _emscripten_glUniform2f, "Yb": _emscripten_glUniform2fv, "Xb": _emscripten_glUniform2i, "Wb": _emscripten_glUniform2iv, "Vb": _emscripten_glUniform3f, "Ub": _emscripten_glUniform3fv, "Tb": _emscripten_glUniform3i, "Sb": _emscripten_glUniform3iv, "Rb": _emscripten_glUniform4f, "Qb": _emscripten_glUniform4fv, "Pb": _emscripten_glUniform4i, "Ob": _emscripten_glUniform4iv, "Nb": _emscripten_glUniformMatrix2fv, "Mb": _emscripten_glUniformMatrix3fv, "Lb": _emscripten_glUniformMatrix4fv, "Kb": _emscripten_glUseProgram, "Jb": _emscripten_glVertexAttrib1f, "Ib": _emscripten_glVertexAttrib2fv, "Hb": _emscripten_glVertexAttrib3fv, "Gb": _emscripten_glVertexAttrib4fv, "Fb": _emscripten_glVertexAttribPointer, "Eb": _emscripten_glViewport, "rb": _emscripten_glWaitSync, "ib": _emscripten_resize_heap, "_a": _emscripten_webgl_create_context, "H": _emscripten_webgl_destroy_context, "A": _emscripten_webgl_get_current_context, "$a": _emscripten_webgl_init_context_attributes, "p": _emscripten_webgl_make_context_current, "G": _fd_close, "mb": _fd_read, "cb": _fd_seek, "P": _fd_write };
     createWasm();
     Module["___wasm_call_ctors"] = function() {
-      return (Module["___wasm_call_ctors"] = Module["asm"]["ic"]).apply(null, arguments);
-    };
-    var _free = Module["_free"] = function() {
-      return (_free = Module["_free"] = Module["asm"]["kc"]).apply(null, arguments);
+      return (Module["___wasm_call_ctors"] = Module["asm"]["mc"]).apply(null, arguments);
     };
     var _malloc = Module["_malloc"] = function() {
-      return (_malloc = Module["_malloc"] = Module["asm"]["lc"]).apply(null, arguments);
+      return (_malloc = Module["_malloc"] = Module["asm"]["oc"]).apply(null, arguments);
+    };
+    var _free = Module["_free"] = function() {
+      return (_free = Module["_free"] = Module["asm"]["pc"]).apply(null, arguments);
     };
     var ___getTypeName = Module["___getTypeName"] = function() {
-      return (___getTypeName = Module["___getTypeName"] = Module["asm"]["mc"]).apply(null, arguments);
+      return (___getTypeName = Module["___getTypeName"] = Module["asm"]["qc"]).apply(null, arguments);
     };
     Module["__embind_initialize_bindings"] = function() {
-      return (Module["__embind_initialize_bindings"] = Module["asm"]["nc"]).apply(null, arguments);
+      return (Module["__embind_initialize_bindings"] = Module["asm"]["rc"]).apply(null, arguments);
     };
     var ___errno_location = Module["___errno_location"] = function() {
-      return (___errno_location = Module["___errno_location"] = Module["asm"]["oc"]).apply(null, arguments);
+      return (___errno_location = Module["___errno_location"] = Module["asm"]["sc"]).apply(null, arguments);
     };
     var ___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = function() {
-      return (___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = Module["asm"]["pc"]).apply(null, arguments);
+      return (___cxa_is_pointer_type = Module["___cxa_is_pointer_type"] = Module["asm"]["tc"]).apply(null, arguments);
     };
     Module["dynCall_ii"] = function() {
-      return (Module["dynCall_ii"] = Module["asm"]["qc"]).apply(null, arguments);
+      return (Module["dynCall_ii"] = Module["asm"]["uc"]).apply(null, arguments);
     };
     Module["dynCall_vi"] = function() {
-      return (Module["dynCall_vi"] = Module["asm"]["rc"]).apply(null, arguments);
+      return (Module["dynCall_vi"] = Module["asm"]["vc"]).apply(null, arguments);
     };
     Module["dynCall_ji"] = function() {
-      return (Module["dynCall_ji"] = Module["asm"]["sc"]).apply(null, arguments);
+      return (Module["dynCall_ji"] = Module["asm"]["wc"]).apply(null, arguments);
     };
     Module["dynCall_iii"] = function() {
-      return (Module["dynCall_iii"] = Module["asm"]["tc"]).apply(null, arguments);
-    };
-    Module["dynCall_iij"] = function() {
-      return (Module["dynCall_iij"] = Module["asm"]["uc"]).apply(null, arguments);
-    };
-    Module["dynCall_viiij"] = function() {
-      return (Module["dynCall_viiij"] = Module["asm"]["vc"]).apply(null, arguments);
-    };
-    Module["dynCall_viii"] = function() {
-      return (Module["dynCall_viii"] = Module["asm"]["wc"]).apply(null, arguments);
+      return (Module["dynCall_iii"] = Module["asm"]["xc"]).apply(null, arguments);
     };
     Module["dynCall_vii"] = function() {
-      return (Module["dynCall_vii"] = Module["asm"]["xc"]).apply(null, arguments);
+      return (Module["dynCall_vii"] = Module["asm"]["yc"]).apply(null, arguments);
     };
     Module["dynCall_v"] = function() {
-      return (Module["dynCall_v"] = Module["asm"]["yc"]).apply(null, arguments);
+      return (Module["dynCall_v"] = Module["asm"]["zc"]).apply(null, arguments);
     };
     Module["dynCall_viij"] = function() {
-      return (Module["dynCall_viij"] = Module["asm"]["zc"]).apply(null, arguments);
+      return (Module["dynCall_viij"] = Module["asm"]["Ac"]).apply(null, arguments);
     };
     Module["dynCall_fij"] = function() {
-      return (Module["dynCall_fij"] = Module["asm"]["Ac"]).apply(null, arguments);
+      return (Module["dynCall_fij"] = Module["asm"]["Bc"]).apply(null, arguments);
     };
-    Module["dynCall_viiii"] = function() {
-      return (Module["dynCall_viiii"] = Module["asm"]["Bc"]).apply(null, arguments);
+    Module["dynCall_iij"] = function() {
+      return (Module["dynCall_iij"] = Module["asm"]["Cc"]).apply(null, arguments);
     };
-    Module["dynCall_fii"] = function() {
-      return (Module["dynCall_fii"] = Module["asm"]["Cc"]).apply(null, arguments);
+    Module["dynCall_viiij"] = function() {
+      return (Module["dynCall_viiij"] = Module["asm"]["Dc"]).apply(null, arguments);
+    };
+    Module["dynCall_viii"] = function() {
+      return (Module["dynCall_viii"] = Module["asm"]["Ec"]).apply(null, arguments);
     };
     Module["dynCall_fif"] = function() {
-      return (Module["dynCall_fif"] = Module["asm"]["Dc"]).apply(null, arguments);
+      return (Module["dynCall_fif"] = Module["asm"]["Fc"]).apply(null, arguments);
     };
-    Module["dynCall_iiiff"] = function() {
-      return (Module["dynCall_iiiff"] = Module["asm"]["Ec"]).apply(null, arguments);
+    Module["dynCall_viiii"] = function() {
+      return (Module["dynCall_viiii"] = Module["asm"]["Gc"]).apply(null, arguments);
     };
-    Module["dynCall_vijiii"] = function() {
-      return (Module["dynCall_vijiii"] = Module["asm"]["Fc"]).apply(null, arguments);
-    };
-    Module["dynCall_viiiii"] = function() {
-      return (Module["dynCall_viiiii"] = Module["asm"]["Gc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiiii"] = function() {
-      return (Module["dynCall_iiiiii"] = Module["asm"]["Hc"]).apply(null, arguments);
+    Module["dynCall_fii"] = function() {
+      return (Module["dynCall_fii"] = Module["asm"]["Hc"]).apply(null, arguments);
     };
     Module["dynCall_iiii"] = function() {
       return (Module["dynCall_iiii"] = Module["asm"]["Ic"]).apply(null, arguments);
     };
-    Module["dynCall_vij"] = function() {
-      return (Module["dynCall_vij"] = Module["asm"]["Jc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiiiii"] = function() {
-      return (Module["dynCall_iiiiiii"] = Module["asm"]["Kc"]).apply(null, arguments);
-    };
-    Module["dynCall_viiff"] = function() {
-      return (Module["dynCall_viiff"] = Module["asm"]["Lc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiij"] = function() {
-      return (Module["dynCall_iiij"] = Module["asm"]["Mc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiii"] = function() {
-      return (Module["dynCall_iiiii"] = Module["asm"]["Nc"]).apply(null, arguments);
-    };
-    Module["dynCall_viif"] = function() {
-      return (Module["dynCall_viif"] = Module["asm"]["Oc"]).apply(null, arguments);
-    };
-    Module["dynCall_viiffff"] = function() {
-      return (Module["dynCall_viiffff"] = Module["asm"]["Pc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiifii"] = function() {
-      return (Module["dynCall_iiifii"] = Module["asm"]["Qc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiffii"] = function() {
-      return (Module["dynCall_iiiffii"] = Module["asm"]["Rc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiij"] = function() {
-      return (Module["dynCall_iiiij"] = Module["asm"]["Sc"]).apply(null, arguments);
-    };
-    Module["dynCall_viiiiii"] = function() {
-      return (Module["dynCall_viiiiii"] = Module["asm"]["Tc"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiiiiii"] = function() {
-      return (Module["dynCall_iiiiiiii"] = Module["asm"]["Uc"]).apply(null, arguments);
-    };
     Module["dynCall_jii"] = function() {
-      return (Module["dynCall_jii"] = Module["asm"]["Vc"]).apply(null, arguments);
+      return (Module["dynCall_jii"] = Module["asm"]["Jc"]).apply(null, arguments);
     };
     Module["dynCall_jij"] = function() {
-      return (Module["dynCall_jij"] = Module["asm"]["Wc"]).apply(null, arguments);
+      return (Module["dynCall_jij"] = Module["asm"]["Kc"]).apply(null, arguments);
     };
-    Module["dynCall_fi"] = function() {
-      return (Module["dynCall_fi"] = Module["asm"]["Xc"]).apply(null, arguments);
+    Module["dynCall_vij"] = function() {
+      return (Module["dynCall_vij"] = Module["asm"]["Lc"]).apply(null, arguments);
     };
-    Module["dynCall_jijf"] = function() {
-      return (Module["dynCall_jijf"] = Module["asm"]["Yc"]).apply(null, arguments);
+    Module["dynCall_vijiii"] = function() {
+      return (Module["dynCall_vijiii"] = Module["asm"]["Mc"]).apply(null, arguments);
     };
-    Module["dynCall_i"] = function() {
-      return (Module["dynCall_i"] = Module["asm"]["Zc"]).apply(null, arguments);
+    Module["dynCall_viiiii"] = function() {
+      return (Module["dynCall_viiiii"] = Module["asm"]["Nc"]).apply(null, arguments);
     };
-    Module["dynCall_vif"] = function() {
-      return (Module["dynCall_vif"] = Module["asm"]["_c"]).apply(null, arguments);
-    };
-    Module["dynCall_di"] = function() {
-      return (Module["dynCall_di"] = Module["asm"]["$c"]).apply(null, arguments);
-    };
-    Module["dynCall_vid"] = function() {
-      return (Module["dynCall_vid"] = Module["asm"]["ad"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiifii"] = function() {
-      return (Module["dynCall_iiiifii"] = Module["asm"]["bd"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiffi"] = function() {
-      return (Module["dynCall_iiiffi"] = Module["asm"]["cd"]).apply(null, arguments);
-    };
-    Module["dynCall_vifffffffff"] = function() {
-      return (Module["dynCall_vifffffffff"] = Module["asm"]["dd"]).apply(null, arguments);
-    };
-    Module["dynCall_iifffffffff"] = function() {
-      return (Module["dynCall_iifffffffff"] = Module["asm"]["ed"]).apply(null, arguments);
-    };
-    Module["dynCall_iiff"] = function() {
-      return (Module["dynCall_iiff"] = Module["asm"]["fd"]).apply(null, arguments);
-    };
-    Module["dynCall_iif"] = function() {
-      return (Module["dynCall_iif"] = Module["asm"]["gd"]).apply(null, arguments);
-    };
-    Module["dynCall_viff"] = function() {
-      return (Module["dynCall_viff"] = Module["asm"]["hd"]).apply(null, arguments);
-    };
-    Module["dynCall_viffffff"] = function() {
-      return (Module["dynCall_viffffff"] = Module["asm"]["id"]).apply(null, arguments);
-    };
-    Module["dynCall_dii"] = function() {
-      return (Module["dynCall_dii"] = Module["asm"]["jd"]).apply(null, arguments);
-    };
-    Module["dynCall_viid"] = function() {
-      return (Module["dynCall_viid"] = Module["asm"]["kd"]).apply(null, arguments);
-    };
-    Module["dynCall_iiiiffi"] = function() {
-      return (Module["dynCall_iiiiffi"] = Module["asm"]["ld"]).apply(null, arguments);
-    };
-    Module["dynCall_fiii"] = function() {
-      return (Module["dynCall_fiii"] = Module["asm"]["md"]).apply(null, arguments);
-    };
-    Module["dynCall_viiif"] = function() {
-      return (Module["dynCall_viiif"] = Module["asm"]["nd"]).apply(null, arguments);
-    };
-    Module["dynCall_viifffffffff"] = function() {
-      return (Module["dynCall_viifffffffff"] = Module["asm"]["od"]).apply(null, arguments);
-    };
-    Module["dynCall_viiffffff"] = function() {
-      return (Module["dynCall_viiffffff"] = Module["asm"]["pd"]).apply(null, arguments);
-    };
-    Module["dynCall_viifff"] = function() {
-      return (Module["dynCall_viifff"] = Module["asm"]["qd"]).apply(null, arguments);
-    };
-    Module["dynCall_viiifii"] = function() {
-      return (Module["dynCall_viiifii"] = Module["asm"]["rd"]).apply(null, arguments);
-    };
-    Module["dynCall_viiiiiii"] = function() {
-      return (Module["dynCall_viiiiiii"] = Module["asm"]["sd"]).apply(null, arguments);
-    };
-    Module["dynCall_viffff"] = function() {
-      return (Module["dynCall_viffff"] = Module["asm"]["td"]).apply(null, arguments);
-    };
-    Module["dynCall_vifff"] = function() {
-      return (Module["dynCall_vifff"] = Module["asm"]["ud"]).apply(null, arguments);
-    };
-    Module["dynCall_iiffi"] = function() {
-      return (Module["dynCall_iiffi"] = Module["asm"]["vd"]).apply(null, arguments);
-    };
-    Module["dynCall_iifii"] = function() {
-      return (Module["dynCall_iifii"] = Module["asm"]["wd"]).apply(null, arguments);
+    Module["dynCall_iiiff"] = function() {
+      return (Module["dynCall_iiiff"] = Module["asm"]["Oc"]).apply(null, arguments);
     };
     Module["dynCall_iiifi"] = function() {
-      return (Module["dynCall_iiifi"] = Module["asm"]["xd"]).apply(null, arguments);
+      return (Module["dynCall_iiifi"] = Module["asm"]["Pc"]).apply(null, arguments);
     };
-    Module["dynCall_iiiiij"] = function() {
-      return (Module["dynCall_iiiiij"] = Module["asm"]["yd"]).apply(null, arguments);
+    Module["dynCall_fi"] = function() {
+      return (Module["dynCall_fi"] = Module["asm"]["Qc"]).apply(null, arguments);
+    };
+    Module["dynCall_jijf"] = function() {
+      return (Module["dynCall_jijf"] = Module["asm"]["Rc"]).apply(null, arguments);
+    };
+    Module["dynCall_fiii"] = function() {
+      return (Module["dynCall_fiii"] = Module["asm"]["Sc"]).apply(null, arguments);
+    };
+    Module["dynCall_viiiji"] = function() {
+      return (Module["dynCall_viiiji"] = Module["asm"]["Tc"]).apply(null, arguments);
     };
     Module["dynCall_iijj"] = function() {
-      return (Module["dynCall_iijj"] = Module["asm"]["zd"]).apply(null, arguments);
+      return (Module["dynCall_iijj"] = Module["asm"]["Uc"]).apply(null, arguments);
     };
-    Module["dynCall_vffff"] = function() {
-      return (Module["dynCall_vffff"] = Module["asm"]["Ad"]).apply(null, arguments);
+    Module["dynCall_iiiiii"] = function() {
+      return (Module["dynCall_iiiiii"] = Module["asm"]["Vc"]).apply(null, arguments);
     };
-    Module["dynCall_viiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiii"] = Module["asm"]["Bd"]).apply(null, arguments);
+    Module["dynCall_iiiij"] = function() {
+      return (Module["dynCall_iiiij"] = Module["asm"]["Wc"]).apply(null, arguments);
     };
-    Module["dynCall_vf"] = function() {
-      return (Module["dynCall_vf"] = Module["asm"]["Cd"]).apply(null, arguments);
+    Module["dynCall_iiiii"] = function() {
+      return (Module["dynCall_iiiii"] = Module["asm"]["Xc"]).apply(null, arguments);
     };
-    Module["dynCall_viiiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiiii"] = Module["asm"]["Dd"]).apply(null, arguments);
+    Module["dynCall_i"] = function() {
+      return (Module["dynCall_i"] = Module["asm"]["Yc"]).apply(null, arguments);
     };
-    Module["dynCall_viiiiiiiiii"] = function() {
-      return (Module["dynCall_viiiiiiiiii"] = Module["asm"]["Ed"]).apply(null, arguments);
+    Module["dynCall_vif"] = function() {
+      return (Module["dynCall_vif"] = Module["asm"]["Zc"]).apply(null, arguments);
     };
-    Module["dynCall_fiifiii"] = function() {
-      return (Module["dynCall_fiifiii"] = Module["asm"]["Fd"]).apply(null, arguments);
+    Module["dynCall_di"] = function() {
+      return (Module["dynCall_di"] = Module["asm"]["_c"]).apply(null, arguments);
     };
-    Module["dynCall_iiifiii"] = function() {
-      return (Module["dynCall_iiifiii"] = Module["asm"]["Gd"]).apply(null, arguments);
+    Module["dynCall_vid"] = function() {
+      return (Module["dynCall_vid"] = Module["asm"]["$c"]).apply(null, arguments);
     };
-    Module["dynCall_viiifiii"] = function() {
-      return (Module["dynCall_viiifiii"] = Module["asm"]["Hd"]).apply(null, arguments);
+    Module["dynCall_iiiiiii"] = function() {
+      return (Module["dynCall_iiiiiii"] = Module["asm"]["ad"]).apply(null, arguments);
     };
-    Module["dynCall_vifii"] = function() {
-      return (Module["dynCall_vifii"] = Module["asm"]["Id"]).apply(null, arguments);
+    Module["dynCall_viiiiii"] = function() {
+      return (Module["dynCall_viiiiii"] = Module["asm"]["bd"]).apply(null, arguments);
     };
-    Module["dynCall_viifd"] = function() {
-      return (Module["dynCall_viifd"] = Module["asm"]["Jd"]).apply(null, arguments);
+    Module["dynCall_iiiifii"] = function() {
+      return (Module["dynCall_iiiifii"] = Module["asm"]["cd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiifii"] = function() {
+      return (Module["dynCall_viiifii"] = Module["asm"]["dd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiff"] = function() {
+      return (Module["dynCall_viiff"] = Module["asm"]["ed"]).apply(null, arguments);
+    };
+    Module["dynCall_iiiiiiii"] = function() {
+      return (Module["dynCall_iiiiiiii"] = Module["asm"]["fd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiiiiii"] = function() {
+      return (Module["dynCall_viiiiiii"] = Module["asm"]["gd"]).apply(null, arguments);
+    };
+    Module["dynCall_iiiffi"] = function() {
+      return (Module["dynCall_iiiffi"] = Module["asm"]["hd"]).apply(null, arguments);
+    };
+    Module["dynCall_iifffffffff"] = function() {
+      return (Module["dynCall_iifffffffff"] = Module["asm"]["id"]).apply(null, arguments);
+    };
+    Module["dynCall_vifffffffff"] = function() {
+      return (Module["dynCall_vifffffffff"] = Module["asm"]["jd"]).apply(null, arguments);
+    };
+    Module["dynCall_iiff"] = function() {
+      return (Module["dynCall_iiff"] = Module["asm"]["kd"]).apply(null, arguments);
+    };
+    Module["dynCall_viff"] = function() {
+      return (Module["dynCall_viff"] = Module["asm"]["ld"]).apply(null, arguments);
+    };
+    Module["dynCall_iif"] = function() {
+      return (Module["dynCall_iif"] = Module["asm"]["md"]).apply(null, arguments);
+    };
+    Module["dynCall_viif"] = function() {
+      return (Module["dynCall_viif"] = Module["asm"]["nd"]).apply(null, arguments);
+    };
+    Module["dynCall_viffffff"] = function() {
+      return (Module["dynCall_viffffff"] = Module["asm"]["od"]).apply(null, arguments);
+    };
+    Module["dynCall_viffff"] = function() {
+      return (Module["dynCall_viffff"] = Module["asm"]["pd"]).apply(null, arguments);
+    };
+    Module["dynCall_vifff"] = function() {
+      return (Module["dynCall_vifff"] = Module["asm"]["qd"]).apply(null, arguments);
+    };
+    Module["dynCall_dii"] = function() {
+      return (Module["dynCall_dii"] = Module["asm"]["rd"]).apply(null, arguments);
+    };
+    Module["dynCall_viid"] = function() {
+      return (Module["dynCall_viid"] = Module["asm"]["sd"]).apply(null, arguments);
+    };
+    Module["dynCall_iiiiffi"] = function() {
+      return (Module["dynCall_iiiiffi"] = Module["asm"]["td"]).apply(null, arguments);
+    };
+    Module["dynCall_viiif"] = function() {
+      return (Module["dynCall_viiif"] = Module["asm"]["ud"]).apply(null, arguments);
+    };
+    Module["dynCall_viifffffffff"] = function() {
+      return (Module["dynCall_viifffffffff"] = Module["asm"]["vd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiffffff"] = function() {
+      return (Module["dynCall_viiffffff"] = Module["asm"]["wd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiffff"] = function() {
+      return (Module["dynCall_viiffff"] = Module["asm"]["xd"]).apply(null, arguments);
+    };
+    Module["dynCall_viifff"] = function() {
+      return (Module["dynCall_viifff"] = Module["asm"]["yd"]).apply(null, arguments);
     };
     Module["dynCall_viddi"] = function() {
-      return (Module["dynCall_viddi"] = Module["asm"]["Kd"]).apply(null, arguments);
+      return (Module["dynCall_viddi"] = Module["asm"]["zd"]).apply(null, arguments);
+    };
+    Module["dynCall_vifii"] = function() {
+      return (Module["dynCall_vifii"] = Module["asm"]["Ad"]).apply(null, arguments);
+    };
+    Module["dynCall_viifd"] = function() {
+      return (Module["dynCall_viifd"] = Module["asm"]["Bd"]).apply(null, arguments);
+    };
+    Module["dynCall_iiffi"] = function() {
+      return (Module["dynCall_iiffi"] = Module["asm"]["Cd"]).apply(null, arguments);
     };
     Module["dynCall_viiiiiffii"] = function() {
-      return (Module["dynCall_viiiiiffii"] = Module["asm"]["Ld"]).apply(null, arguments);
+      return (Module["dynCall_viiiiiffii"] = Module["asm"]["Dd"]).apply(null, arguments);
     };
-    Module["dynCall_jiiii"] = function() {
-      return (Module["dynCall_jiiii"] = Module["asm"]["Md"]).apply(null, arguments);
+    Module["dynCall_iifii"] = function() {
+      return (Module["dynCall_iifii"] = Module["asm"]["Ed"]).apply(null, arguments);
+    };
+    Module["dynCall_vffff"] = function() {
+      return (Module["dynCall_vffff"] = Module["asm"]["Fd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiiiiiii"] = function() {
+      return (Module["dynCall_viiiiiiii"] = Module["asm"]["Gd"]).apply(null, arguments);
+    };
+    Module["dynCall_vf"] = function() {
+      return (Module["dynCall_vf"] = Module["asm"]["Hd"]).apply(null, arguments);
+    };
+    Module["dynCall_viiiiiiiii"] = function() {
+      return (Module["dynCall_viiiiiiiii"] = Module["asm"]["Id"]).apply(null, arguments);
+    };
+    Module["dynCall_viiiiiiiiii"] = function() {
+      return (Module["dynCall_viiiiiiiiii"] = Module["asm"]["Jd"]).apply(null, arguments);
+    };
+    Module["dynCall_fiifiii"] = function() {
+      return (Module["dynCall_fiifiii"] = Module["asm"]["Kd"]).apply(null, arguments);
+    };
+    Module["dynCall_iiifiii"] = function() {
+      return (Module["dynCall_iiifiii"] = Module["asm"]["Ld"]).apply(null, arguments);
+    };
+    Module["dynCall_viiifiii"] = function() {
+      return (Module["dynCall_viiifiii"] = Module["asm"]["Md"]).apply(null, arguments);
     };
     Module["dynCall_jiji"] = function() {
       return (Module["dynCall_jiji"] = Module["asm"]["Nd"]).apply(null, arguments);
@@ -9105,7 +9356,7 @@ var PAGInit$1 = (() => {
       }
     }
     run();
-    return PAGInit2.ready;
+    return Hello2D2.ready;
   };
 })();
 
@@ -9294,8 +9545,8 @@ const workerInit = (init) => {
   };
 };
 
-const PAGInit = (moduleOption = {}) => PAGInit$1(moduleOption).then((module) => {
-  binding(module);
+const PAGInit = (moduleOption = {}) => Hello2D(moduleOption).then((module) => {
+  PAGBind(module);
   module.webAssemblyQueue = new WebAssemblyQueue();
   module.globalCanvas = new module.GlobalCanvas();
   module.PAGFont.registerFallbackFontNames();
