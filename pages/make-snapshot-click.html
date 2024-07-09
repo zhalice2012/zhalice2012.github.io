@@ -33,24 +33,21 @@
     </div>
     <div>
       <canvas class="canvas" id="pag"></canvas>
+      <button id="runButton">点击运行</button>
+
     </div>
-    <!-- <script src="../js/error-handler.js"></script> -->
+    <script src="../js/error-handler.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
     <script>
-
-      window.onload = async () => {
+      async function renderPAG() {
         try {
           const pagUrl = '../assets/0bc33iahkaaawiabpyuhjntdfwweoxnaa5ia.f0.pag';
-          // const pagUrl = '../assets/1_bmp.pag';
-          // const pagUrl = '../assets/multiple_video_sequence_sparkle.pag';
-
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           // Fetch pag file.
           const buffer = await fetch(pagUrl).then((response) => response.arrayBuffer());
           // Load the PAGFile from file.
           const pagFile = await PAG.PAGFile.load(buffer);
-          return;
           // Set the width from the PAGFile.
           const canvas = document.getElementById('pag');
           canvas.width = pagFile.width();
@@ -59,10 +56,8 @@
           const pagView = await PAG.PAGView.init(pagFile, canvas);
           // Set PAGView play infinity.
           pagView.setRepeatCount(0);
-          // await pagView.play();
-          canvas.addEventListener('click', async () => {
-            await pagView?.play();
-          });
+          await pagView.play();
+
           // Make snapshot.
           try {
             const res = await pagView.makeSnapshot();
@@ -71,21 +66,29 @@
             snapshotCanvas.height = res.height;
             const ctx = snapshotCanvas.getContext('2d');
             ctx.drawImage(res, 0, 0);
+            const base64img = canvas.toDataURL('image/jpeg');
+            console.info('-  base64img:', base64img);
             document.body.appendChild(snapshotCanvas);
 
-            const base64img = snapshotCanvas.toDataURL('image/jpeg');
-            console.info('- base64img:', base64img);
-            const img = document.createElement('img');
-            img.src = base64img;
-            document.documentElement.appendChild(img);
+            // Convert canvas to data URL and create a download link
+            const dataURL = snapshotCanvas.toDataURL('image/png');
+            const downloadLink = document.createElement('a');
+            downloadLink.href = dataURL;
+            downloadLink.download = 'snapshot.png';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
           } catch (err) {
             console.log(err);
           }
         } catch (error) {
-          console.log(error)
-          // logError(error);
+          logError(error);
         }
-      };
+      }
+
+      document.getElementById('runButton').addEventListener('click', renderPAG);
+    </script>
     </script>
   </body>
 </html>
