@@ -19,7 +19,6 @@
 
     gtag('config', 'G-3HV6VE6VYC');
   </script>
-
   <body>
     <div class="header">
       <img src="../assets/logo.png" alt="logo" width="133" height="48" />
@@ -35,17 +34,15 @@
     <div>
       <canvas class="canvas" id="pag"></canvas>
     </div>
-    <script src="../js/error-handler.js"></script>
+    <!-- <script src="../js/error-handler.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
     <script>
+
       window.onload = async () => {
         try {
-          // const pagUrl = '../assets/1.pag';
-          // const pagUrl = '../assets/hello.pag';
-          // const pagUrl = '../assets/闪屏.pag';
-          // const pagUrl = 'ht tps://mmae.qpic.cn/206/20303/stodownload?filekey=30250201010411300f020200ce040253480400020301b66a040d00000004627466730000000132&hy=SH&storeid=265a5482c000694d70b9d8b8c000000ce00004f4f53482a661b01e6823571a';
-          // const pagUrl = '../assets/闪屏.pag';
           const pagUrl = '../assets/0bc33iahkaaawiabpyuhjntdfwweoxnaa5ia.f0.pag';
+          // const pagUrl = '../assets/1_bmp.pag';
+          // const pagUrl = '../assets/multiple_video_sequence_sparkle.pag';
 
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
@@ -59,30 +56,30 @@
           canvas.height = pagFile.height();
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas);
-
-          const matrix = PAG.Matrix.makeTrans(0, 0)
-          console.log([
-            matrix.a,
-            matrix.b,
-            matrix.c,
-            matrix.d,
-            matrix.tx,
-            matrix.ty,
-            0,
-            0,
-            1,
-          ])
-
-          // pagView.setScaleMode(0)
-          // pagView.setScaleMode(1)
-          // pagView.setScaleMode(2)
-          pagView.setScaleMode(3)
-
           // Set PAGView play infinity.
           pagView.setRepeatCount(0);
-          await pagView.play();
+          // await pagView.play();
+          // Make snapshot.
+          try {
+            // const res = await pagView.m  akeSnapshot();
+            // const snapshotCanvas = document.createElement('canvas');
+            // snapshotCanvas.width = res.width;
+            // snapshotCanvas.height = res.height;
+            // const ctx = snapshotCanvas.getContext('2d');
+            // ctx.drawImage(res, 0, 0);
+            // document.body.appendChild(snapshotCanvas);
+
+            // const base64img = snapshotCanvas.toDataURL('image/jpeg');
+            // console.info('- base64img:', base64img);
+            // const img = document.createElement('img');
+            // img.src = base64img;
+            // document.documentElement.appendChild(img);
+          } catch (err) {
+            console.log(err);
+          }
         } catch (error) {
-          logError(error);
+          console.log(error)
+          // logError(error);
         }
       };
     </script>
