@@ -55,8 +55,9 @@
           // Create PAGView.
           const pagView = await PAG.PAGView.init(pagFile, canvas);
           // Set PAGView play infinity.
-          pagView.setRepeatCount(0);
-          await pagView.play();
+
+          pagView.setProgress(0);
+          await pagView.flush();
 
           // Make snapshot.
           try {
