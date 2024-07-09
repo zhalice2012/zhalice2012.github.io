@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/error-boundary.css" />
   </head>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HV6VE6VYC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -18,7 +18,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-3HV6VE6VYC');
-  </script>
+  </script> -->
   <body>
     <div class="header">
       <img src="../assets/logo.png" alt="logo" width="133" height="48" />
@@ -36,12 +36,13 @@
       <button id="runButton">点击运行</button>
 
     </div>
-    <script src="../js/error-handler.js"></script>
+    <!-- <script src="../js/error-handler.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/libpag@latest/lib/libpag.min.js"></script>
     <script>
       async function renderPAG() {
         try {
           const pagUrl = '../assets/0bc33iahkaaawiabpyuhjntdfwweoxnaa5ia.f0.pag';
+          // const pagUrl = '../assets/like.pag';
           // Initialize pag webassembly module.
           const PAG = await window.libpag.PAGInit();
           // Fetch pag file.
@@ -56,35 +57,67 @@
           const pagView = await PAG.PAGView.init(pagFile, canvas);
           // Set PAGView play infinity.
 
-          pagView.setProgress(0);
-          await pagView.flush();
+          // pagView.setProgress(0);
+          // await pagView.flush();
+          await pagView.play();
+          console.log('render over');
 
           // Make snapshot.
-          try {
-            const res = await pagView.makeSnapshot();
-            const snapshotCanvas = document.createElement('canvas');
-            snapshotCanvas.width = res.width;
-            snapshotCanvas.height = res.height;
-            const ctx = snapshotCanvas.getContext('2d');
-            ctx.drawImage(res, 0, 0);
-            const base64img = canvas.toDataURL('image/jpeg');
-            console.info('-  base64img:', base64img);
-            document.body.appendChild(snapshotCanvas);
 
-            // Convert canvas to data URL and create a download link
-            const dataURL = snapshotCanvas.toDataURL('image/png');
-            const downloadLink = document.createElement('a');
-            downloadLink.href = dataURL;
-            downloadLink.download = 'snapshot.png';
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
+          let hasGenPic = false;
 
-          } catch (err) {
-            console.log(err);
+          async function genSnapshot() {
+            if (hasGenPic) return;
+            try {
+                    const res = await pagView.makeSnapshot();
+                    const snapshotCanvas = document.createElement('canvas');
+                    snapshotCanvas.width = res.width;
+                    snapshotCanvas.height = res.height;
+                    const ctx = snapshotCanvas.getContext('2d');
+                    ctx.drawImage(res, 0, 0);
+                    const base64img = canvas.toDataURL('image/jpeg');
+                    console.info('-  base64img:', base64img);
+                    document.body.appendChild(snapshotCanvas);
+
+                    
+
+                    snapshotCanvas.toBlob((blob) => {
+                      const url = URL.createObjectURL(blob);
+                      const downloadLink = document.createElement('a');
+                      downloadLink.href = url;
+                      downloadLink.download = 'snapshot.png';
+                      document.body.appendChild(downloadLink);
+                      downloadLink.click();
+                      document.body.removeChild(downloadLink);
+                      URL.revokeObjectURL(url);
+                    }, 'image/png');
+
+       
+                    hasGenPic = true;
+
+                } catch (err) {
+                  console.log(err);
+                }
           }
+
+          // 绑定事件监听
+          pagView?.addListener('onAnimationFlushed', () => {
+            console.log('onAnimationFlushed');
+            genSnapshot()
+          });
+
+          pagView?.addListener('onAnimationEnd', () => {
+            console.log('onAnimationFlushed');
+
+          });
+
+          pagView.addListener('onAnimationStart', async (event) => {
+            console.log('onAnimationStart', event); 
+          });
+
+          
         } catch (error) {
-          logError(error);
+          console.log(error);
         }
       }
 
